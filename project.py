@@ -333,7 +333,7 @@ class Home(dashboard.Ui_MainWindow, QMainWindow):
         setattr(self, newLabel, self.frame_3)
         setattr(self, newtEdit, self.frame_3)
         self.gridLayout_12.addWidget(self.frame_3, rowNumber, columnNumber, 1, 1)
-        print('widgets created')
+        # print('widgets created')
     # adding car details to carDetails table
     def addCarDetails(self):
         regPlate = self.reg_plate_input.text()
