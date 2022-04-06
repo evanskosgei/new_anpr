@@ -1,0 +1,54 @@
+Form.setWindowFlags(QtCore.Qt.FramelessWindowHint)
+Form.setAttribute(QtCore.Qt.WA_TranslucentBackground)
+
+//141
+self.label.setGraphicsEffect(QtWidgets.QGraphicsDropShadowEffect(blurRadius=25, xOffset=0, yOffset=0, color=QtGui.QColor(234, 221, 186, 100)))
+self.label_3.setGraphicsEffect(QtWidgets.QGraphicsDropShadowEffect(blurRadius=25, xOffset=0, yOffset=0, color=QtGui.QColor(105, 118, 132, 100)))
+self.pushButton.setGraphicsEffect(QtWidgets.QGraphicsDropShadowEffect(blurRadius=25, xOffset=3, yOffset=3, color=QtGui.QColor(105, 118, 132, 100)))
+
+pyuic5 -x login.ui -o login_c.py
+pyuic5 -x .\ui_main.ui -o home_c.py
+pyrcc5 res.qrc -o res_rc.py
+
+class AutoPlate(main.Ui_MainWindow, QtWidgets.QMainWindow):
+        def __init__(self):
+                super(AutoPlate,self).__init__()
+                #setting up the first window
+                self.setupUi(self)
+
+#APP LAUNCH
+if __name__ == "__main__":
+        #create an application
+        app = QtWidgets.QApplication(sys.argv)
+        w = AutoPlate()
+        #show the window and start the app
+        w.show()
+        app.exec_()
+
+#0f2027
+#ffff0
+ rgb(0,178,178)
+
+ MainWindow.setWindowFlags(QtCore.Qt.FramelessWindowHint)
+self.pushButton_14.clicked.connect(lambda: self.stackedWidget.setCurrentWidget(self.addItemPage))
+
+                self.hide()
+                self.tray_icon.showMessage(
+                    "Tray Program",
+                    "Application was minimized to Tray",
+                    QSystemTrayIcon.Information,
+                    2000
+                )
+
+AU526DT
+RY654WW
+FC776QA
+CX897CM
+GP598EV
+BH496YR
+
+[{'id': 1, 'registration_number': 'BH496YR', 'owner': 'Prof. Violette Collins PhD', 
+'vehicle_make': 'Mazda', 'year_of_manufacture': '2003', 'engine_capacity': '20.2',
+ 'body_type': 'Trike', 'color': 'CornflowerBlue', 'logbook_number': 'VC046AI',
+  'engine_number': 'GA820DQ', 'chassis_number': 'DE093KR', 'created_at': '2022-04-03T10:52:56.000000Z',
+   'updated_at': '2022-04-03T10:52:56.000000Z'}]
