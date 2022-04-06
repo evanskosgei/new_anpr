@@ -452,7 +452,11 @@ class Home(dashboard.Ui_MainWindow, QMainWindow):
                         e = "user not found"
                         warning_message_box(e)
                     else:
-                        print(data)
+                        global item
+                        for item in data:
+                            item
+                        self.assignLineEdits()
+                        self.lineEdit_13.clear()
                 except Error as e:
                     warning_message_box(e)
                     
@@ -466,10 +470,12 @@ class Home(dashboard.Ui_MainWindow, QMainWindow):
                         e = "user not found"
                         warning_message_box(e)
                     else:
-                        print(data)
+                        for item in data:
+                            item
+                        self.assignLineEdits()
+                        self.lineEdit_13.clear()
                 except Error as e:
                     warning_message_box(e)
-                    
             else:
                 e = "please select a value from the radio buttons"
                 warning_message_box(e)
@@ -480,6 +486,14 @@ class Home(dashboard.Ui_MainWindow, QMainWindow):
         self.lineEdit_9.clear()
         self.lineEdit_11.clear()
         self.lineEdit_12.clear()
+        
+    #assigning values to line edits
+    def assignLineEdits(self):
+        self.lineEdit_7.setText(str(item[0]))
+        self.lineEdit_8.setText(str(item[1]))
+        self.lineEdit_9.setText(str(item[4]))
+        self.lineEdit_11.setText(str(item[2]))
+        self.lineEdit_12.setText(str(item[3]))
                     
                     
 # warning message box
