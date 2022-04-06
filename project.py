@@ -446,11 +446,16 @@ class Home(dashboard.Ui_MainWindow, QMainWindow):
                 cursor.execute(
                     """SELECT username, staffno, email,phone,role FROM users WHERE staffno = ?""", (val,))
                 data = cursor.fetchall()
-                print(data[0][0])
             except Error as e:
                 warning_message_box(e)
-
-
+                
+    #clearing line edits
+    def clearingInputs(self):
+        self.lineEdit_7.clear()
+        self.lineEdit_8.clear()
+        self.lineEdit_9.clear()
+        self.lineEdit_11.clear()
+        self.lineEdit_12.clear()
                     
                     
 # warning message box
