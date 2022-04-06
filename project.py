@@ -472,7 +472,6 @@ class Home(dashboard.Ui_MainWindow, QMainWindow):
                         self.lineEdit_13.clear()
                 except Error as e:
                     warning_message_box(e)
-                    
             else:
                 e = "please select a value from the radio buttons"
                 warning_message_box(e)
