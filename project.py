@@ -173,7 +173,11 @@ class Home(dashboard.Ui_MainWindow, QMainWindow):
         tray_menu.addAction(quit_action)
         self.tray_icon.setContextMenu(tray_menu)
         self.tray_icon.show()
-
+        #fetch logs from DB
+        c = conn.cursor()
+        c.execute("SELECT * FROM logs")
+        results = c.fetchall()
+        print(results[0][1])
         # 15 rows
         global l
         l = [['d1', 'l1'], ['d2', 'l2'], ['d3', 'l3'], ['d4', 'l4'], ['d5', 'l5'], ['d6', 'l6'], ['d7', 'l7'], ['d8', 'l8'], [
@@ -191,7 +195,7 @@ class Home(dashboard.Ui_MainWindow, QMainWindow):
             newFrame = "frame" + "_" + str(rowNumber)
             newLabel = "lbl" + "_" + str(rowNumber) 
             newtEdit = "tEdit" + "_" + str(rowNumber) 
-            print(newFrame, newLabel, newtEdit)
+            # print(newFrame, newLabel, newtEdit)
 
             self.frame_3 =QFrame(self.scrollAreaWidgetContents_2)
             self.frame_3.setMinimumSize(QSize(600, 100))
