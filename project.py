@@ -271,7 +271,7 @@ class Home(dashboard.Ui_MainWindow, QMainWindow):
                 c.execute("SELECT * FROM logs")
                 global l
                 l = c.fetchall()
-                if (len(l) > 0):
+                if (len(l) == 0):
                     warning_message_box('NO LOGS FOUND')
                     self.tray_icon.showMessage(
                     "ANPR",
