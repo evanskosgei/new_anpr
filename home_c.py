@@ -16,8 +16,8 @@ class Ui_MainWindow(object):
         MainWindow.setObjectName("MainWindow")
         MainWindow.resize(800, 563)
         MainWindow.setMinimumSize(QtCore.QSize(800, 550))
-        self.centralwidget = QtWidgets.QWidget(MainWindow)
         MainWindow.setWindowFlags(QtCore.Qt.FramelessWindowHint)
+        self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setStyleSheet("background:#0f2027;")
         self.centralwidget.setObjectName("centralwidget")
         self.gridLayout_3 = QtWidgets.QGridLayout(self.centralwidget)
@@ -1593,6 +1593,7 @@ class Ui_MainWindow(object):
         self.lineEdit_7.setStyleSheet("QLineEdit#lineEdit_7:hover{\n"
 "border: 1px solid #0f2027;\n"
 "}")
+        self.lineEdit_7.setReadOnly(True)
         self.lineEdit_7.setClearButtonEnabled(True)
         self.lineEdit_7.setObjectName("lineEdit_7")
         self.lineEdit_8 = QtWidgets.QLineEdit(self.frame_7)
