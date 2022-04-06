@@ -437,16 +437,45 @@ class Home(dashboard.Ui_MainWindow, QMainWindow):
             e = "please enter a value"
             warning_message_box(e)
         else:
-            try:
-                cursor = conn.cursor()
-                cursor.execute(
-                    """SELECT username, staffno, email,phone,role FROM users WHERE staffno = ?""", (val,))
-                data = cursor.fetchall()
-                print(data[0][0])
-            except Error as e:
+            
+            if self.radioButton_5.isChecked() == True:
+                try:
+                    cursor = conn.cursor()
+                    cursor.execute(
+                        """SELECT username, staffno, email, phone, role FROM users WHERE staffno = ?""", (val,))
+                    data = cursor.fetchall()
+                    if data == []:
+                        e = "user not found"
+                        warning_message_box(e)
+                    else:
+                        print(data)
+                except Error as e:
+                    warning_message_box(e)
+                    
+            elif self.radioButton_6.isChecked() == True:
+                try:
+                    cursor = conn.cursor()
+                    cursor.execute(
+                        """SELECT username, staffno, email, phone, role FROM users WHERE email = ?""", (val,))
+                    data = cursor.fetchall()
+                    if data == []:
+                        e = "user not found"
+                        warning_message_box(e)
+                    else:
+                        print(data)
+                except Error as e:
+                    warning_message_box(e)
+                    
+            else:
+                e = "please select a value from the radio buttons"
                 warning_message_box(e)
-
-
+    #clearing line edits
+    def clearingInputs(self):
+        self.lineEdit_7.clear()
+        self.lineEdit_8.clear()
+        self.lineEdit_9.clear()
+        self.lineEdit_11.clear()
+        self.lineEdit_12.clear()
                     
                     
 # warning message box
