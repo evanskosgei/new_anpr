@@ -313,7 +313,7 @@ class Home(dashboard.Ui_MainWindow, QMainWindow):
                 cursor.execute("CREATE TABLE IF NOT EXISTS Logs (_id INTEGER  PRIMARY KEY AUTOINCREMENT, details TEXT, date_recorded TEXT);")
                 conn.commit()
             except Exception as e:                
-                 self.tray_icon.showMessage(
+                self.tray_icon.showMessage(
                 "DB error",
                 "Could NOT sync with database",
                 QSystemTrayIcon.Information,
