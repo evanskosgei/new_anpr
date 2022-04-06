@@ -150,6 +150,8 @@ class Home(dashboard.Ui_MainWindow, QMainWindow):
         self.btn_search_2.clicked.connect(self.manageUser)
         # displaying all users
         self.allUsers()
+        #updating users
+        self.bn_android_contact_edit_2.clicked.connect(self.updateUsers)
         # Init QSystemTrayIcon
         self.tray_icon = QSystemTrayIcon(self)
         self.tray_icon.setIcon(
@@ -475,6 +477,32 @@ class Home(dashboard.Ui_MainWindow, QMainWindow):
             else:
                 e = "please select a value from the radio buttons"
                 warning_message_box(e)
+                
+    #updating function for users
+    def updateUsers(self):
+        name = self.lineEdit_7.text()
+        staffno = self.lineEdit_8.text()
+        role = self.lineEdit_9.text()
+        email = self.lineEdit_11.text()
+        phone = self.lineEdit_12.text()
+        
+        if name == "" or staffno == "" or role == "" or email == "" or phone == "":
+            e = "Please search for the user first before updating!"
+            warning_message_box(e)
+        else:
+            try:
+                cursor = conn.cursor()
+                cursor.execute("""UPDATE users SET role = ?, email = ?, phone = ? WHERE staffno = ?""", (role, email, phone, staffno))
+                conn.commit()
+                s = "user details updated successfully"
+                success_message_box(s)
+                self.clearingInputs()
+            except Error as e:
+                warning_message_box(e)
+                
+    #deleting user
+    def deleteUser():
+        print("delete user")
     #clearing line edits
     def clearingInputs(self):
         self.lineEdit_7.clear()
