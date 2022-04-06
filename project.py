@@ -391,6 +391,15 @@ class Home(dashboard.Ui_MainWindow, QMainWindow):
             elif password != confirm_password:
                     e = "password does not match"
                     warning_message_box(e)
+            elif len(password) < 8:
+                e = "Atleast 8 characters for your password"
+                warning_message_box(e)
+            elif  "@" and ".com" not in email:
+                e = "Invalid email"
+                warning_message_box(e)
+            elif len(phone) < 10:
+                e = "Invalid phone number. Atleast 10 digits needed"
+                warning_message_box(e)
             else:
                     password = password.encode('utf-8')
                     # generate salt
@@ -492,6 +501,13 @@ class Home(dashboard.Ui_MainWindow, QMainWindow):
         if name == "" or staffno == "" or role == "" or email == "" or phone == "":
             e = "Please search for the user first before updating!"
             warning_message_box(e)
+            
+        elif  "@" and ".com" not in email:
+            e = "Invalid email"
+            warning_message_box(e)
+        elif len(phone) < 10:
+            e = "Invalid phone number. Atleast 10 digits needed"
+            warning_message_box(e)
         else:
             try:
                 cursor = conn.cursor()
@@ -560,7 +576,7 @@ def success_message_box(s):
 #critical message box
 def areYouSure(a):
     msg = QMessageBox()
-    msg.setIcon(QMessageBox.Warning)
+    msg.setIcon(QMessageBox.Critical)
     msg.setText(a)
     msg.setWindowTitle("Are you sure?")
     msg.setStandardButtons(QMessageBox.Yes | QMessageBox.No)
