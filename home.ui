@@ -3126,7 +3126,7 @@ QLabel:hover{
                        </widget>
                        <widget class="QPushButton" name="bn_android_contact_save">
                         <property name="enabled">
-                         <bool>false</bool>
+                         <bool>true</bool>
                         </property>
                         <property name="geometry">
                          <rect>
@@ -4018,6 +4018,11 @@ QPushButton:disabled {
                           <width>300</width>
                           <height>25</height>
                          </size>
+                        </property>
+                        <property name="styleSheet">
+                         <string notr="true">QLineEdit#lineEdit_7:hover{
+border: 1px solid #0f2027;
+}</string>
                         </property>
                         <property name="clearButtonEnabled">
                          <bool>true</bool>
