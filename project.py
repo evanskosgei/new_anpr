@@ -490,14 +490,38 @@ class Home(dashboard.Ui_MainWindow, QMainWindow):
             e = "please enter a value"
             warning_message_box(e)
         else:
-            try:
-                cursor = conn.cursor()
-                cursor.execute(
-                    """SELECT username, staffno, email,phone,role FROM users WHERE staffno = ?""", (val,))
-                data = cursor.fetchall()
-            except Error as e:
+            
+            if self.radioButton_5.isChecked() == True:
+                try:
+                    cursor = conn.cursor()
+                    cursor.execute(
+                        """SELECT username, staffno, email, phone, role FROM users WHERE staffno = ?""", (val,))
+                    data = cursor.fetchall()
+                    if data == []:
+                        e = "user not found"
+                        warning_message_box(e)
+                    else:
+                        print(data)
+                except Error as e:
+                    warning_message_box(e)
+                    
+            elif self.radioButton_6.isChecked() == True:
+                try:
+                    cursor = conn.cursor()
+                    cursor.execute(
+                        """SELECT username, staffno, email, phone, role FROM users WHERE email = ?""", (val,))
+                    data = cursor.fetchall()
+                    if data == []:
+                        e = "user not found"
+                        warning_message_box(e)
+                    else:
+                        print(data)
+                except Error as e:
+                    warning_message_box(e)
+                    
+            else:
+                e = "please select a value from the radio buttons"
                 warning_message_box(e)
-                
     #clearing line edits
     def clearingInputs(self):
         self.lineEdit_7.clear()
