@@ -110,14 +110,6 @@ class Home(dashboard.Ui_MainWindow, QMainWindow):
                 lambda: self.stackedWidget_android.setCurrentWidget(
                     self.users_list)
         )
-        self.bn_android_game.clicked.connect(
-                lambda: self.stackedWidget_android.setCurrentWidget(
-                    self.page_android_game)
-        )
-        self.bn_android_clean.clicked.connect(
-                lambda: self.stackedWidget_android.setCurrentWidget(
-                    self.page_android_clean)
-        )
         self.bn_android_world.clicked.connect(
                 lambda: self.stackedWidget_android.setCurrentWidget(
                     self.manage_users)
@@ -136,10 +128,6 @@ class Home(dashboard.Ui_MainWindow, QMainWindow):
             lambda: self.stackedWidget_android.setCurrentWidget(
                 self.new_user)
         )
-        self.bn_android_clean.clicked.connect(
-            lambda: self.stackedWidget_android.setCurrentWidget(
-                self.page_android_clean)
-        )
         self.bn_android_world.clicked.connect(
             lambda: self.stackedWidget_android.setCurrentWidget(
                 self.manage_users)
@@ -152,6 +140,8 @@ class Home(dashboard.Ui_MainWindow, QMainWindow):
         self.allUsers()
         #updating users
         self.bn_android_contact_edit_2.clicked.connect(self.updateUsers)
+        #delete user fro db
+        self.bn_android_contact_delete_2.clicked.connect(self.deleteUser)
         # Init QSystemTrayIcon
         self.tray_icon = QSystemTrayIcon(self)
         self.tray_icon.setIcon(
@@ -514,8 +504,24 @@ class Home(dashboard.Ui_MainWindow, QMainWindow):
                 warning_message_box(e)
                 
     #deleting user
-    def deleteUser():
-        print("delete user")
+    def deleteUser(self):
+        staffno = self.lineEdit_8.text()
+        
+        if staffno == "":
+            e = "Please search for the user first before deleting!"
+            warning_message_box(e)
+        else:
+            a = "Are you sure you want to delete this user?"
+            areYouSure(a)
+            try:
+                cursor = conn.cursor()
+                cursor.execute("""DELETE FROM users WHERE staffno = ?""", (staffno,))
+                conn.commit()
+                s = "user deleted successfully"
+                success_message_box(s)
+                self.clearingInputs()
+            except Error as e:
+                warning_message_box(e)
     #clearing line edits
     def clearingInputs(self):
         self.lineEdit_7.clear()
@@ -549,6 +555,16 @@ def success_message_box(s):
     msg.setText(s)
     msg.setWindowTitle("Success!")
     msg.setStandardButtons(QMessageBox.Ok)
+    msg.exec_()
+    
+    
+#critical message box
+def areYouSure(a):
+    msg = QMessageBox()
+    msg.setIcon(QMessageBox.Warning)
+    msg.setText(a)
+    msg.setWindowTitle("Are you sure?")
+    msg.setStandardButtons(QMessageBox.Yes | QMessageBox.No)
     msg.exec_()
  
 if __name__ == "__main__":
