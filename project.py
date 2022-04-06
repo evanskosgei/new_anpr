@@ -557,7 +557,6 @@ def success_message_box(s):
     msg.setStandardButtons(QMessageBox.Ok)
     msg.exec_()
     
-    
 #critical message box
 def areYouSure(a):
     msg = QMessageBox()
