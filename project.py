@@ -173,59 +173,7 @@ class Home(dashboard.Ui_MainWindow, QMainWindow):
         tray_menu.addAction(quit_action)
         self.tray_icon.setContextMenu(tray_menu)
         self.tray_icon.show()
-        #fetch logs from DB
-        c = conn.cursor()
-        c.execute("SELECT * FROM logs")
-        results = c.fetchall()
-        print(results[0][1])
-        # 15 rows
-        global l
-        l = [['d1', 'l1'], ['d2', 'l2'], ['d3', 'l3'], ['d4', 'l4'], ['d5', 'l5'], ['d6', 'l6'], ['d7', 'l7'], ['d8', 'l8'], [
-            'd9', 'l9'], ['d10', 'l10'], ['d11', 'l11'], ['d12', 'l12'], ['d13', 'l13'], ['d14', 'l14'], ['d15', 'l15']]
-        global ct
-        ct = 0
-        for x in range(0, 15):
-            # 1 columns
-            for y in range(0, 1):
-                self.createNewWidgets(x, y)
-            ct += 1
-
-    def createNewWidgets(self, rowNumber, columnNumber):
-            # create new unique names for each widget
-            newFrame = "frame" + "_" + str(rowNumber)
-            newLabel = "lbl" + "_" + str(rowNumber) 
-            newtEdit = "tEdit" + "_" + str(rowNumber) 
-            # print(newFrame, newLabel, newtEdit)
-
-            self.frame_3 =QFrame(self.scrollAreaWidgetContents_2)
-            self.frame_3.setMinimumSize(QSize(600, 100))
-            self.frame_3.setMaximumSize(QSize(600, 100))
-            self.frame_3.setStyleSheet("background:#0f2027; border-radius: 10px;  border:1px solid #0f2027;")
-            self.frame_3.setFrameShape(QFrame.StyledPanel)
-            self.frame_3.setFrameShadow(QFrame.Raised)
-            self.frame_3.setObjectName(newFrame)
-            self.label_12 = QLabel(self.frame_3)
-            self.label_12.setGeometry(QRect(10, 10, 91, 16))
-            self.label_12.setStyleSheet("background-color: rgb(0, 85, 255); color: rgb(255, 255, 255); border-radius:10px;")
-            self.label_12.setObjectName(newLabel)
-            self.label_12.setText(l[ct][0])
-            self.textEdit = QTextEdit(self.frame_3)
-            self.textEdit.setGeometry(QRect(61, 40, 581, 61))
-            font = QFont()
-            font.setFamily("Arial")
-            font.setPointSize(12)
-            self.textEdit.setFont(font)
-            self.textEdit.setStyleSheet("background:transparent; color:white;")
-            # self.textEdit.setReadOnly(True)
-            self.textEdit.setObjectName(newtEdit)
-            self.textEdit.setText(l[ct] [1])
-            # self.gridLayout_11.addWidget(self.frame_3, 0, 0, 1, 1)
-
-            # create new attribute to Ui_MainWindow 
-            setattr(self, newFrame, self.frame_3)
-            setattr(self, newLabel, self.frame_3)
-            setattr(self, newtEdit, self.frame_3)
-            self.gridLayout_11.addWidget(self.frame_3, rowNumber, columnNumber, 1, 1)
+        
         
     # Override closeEvent, to intercept the window closing event
     # The window will be closed only if there is no check mark in the check box
@@ -310,19 +258,80 @@ class Home(dashboard.Ui_MainWindow, QMainWindow):
         self.lab_tab.clear()
 
     def showLogs(self):
-            print('Showing them logs!')
-            self.stackedWidget.setCurrentWidget(self.page_logs)
-            try:
+        # print('Showing them logs!')
+        self.stackedWidget.setCurrentWidget(self.page_logs)
+        
+        try:
                 cursor = conn.cursor()
                 cursor.execute("CREATE TABLE IF NOT EXISTS Logs (_id INTEGER  PRIMARY KEY AUTOINCREMENT, details TEXT, date_recorded TEXT);")
                 conn.commit()
-            except Exception as e:                
-                self.tray_icon.showMessage(
-                "DB error",
-                "Could NOT sync with database",
-                QSystemTrayIcon.Information,
-                2000
-        )
+                c = conn.cursor()
+                c.execute("SELECT * FROM logs")
+                global l
+                l = c.fetchall()
+                if (len(l) > 0):
+                    warning_message_box('NO LOGS FOUND')
+                    self.tray_icon.showMessage(
+                    "ANPR",
+                    "No logs in the database",
+                    QSystemTrayIcon.Information,
+                    2000
+                    )
+                else:
+                    global ct
+                    ct = 0
+                    for x in range(0, len(l)):
+                        # 1 columns
+                        for y in range(0, 1):
+                            self.createNewWidgets(x, y)
+                        ct += 1
+        except Exception as e:                
+            self.tray_icon.showMessage(
+            "DB error",
+            "Could NOT sync with database",
+            QSystemTrayIcon.Information,
+            2000)
+
+    
+
+    def createNewWidgets(self, rowNumber, columnNumber):
+        # create new unique names for each widget
+        newFrame = "frame" + "_" + str(rowNumber)
+        newLabel = "lbl" + "_" + str(rowNumber) 
+        newtEdit = "tEdit" + "_" + str(rowNumber) 
+        # print(newFrame, newLabel, newtEdit)
+
+        self.frame_3 =QFrame(self.scrollAreaWidgetContents_2)
+        self.frame_3.setMinimumSize(QSize(600, 100))
+        self.frame_3.setMaximumSize(QSize(600, 100))
+        self.frame_3.setStyleSheet("background:#0f2027; border-radius: 10px;  border:1px solid #0f2027;")
+        self.frame_3.setFrameShape(QFrame.StyledPanel)
+        self.frame_3.setFrameShadow(QFrame.Raised)
+        self.frame_3.setObjectName(newFrame)
+        self.label_12 = QLabel(self.frame_3)
+        self.label_12.setGeometry(QRect(10, 10, 280, 21))
+        self.label_12.setStyleSheet("background-color: rgb(0, 85, 255); color: rgb(255, 255, 255); border-radius:5px;")
+        self.label_12.setAlignment(Qt.AlignCenter);
+        self.label_12.setObjectName(newLabel)
+        self.label_12.setText(l[ct][2])
+        self.textEdit = QTextEdit(self.frame_3)
+        self.textEdit.setGeometry(QRect(61, 40, 581, 61))
+        font = QFont()
+        font.setFamily("Arial")
+        font.setPointSize(12)
+        self.textEdit.setFont(font)
+        self.textEdit.setStyleSheet("background:transparent; color:white;")
+        # self.textEdit.setReadOnly(True)
+        self.textEdit.setObjectName(newtEdit)
+        self.textEdit.setText(l[ct] [1])
+        # self.gridLayout_11.addWidget(self.frame_3, 0, 0, 1, 1)
+
+        # create new attribute to Ui_MainWindow 
+        setattr(self, newFrame, self.frame_3)
+        setattr(self, newLabel, self.frame_3)
+        setattr(self, newtEdit, self.frame_3)
+        self.gridLayout_11.addWidget(self.frame_3, rowNumber, columnNumber, 1, 1)
+        print('widgets created')
     # adding car details to carDetails table
     def addCarDetails(self):
         regPlate = self.reg_plate_input.text()
