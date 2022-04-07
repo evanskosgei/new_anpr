@@ -1,3 +1,4 @@
+from unittest import result
 import home_c as dashboard
 import login_c as auth
 import bcrypt
@@ -24,10 +25,13 @@ try:
 except Error as e:
     print(e)
 
-# create users DB
-cursor = conn.cursor()
-cursor.execute("CREATE TABLE IF NOT EXISTS users(ID INTEGER PRIMARY KEY AUTOINCREMENT, username VARCHAR(100) NOT NULL, staffno Varchar(100) NOT NULL, password VARCHAR(100) NOT NULL, email Varchar(100) NOT NULL, phone Varchar(100) NOT NULL,role INT NOT NULL )")
-conn.commit()
+try:
+    # create users DB
+    cursor = conn.cursor()
+    cursor.execute("CREATE TABLE IF NOT EXISTS users(ID INTEGER PRIMARY KEY AUTOINCREMENT, username VARCHAR(100) NOT NULL, staffno Varchar(100) NOT NULL, password VARCHAR(100) NOT NULL, email Varchar(100) NOT NULL, phone Varchar(100) NOT NULL,role INT NOT NULL )")
+    conn.commit()
+except Error as e:
+    print(e)
 
 
 class Project(auth.Ui_Form, QMainWindow):
@@ -40,38 +44,41 @@ class Project(auth.Ui_Form, QMainWindow):
         self.pushButton_2.clicked.connect(lambda: self.close())
 
     def auth(self):
-        username = self.lineEdit.text()
-        password = self.lineEdit_2.text()
-        print(username, password)
-
-        # with DBHandler(self.context.get_database) as cursor:
-
-        # create users DB
-        cursor = conn.cursor()
-        cursor.execute(
-            "CREATE TABLE IF NOT EXISTS users(ID INT AUTO_INCREMENT PRIMARY KEY, username VARCHAR(100) NOT NULL, staffno Varchar(100) NOT NULL, password VARCHAR(100) NOT NULL, email Varchar(100) NOT NULL, phone Varchar(100) NOT NULL,role INT NOT NULL )")
-        conn.commit()
-
-        find_user_query = """
-                SELECT role FROM users WHERE
-                username = ? AND password = ?
-                """
-
-        cursor.execute(find_user_query, [username, password])
-
-        results = cursor.fetchone()
-
+        staffno = self.lineEdit.text()
+        data = self.lineEdit_2.text()
         try:
-            if results[0] == 1:
-                print('am here')
-                self.ui = Home()
-                self.ui.show()
-                self.close()
-
-        except TypeError as e:
-            # self.error_label.setText(str("Wrong input(s), kindly check your Username and Password. "))
+            # create users DB
+            cursor = conn.cursor()
+            cursor.execute(
+                "CREATE TABLE IF NOT EXISTS users(ID INT AUTO_INCREMENT PRIMARY KEY, username VARCHAR(100) NOT NULL, staffno Varchar(100) NOT NULL, password VARCHAR(100) NOT NULL, email Varchar(100) NOT NULL, phone Varchar(100) NOT NULL,role INT NOT NULL )")
+            conn.commit()
+        except Error as e:
             print(e)
-
+        if staffno == "" or data == "":
+            print('Please enter your staff number and password')
+        else:
+            try:
+                cursor = conn.cursor()
+                cursor.execute("SELECT password, role FROM users WHERE staffno = ?", (staffno,))
+                result = cursor.fetchall()
+                print(result)
+                if result == []:
+                    print('Staff number not found')
+                else:
+                    for row in result:
+                        password = row[0]
+                        role = row[1]
+                    print(password)
+                    if (bcrypt.checkpw(data.encode('utf-8'), password)) == True:
+                        if role == 1:
+                            w = Home()
+                            w.show()
+                        else:
+                            print("User")
+                    else:
+                        print("not same")
+            except Error as e:
+                print(e)
 
 class Home(dashboard.Ui_MainWindow, QMainWindow):
     def __init__(self):
@@ -304,7 +311,6 @@ class Home(dashboard.Ui_MainWindow, QMainWindow):
             QSystemTrayIcon.Information,
             2000)
 
-    
 
     def createNewWidgets(self, rowNumber, columnNumber):
         # create new unique names for each widget
