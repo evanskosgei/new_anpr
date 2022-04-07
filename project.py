@@ -11,8 +11,10 @@ from PyQt5.QtCore import QSize, QTimer
 from PyQt5.QtWidgets import *
 from turtle import color
 import csv
-
 # file imports
+import smtplib, ssl
+from email.mime.text import MIMEText
+from email.mime.multipart import MIMEMultipart
 
 # DB connection
 conn = None
@@ -353,7 +355,7 @@ class Home(dashboard.Ui_MainWindow, QMainWindow):
         logBookNo = self.logbook_number_input.text()
         engineNo = self.engine_number_input.text()
         chasisNo = self.chassis_number_label_2.text()
-        watchlist = 0
+        watchlist = 1
         # saving data to database
         if regPlate == "" or owner == "" or vehicleMake == "" or modelYear == "" or engineCapacity == "" or bodyType == "" or color == "" or logBookNo == "" or engineNo == "" or chasisNo == "":
             e ="please fill all the fields"
@@ -452,14 +454,14 @@ class Home(dashboard.Ui_MainWindow, QMainWindow):
     def allUsers(self):
             try:
                     cursor = conn.cursor()
-                    cursor.execute("""SELECT username, staffno, email, phone FROM users""")
+                    cursor.execute("""SELECT username, staffno, email, phone,role FROM users""")
                     result = cursor.fetchall()
                     if result == []:
                             e = "No users found in database"
                             warning_message_box(e)
                     else:
-                        self.system_users_table.setColumnCount(4)
-                        self.system_users_table.setHorizontalHeaderLabels(['Username', 'Staff Number', 'Email', 'Phone'])
+                        self.system_users_table.setColumnCount(5)
+                        self.system_users_table.setHorizontalHeaderLabels(['Username', 'Staff Number', 'Email', 'Phone', 'Role'])
                         self.system_users_table.setRowCount(0)
                         for row_number, row_data in enumerate(result):
                             self.system_users_table.insertRow(row_number)
@@ -474,19 +476,31 @@ class Home(dashboard.Ui_MainWindow, QMainWindow):
         print("Printing users")
         try:
             cursor = conn.cursor()
-            cursor.execute("""SELECT username, staffno, email, phone FROM users""")
+            cursor.execute("""SELECT username, staffno, email, phone, role FROM users""")
             result = cursor.fetchall()
             if result == []:
                     e = "No users found in database"
                     warning_message_box(e)
             else:
                 with open('users.csv', 'w', newline='') as csvfile:
-                    fieldnames = ['Username', 'Staff Number', 'Email', 'Phone']
+                    fieldnames = ['Username', 'Staff Number', 'Email', 'Phone', 'Role']
                     writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
                     writer.writeheader()
                     for row_data in result:
-                        writer.writerow({'Username': row_data[0], 'Staff Number': row_data[1], 'Email': row_data[2], 'Phone': row_data[3]})
-
+                        writer.writerow({'Username': row_data[0], 'Staff Number': row_data[1], 'Email': row_data[2], 'Phone': row_data[3], 'Role': row_data[4]})
+                        
+                    self.tray_icon.showMessage(
+                        "ANPR",
+                        "User details have been successfully printed.",
+                        QSystemTrayIcon.Information,
+                        2000
+                    )
+                    self.lab_tab.setText("Printed successfully!")
+                    self.lab_tab.setStyleSheet("color: green")
+                    timer = QTimer(self)
+                    timer.timeout.connect(self.clear_label)
+                    timer.start(10000)
+  
         except Error as e:
             warning_message_box(e)
                     
@@ -563,14 +577,60 @@ class Home(dashboard.Ui_MainWindow, QMainWindow):
                 cursor.execute("""UPDATE users SET role = ?, email = ?, phone = ? WHERE staffno = ?""", (role, email, phone, staffno))
                 conn.commit()
                 s = "user details updated successfully"
+                text = "Your details have been successfully updated by the system administrator"
+                self.sendEmail(text, email)
                 success_message_box(s)
                 self.clearingInputs()
+
             except Error as e:
                 warning_message_box(e)
                 
     # sending email to users
-    def sendEmail(self, receiver_email):
-        pass
+    def sendEmail(self, text, receiver_email):
+        sender_email = "tyc95182@gmail.com"
+        password = "qibtswffxbjcalpu"
+
+        message = MIMEMultipart("alternative")
+        # message = "Welcome Home"
+        message["Subject"] = "multipart test"
+        message["From"] = sender_email
+        message["To"] = receiver_email
+
+        # Create the plain-text and HTML version of your message
+        text = text
+        # """\
+        # ALERT,
+        # HELP!
+        # Your details have been updated by the system administrator.:
+        # www.realpython.html"""
+        # html = """\
+        # <html>
+        # <body>
+        #     <p>ALERT,<br>
+        #     HELP!<br>
+        #     <a href="http://www.realpython.html">Your details have been updated </a> 
+        #     by the system administrator.
+        #     </p>
+        # </body>
+        # </html>
+        # """
+
+        # Turn these into plain/html MIMEText objects
+        part1 = MIMEText(text, "plain")
+        # part2 = MIMEText(html, "html")
+
+        # Add HTML/plain-text parts to MIMEMultipart message
+        # The email client will try to render the last part first
+        message.attach(part1)
+        # message.attach(part2)
+
+        # Create secure connection with server and send email
+        context = ssl.create_default_context()
+        with smtplib.SMTP_SSL("smtp.gmail.com", 465, context=context) as server:
+            server.login(sender_email, password)
+            server.sendmail(
+                sender_email, receiver_email, message.as_string()
+            )
                 
     #deleting user
     def deleteUser(self):
