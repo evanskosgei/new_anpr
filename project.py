@@ -117,8 +117,7 @@ class Home(dashboard.Ui_MainWindow, QMainWindow):
 
         # Init QSystemTrayIcon
         self.tray_icon = QSystemTrayIcon(self)
-        self.tray_icon.setIcon(
-            self.style().standardIcon(QStyle.SP_ComputerIcon))
+        self.tray_icon.setIcon(QIcon('logo.png'))
 
         self.bn_android_contact.clicked.connect(
             lambda: self.stackedWidget_android.setCurrentWidget(
@@ -143,9 +142,9 @@ class Home(dashboard.Ui_MainWindow, QMainWindow):
         #delete user fro db
         self.bn_android_contact_delete_2.clicked.connect(self.deleteUser)
         # Init QSystemTrayIcon
-        self.tray_icon = QSystemTrayIcon(self)
-        self.tray_icon.setIcon(
-            self.style().standardIcon(QStyle.SP_ComputerIcon))
+        # self.tray_icon = QSystemTrayIcon(self)
+        # self.tray_icon.setIcon(
+        #     self.style().standardIcon(QStyle.SP_ComputerIcon))
 
         '''
                     Define and add steps to work with the system tray icon
@@ -205,6 +204,7 @@ class Home(dashboard.Ui_MainWindow, QMainWindow):
             else:
                 response = res.json()
                 result = response[0]
+                self.tray_icon.setIcon(QIcon('logo.png'))
                 self.tray_icon.showMessage(
                     "ANPR",
                     "Vehicle Details Found.",
