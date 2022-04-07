@@ -89,7 +89,7 @@ class Home(dashboard.Ui_MainWindow, QMainWindow):
         self.bn_close.clicked.connect(self.c)
         self.btn_search.clicked.connect(self.searchVehicle)
         self.bn_min.clicked.connect(self.closeEvent)
-        self.bn_max.clicked.connect(lambda: self.showMaximized())
+        self.bn_max.clicked.connect(self.mxmn)
         self.bn_bug.clicked.connect(
             lambda: self.stackedWidget.setCurrentWidget(self.search_registration))
         print(self.search_box.text())
@@ -166,7 +166,11 @@ class Home(dashboard.Ui_MainWindow, QMainWindow):
         self.tray_icon.setContextMenu(tray_menu)
         self.tray_icon.show()
         
-        
+    def mxmn(self):
+        if self.isMaximized():
+            self.showNormal()
+        else:
+            self.showMaximized()
     # Override closeEvent, to intercept the window closing event
     # The window will be closed only if there is no check mark in the check box
     def closeEvent(self):
