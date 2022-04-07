@@ -10,7 +10,7 @@ from PyQt5.QtCore import *
 from PyQt5.QtCore import QSize, QTimer
 from PyQt5.QtWidgets import *
 from turtle import color
-import re
+import csv
 
 # file imports
 
@@ -142,6 +142,8 @@ class Home(dashboard.Ui_MainWindow, QMainWindow):
         self.bn_android_contact_edit_2.clicked.connect(self.updateUsers)
         #delete user fro db
         self.bn_android_contact_delete_2.clicked.connect(self.deleteUser)
+        #printing data to CSV
+        self.bn_android_contact_edit_3.clicked.connect(self.printUsers)
         # Init QSystemTrayIcon
         # self.tray_icon = QSystemTrayIcon(self)
         # self.tray_icon.setIcon(
@@ -362,8 +364,8 @@ class Home(dashboard.Ui_MainWindow, QMainWindow):
         elif regPlate.isalnum() == False:
             e = "Registration Plate number must be alphanumeric"
             warning_message_box(e)
-        # elif re.match('[A-Z0-9]', regPlate) == None:
-        #     e = "Registration Plate number must be 3 digits long"
+        # elif not "0" or "1" or "2" or "3" or "4" or "5" or "6" or "7" or "8" or "9" in regPlate:
+        #     e = "Registration Plate number must contain numbers"
         #     warning_message_box(e)
         else:
             try:
@@ -413,7 +415,10 @@ class Home(dashboard.Ui_MainWindow, QMainWindow):
             elif len(password) < 8:
                 e = "Atleast 8 characters for your password"
                 warning_message_box(e)
-            elif  "@" and ".com" not in email:
+            elif  "@" not in email:
+                e = "Invalid email"
+                warning_message_box(e)
+            elif ".com" not in email:
                 e = "Invalid email"
                 warning_message_box(e)
             elif len(phone) < 10:
@@ -449,19 +454,41 @@ class Home(dashboard.Ui_MainWindow, QMainWindow):
                     cursor = conn.cursor()
                     cursor.execute("""SELECT username, staffno, email, phone FROM users""")
                     result = cursor.fetchall()
-                    
-                    self.system_users_table.setRowCount(0)
-                    for row_number, row_data in enumerate(result):
-                        self.system_users_table.insertRow(row_number)
-                        for column_number, data in enumerate(row_data):
-                            self. system_users_table.setItem(
-                                row_number, column_number, QTableWidgetItem(str(data)))
+                    if result == []:
+                            e = "No users found in database"
+                            warning_message_box(e)
+                    else:
+                        self.system_users_table.setColumnCount(4)
+                        self.system_users_table.setHorizontalHeaderLabels(['Username', 'Staff Number', 'Email', 'Phone'])
+                        self.system_users_table.setRowCount(0)
+                        for row_number, row_data in enumerate(result):
+                            self.system_users_table.insertRow(row_number)
+                            for column_number, data in enumerate(row_data):
+                                self. system_users_table.setItem(
+                                    row_number, column_number, QTableWidgetItem(str(data)))
             except Error as e:
-                    print(e)
+                    warning_message_box(e)
                     
     # print all users
     def printUsers(self):
-        pass
+        print("Printing users")
+        try:
+            cursor = conn.cursor()
+            cursor.execute("""SELECT username, staffno, email, phone FROM users""")
+            result = cursor.fetchall()
+            if result == []:
+                    e = "No users found in database"
+                    warning_message_box(e)
+            else:
+                with open('users.csv', 'w', newline='') as csvfile:
+                    fieldnames = ['Username', 'Staff Number', 'Email', 'Phone']
+                    writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
+                    writer.writeheader()
+                    for row_data in result:
+                        writer.writerow({'Username': row_data[0], 'Staff Number': row_data[1], 'Email': row_data[2], 'Phone': row_data[3]})
+
+        except Error as e:
+            warning_message_box(e)
                     
     # manage users
     def manageUser(self):
@@ -521,7 +548,10 @@ class Home(dashboard.Ui_MainWindow, QMainWindow):
             e = "Please search for the user first before updating!"
             warning_message_box(e)
             
-        elif  "@" and ".com" not in email:
+        elif  "@" not in email:
+            e = "Invalid email"
+            warning_message_box(e)
+        elif ".com" not in email:
             e = "Invalid email"
             warning_message_box(e)
         elif len(phone) < 10:
