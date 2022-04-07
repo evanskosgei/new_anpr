@@ -61,22 +61,23 @@ class Project(auth.Ui_Form, QMainWindow):
                 cursor = conn.cursor()
                 cursor.execute("SELECT password, role FROM users WHERE staffno = ?", (staffno,))
                 result = cursor.fetchall()
-                print(result)
                 if result == []:
                     print('Staff number not found')
                 else:
                     for row in result:
                         password = row[0]
                         role = row[1]
-                    print(password)
                     if bcrypt.checkpw(data.encode('utf-8'), password):
                         if role == 1:
                             w = Home()
                             w.show()
+                            self.hide()
                         else:
-                            print("User")
+                            e = "You are not authorised to access this page"
+                            warning_message_box(e)
                     else:
-                        print("not same")
+                        e = "Incorrect password"
+                        warning_message_box(e)
             except Error as e:
                 print(e)
 
