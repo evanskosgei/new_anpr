@@ -97,10 +97,17 @@ class Ui_MainWindow(object):
         self.frame_user.setFrameShape(QtWidgets.QFrame.NoFrame)
         self.frame_user.setFrameShadow(QtWidgets.QFrame.Plain)
         self.frame_user.setObjectName("frame_user")
-        self.horizontalLayout_9 = QtWidgets.QHBoxLayout(self.frame_user)
-        self.horizontalLayout_9.setContentsMargins(0, 0, 0, 0)
-        self.horizontalLayout_9.setSpacing(0)
-        self.horizontalLayout_9.setObjectName("horizontalLayout_9")
+        self.horizontalLayout_8 = QtWidgets.QHBoxLayout(self.frame_user)
+        self.horizontalLayout_8.setObjectName("horizontalLayout_8")
+        self.lab_user = QtWidgets.QLabel(self.frame_user)
+        font = QtGui.QFont()
+        font.setFamily("Segoe UI Light")
+        font.setPointSize(24)
+        self.lab_user.setFont(font)
+        self.lab_user.setStyleSheet("color:rgb(255,255,255);")
+        self.lab_user.setAlignment(QtCore.Qt.AlignRight|QtCore.Qt.AlignTrailing|QtCore.Qt.AlignVCenter)
+        self.lab_user.setObjectName("lab_user")
+        self.horizontalLayout_8.addWidget(self.lab_user)
         self.horizontalLayout_4.addWidget(self.frame_user)
         self.frame_person = QtWidgets.QFrame(self.frame_top_east)
         self.frame_person.setMinimumSize(QtCore.QSize(55, 55))
@@ -227,44 +234,8 @@ class Ui_MainWindow(object):
         self.frame_bottom_west.setFrameShape(QtWidgets.QFrame.NoFrame)
         self.frame_bottom_west.setFrameShadow(QtWidgets.QFrame.Plain)
         self.frame_bottom_west.setObjectName("frame_bottom_west")
-        self.verticalLayout_3 = QtWidgets.QVBoxLayout(self.frame_bottom_west)
-        self.verticalLayout_3.setContentsMargins(0, 0, 0, 0)
-        self.verticalLayout_3.setSpacing(0)
-        self.verticalLayout_3.setObjectName("verticalLayout_3")
-        self.frame_home = QtWidgets.QFrame(self.frame_bottom_west)
-        self.frame_home.setMinimumSize(QtCore.QSize(80, 55))
-        self.frame_home.setMaximumSize(QtCore.QSize(160, 55))
-        self.frame_home.setFrameShape(QtWidgets.QFrame.NoFrame)
-        self.frame_home.setFrameShadow(QtWidgets.QFrame.Plain)
-        self.frame_home.setObjectName("frame_home")
-        self.horizontalLayout_15 = QtWidgets.QHBoxLayout(self.frame_home)
-        self.horizontalLayout_15.setContentsMargins(0, 0, 0, 0)
-        self.horizontalLayout_15.setSpacing(0)
-        self.horizontalLayout_15.setObjectName("horizontalLayout_15")
-        self.bn_home = QtWidgets.QPushButton(self.frame_home)
-        self.bn_home.setMinimumSize(QtCore.QSize(80, 55))
-        self.bn_home.setMaximumSize(QtCore.QSize(160, 55))
-        self.bn_home.setStyleSheet("QPushButton {\n"
-"    image: url(:/icons/icons/1x/homeAsset 46.png);\n"
-"    border: none;\n"
-"    background-color: rgba(0,0,0,0);\n"
-"}\n"
-"QPushButton:hover {\n"
-"    background-color:#2c5364;\n"
-"}\n"
-"QPushButton:pressed {    \n"
-"    background-color: rgba(0,0,0,0);\n"
-"}")
-        self.bn_home.setText("")
-        icon4 = QtGui.QIcon()
-        icon4.addPixmap(QtGui.QPixmap("../../../Users/kiongoss/.designer/FinalYearProject/src/icons/1x/homeAsset 46.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        self.bn_home.setIcon(icon4)
-        self.bn_home.setIconSize(QtCore.QSize(22, 22))
-        self.bn_home.setFlat(True)
-        self.bn_home.setObjectName("bn_home")
-        self.horizontalLayout_15.addWidget(self.bn_home)
-        self.verticalLayout_3.addWidget(self.frame_home)
         self.frame_bug = QtWidgets.QFrame(self.frame_bottom_west)
+        self.frame_bug.setGeometry(QtCore.QRect(0, 180, 80, 55))
         self.frame_bug.setMinimumSize(QtCore.QSize(80, 55))
         self.frame_bug.setMaximumSize(QtCore.QSize(160, 55))
         self.frame_bug.setFrameShape(QtWidgets.QFrame.NoFrame)
@@ -278,7 +249,7 @@ class Ui_MainWindow(object):
         self.bn_bug.setMinimumSize(QtCore.QSize(80, 55))
         self.bn_bug.setMaximumSize(QtCore.QSize(160, 55))
         self.bn_bug.setStyleSheet("QPushButton {\n"
-"    image: url(:/icons/icons/1x/bugAsset 47.png);\n"
+"    image: url(:/icons/icons/1x/search.png);\n"
 "    border: none;\n"
 "    background-color: rgba(0,0,0,0);\n"
 "}\n"
@@ -289,15 +260,54 @@ class Ui_MainWindow(object):
 "    background-color: rgba(0,0,0,0);\n"
 "}")
         self.bn_bug.setText("")
-        icon5 = QtGui.QIcon()
-        icon5.addPixmap(QtGui.QPixmap("../../../Users/kiongoss/.designer/FinalYearProject/src/icons/1x/bugAsset 47.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        self.bn_bug.setIcon(icon5)
+        icon4 = QtGui.QIcon()
+        icon4.addPixmap(QtGui.QPixmap("../../../Users/kiongoss/.designer/FinalYearProject/src/icons/1x/bugAsset 47.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.bn_bug.setIcon(icon4)
         self.bn_bug.setIconSize(QtCore.QSize(22, 22))
         self.bn_bug.setFlat(True)
         self.bn_bug.setObjectName("bn_bug")
         self.horizontalLayout_16.addWidget(self.bn_bug)
-        self.verticalLayout_3.addWidget(self.frame_bug)
-        self.frame_cloud = QtWidgets.QFrame(self.frame_bottom_west)
+        self.frame_8 = QtWidgets.QFrame(self.frame_bottom_west)
+        self.frame_8.setGeometry(QtCore.QRect(0, 244, 80, 258))
+        self.frame_8.setFrameShape(QtWidgets.QFrame.NoFrame)
+        self.frame_8.setFrameShadow(QtWidgets.QFrame.Plain)
+        self.frame_8.setObjectName("frame_8")
+        self.frame_android = QtWidgets.QFrame(self.frame_8)
+        self.frame_android.setGeometry(QtCore.QRect(0, -10, 80, 55))
+        self.frame_android.setMinimumSize(QtCore.QSize(80, 55))
+        self.frame_android.setMaximumSize(QtCore.QSize(160, 55))
+        self.frame_android.setFrameShape(QtWidgets.QFrame.NoFrame)
+        self.frame_android.setFrameShadow(QtWidgets.QFrame.Plain)
+        self.frame_android.setObjectName("frame_android")
+        self.horizontalLayout_18 = QtWidgets.QHBoxLayout(self.frame_android)
+        self.horizontalLayout_18.setContentsMargins(0, 0, 0, 0)
+        self.horizontalLayout_18.setSpacing(0)
+        self.horizontalLayout_18.setObjectName("horizontalLayout_18")
+        self.bn_android = QtWidgets.QPushButton(self.frame_android)
+        self.bn_android.setMinimumSize(QtCore.QSize(80, 55))
+        self.bn_android.setMaximumSize(QtCore.QSize(160, 55))
+        self.bn_android.setStyleSheet("QPushButton {\n"
+"    image: url(:/icons/icons/1x/mngusers.png);\n"
+"    \n"
+"    border: none;\n"
+"    background-color: rgba(0,0,0,0);\n"
+"}\n"
+"QPushButton:hover {\n"
+"    background-color:#2c5364;\n"
+"}\n"
+"QPushButton:pressed {    \n"
+"    background-color: rgba(0,0,0,0);\n"
+"}")
+        self.bn_android.setText("")
+        icon5 = QtGui.QIcon()
+        icon5.addPixmap(QtGui.QPixmap("../../../Users/kiongoss/.designer/FinalYearProject/src/icons/1x/androidAsset 49.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.bn_android.setIcon(icon5)
+        self.bn_android.setIconSize(QtCore.QSize(20, 22))
+        self.bn_android.setFlat(True)
+        self.bn_android.setObjectName("bn_android")
+        self.horizontalLayout_18.addWidget(self.bn_android)
+        self.frame_cloud = QtWidgets.QFrame(self.frame_8)
+        self.frame_cloud.setGeometry(QtCore.QRect(0, 50, 80, 55))
         self.frame_cloud.setMinimumSize(QtCore.QSize(80, 55))
         self.frame_cloud.setMaximumSize(QtCore.QSize(160, 55))
         self.frame_cloud.setFrameShape(QtWidgets.QFrame.NoFrame)
@@ -311,7 +321,7 @@ class Ui_MainWindow(object):
         self.bn_cloud.setMinimumSize(QtCore.QSize(80, 55))
         self.bn_cloud.setMaximumSize(QtCore.QSize(160, 55))
         self.bn_cloud.setStyleSheet("QPushButton {\n"
-"    image: url(:/icons/icons/1x/cloudAsset 48.png);\n"
+"    image: url(:/icons/icons/1x/logs.png);\n"
 "    border: none;\n"
 "    background-color: rgba(0,0,0,0);\n"
 "}\n"
@@ -329,22 +339,22 @@ class Ui_MainWindow(object):
         self.bn_cloud.setFlat(True)
         self.bn_cloud.setObjectName("bn_cloud")
         self.horizontalLayout_17.addWidget(self.bn_cloud)
-        self.verticalLayout_3.addWidget(self.frame_cloud)
-        self.frame_android = QtWidgets.QFrame(self.frame_bottom_west)
-        self.frame_android.setMinimumSize(QtCore.QSize(80, 55))
-        self.frame_android.setMaximumSize(QtCore.QSize(160, 55))
-        self.frame_android.setFrameShape(QtWidgets.QFrame.NoFrame)
-        self.frame_android.setFrameShadow(QtWidgets.QFrame.Plain)
-        self.frame_android.setObjectName("frame_android")
-        self.horizontalLayout_18 = QtWidgets.QHBoxLayout(self.frame_android)
-        self.horizontalLayout_18.setContentsMargins(0, 0, 0, 0)
-        self.horizontalLayout_18.setSpacing(0)
-        self.horizontalLayout_18.setObjectName("horizontalLayout_18")
-        self.bn_android = QtWidgets.QPushButton(self.frame_android)
-        self.bn_android.setMinimumSize(QtCore.QSize(80, 55))
-        self.bn_android.setMaximumSize(QtCore.QSize(160, 55))
-        self.bn_android.setStyleSheet("QPushButton {\n"
-"    image: url(:/icons/icons/1x/androidAsset 49.png);\n"
+        self.frame_dw = QtWidgets.QFrame(self.frame_bottom_west)
+        self.frame_dw.setGeometry(QtCore.QRect(0, 120, 80, 55))
+        self.frame_dw.setMinimumSize(QtCore.QSize(80, 55))
+        self.frame_dw.setMaximumSize(QtCore.QSize(160, 55))
+        self.frame_dw.setFrameShape(QtWidgets.QFrame.NoFrame)
+        self.frame_dw.setFrameShadow(QtWidgets.QFrame.Plain)
+        self.frame_dw.setObjectName("frame_dw")
+        self.horizontalLayout_25 = QtWidgets.QHBoxLayout(self.frame_dw)
+        self.horizontalLayout_25.setContentsMargins(0, 0, 0, 0)
+        self.horizontalLayout_25.setSpacing(0)
+        self.horizontalLayout_25.setObjectName("horizontalLayout_25")
+        self.bn_dw = QtWidgets.QPushButton(self.frame_dw)
+        self.bn_dw.setMinimumSize(QtCore.QSize(80, 55))
+        self.bn_dw.setMaximumSize(QtCore.QSize(160, 55))
+        self.bn_dw.setStyleSheet("QPushButton {\n"
+"    image: url(:/icons/icons/1x/dw.png);\n"
 "    \n"
 "    border: none;\n"
 "    background-color: rgba(0,0,0,0);\n"
@@ -355,24 +365,72 @@ class Ui_MainWindow(object):
 "QPushButton:pressed {    \n"
 "    background-color: rgba(0,0,0,0);\n"
 "}")
-        self.bn_android.setText("")
+        self.bn_dw.setText("")
+        self.bn_dw.setIcon(icon5)
+        self.bn_dw.setIconSize(QtCore.QSize(20, 22))
+        self.bn_dw.setFlat(True)
+        self.bn_dw.setObjectName("bn_dw")
+        self.horizontalLayout_25.addWidget(self.bn_dw)
+        self.frame_dashb = QtWidgets.QFrame(self.frame_bottom_west)
+        self.frame_dashb.setGeometry(QtCore.QRect(0, 0, 80, 55))
+        self.frame_dashb.setMinimumSize(QtCore.QSize(80, 55))
+        self.frame_dashb.setMaximumSize(QtCore.QSize(160, 55))
+        self.frame_dashb.setFrameShape(QtWidgets.QFrame.NoFrame)
+        self.frame_dashb.setFrameShadow(QtWidgets.QFrame.Plain)
+        self.frame_dashb.setObjectName("frame_dashb")
+        self.horizontalLayout_26 = QtWidgets.QHBoxLayout(self.frame_dashb)
+        self.horizontalLayout_26.setContentsMargins(0, 0, 0, 0)
+        self.horizontalLayout_26.setSpacing(0)
+        self.horizontalLayout_26.setObjectName("horizontalLayout_26")
+        self.bn_dashb = QtWidgets.QPushButton(self.frame_dashb)
+        self.bn_dashb.setMinimumSize(QtCore.QSize(80, 55))
+        self.bn_dashb.setMaximumSize(QtCore.QSize(160, 55))
+        self.bn_dashb.setStyleSheet("QPushButton {\n"
+"    image: url(:/icons/icons/1x/dash.png);\n"
+"    border: none;\n"
+"    background-color: rgba(0,0,0,0);\n"
+"}\n"
+"QPushButton:hover {\n"
+"    background-color:#2c5364;\n"
+"}\n"
+"QPushButton:pressed {    \n"
+"    background-color: rgba(0,0,0,0);\n"
+"}")
+        self.bn_dashb.setText("")
         icon7 = QtGui.QIcon()
-        icon7.addPixmap(QtGui.QPixmap("../../../Users/kiongoss/.designer/FinalYearProject/src/icons/1x/androidAsset 49.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        self.bn_android.setIcon(icon7)
-        self.bn_android.setIconSize(QtCore.QSize(20, 22))
-        self.bn_android.setFlat(True)
-        self.bn_android.setObjectName("bn_android")
-        self.horizontalLayout_18.addWidget(self.bn_android)
-        self.verticalLayout_3.addWidget(self.frame_android)
-        self.frame_8 = QtWidgets.QFrame(self.frame_bottom_west)
-        self.frame_8.setFrameShape(QtWidgets.QFrame.NoFrame)
-        self.frame_8.setFrameShadow(QtWidgets.QFrame.Plain)
-        self.frame_8.setObjectName("frame_8")
-        self.verticalLayout_4 = QtWidgets.QVBoxLayout(self.frame_8)
-        self.verticalLayout_4.setContentsMargins(0, 0, 0, 0)
-        self.verticalLayout_4.setSpacing(0)
-        self.verticalLayout_4.setObjectName("verticalLayout_4")
-        self.verticalLayout_3.addWidget(self.frame_8)
+        icon7.addPixmap(QtGui.QPixmap("../../../Users/kiongoss/.designer/FinalYearProject/src/icons/1x/homeAsset 46.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.bn_dashb.setIcon(icon7)
+        self.bn_dashb.setIconSize(QtCore.QSize(22, 22))
+        self.bn_dashb.setFlat(True)
+        self.bn_dashb.setObjectName("bn_dashb")
+        self.horizontalLayout_26.addWidget(self.bn_dashb)
+        self.frame_home = QtWidgets.QFrame(self.frame_bottom_west)
+        self.frame_home.setGeometry(QtCore.QRect(0, 60, 80, 55))
+        self.frame_home.setMinimumSize(QtCore.QSize(80, 55))
+        self.frame_home.setMaximumSize(QtCore.QSize(160, 55))
+        self.frame_home.setFrameShape(QtWidgets.QFrame.NoFrame)
+        self.frame_home.setFrameShadow(QtWidgets.QFrame.Plain)
+        self.frame_home.setObjectName("frame_home")
+        self.bn_home = QtWidgets.QPushButton(self.frame_home)
+        self.bn_home.setGeometry(QtCore.QRect(0, 0, 80, 55))
+        self.bn_home.setMinimumSize(QtCore.QSize(80, 55))
+        self.bn_home.setMaximumSize(QtCore.QSize(160, 55))
+        self.bn_home.setStyleSheet("QPushButton {\n"
+"    image: url(:/icons/icons/1x/addw.png);\n"
+"    border: none;\n"
+"    background-color: rgba(0,0,0,0);\n"
+"}\n"
+"QPushButton:hover {\n"
+"    background-color:#2c5364;\n"
+"}\n"
+"QPushButton:pressed {    \n"
+"    background-color: rgba(0,0,0,0);\n"
+"}")
+        self.bn_home.setText("")
+        self.bn_home.setIcon(icon7)
+        self.bn_home.setIconSize(QtCore.QSize(22, 22))
+        self.bn_home.setFlat(True)
+        self.bn_home.setObjectName("bn_home")
         self.horizontalLayout_2.addWidget(self.frame_bottom_west)
         self.frame_bottom_east = QtWidgets.QFrame(self.frame_bottom)
         self.frame_bottom_east.setFrameShape(QtWidgets.QFrame.NoFrame)
@@ -997,15 +1055,6 @@ class Ui_MainWindow(object):
         self.horizontalLayout_20.setContentsMargins(0, 0, 0, 0)
         self.horizontalLayout_20.setSpacing(0)
         self.horizontalLayout_20.setObjectName("horizontalLayout_20")
-        self.lab_user = QtWidgets.QLabel(self.frame_android_menu)
-        font = QtGui.QFont()
-        font.setFamily("Segoe UI Light")
-        font.setPointSize(24)
-        self.lab_user.setFont(font)
-        self.lab_user.setStyleSheet("color:rgb(255,255,255);")
-        self.lab_user.setAlignment(QtCore.Qt.AlignRight|QtCore.Qt.AlignTrailing|QtCore.Qt.AlignVCenter)
-        self.lab_user.setObjectName("lab_user")
-        self.horizontalLayout_20.addWidget(self.lab_user)
         self.frame_android_contact = QtWidgets.QFrame(self.frame_android_menu)
         self.frame_android_contact.setMinimumSize(QtCore.QSize(80, 30))
         self.frame_android_contact.setMaximumSize(QtCore.QSize(80, 30))
@@ -1019,8 +1068,9 @@ class Ui_MainWindow(object):
         self.bn_android_contact = QtWidgets.QPushButton(self.frame_android_contact)
         self.bn_android_contact.setMinimumSize(QtCore.QSize(80, 30))
         self.bn_android_contact.setMaximumSize(QtCore.QSize(80, 30))
+        self.bn_android_contact.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
         self.bn_android_contact.setStyleSheet("QPushButton {\n"
-"    image: url(:/icons/icons/1x/bookAsset 57.png);\n"
+"    image: url(:/icons/icons/1x/users.png);\n"
 "    border: none;\n"
 "    background-color: rgba(0,0,0,0);\n"
 "}\n"
@@ -1052,8 +1102,9 @@ class Ui_MainWindow(object):
         self.bn_android_game = QtWidgets.QPushButton(self.frame_android_game)
         self.bn_android_game.setMinimumSize(QtCore.QSize(80, 30))
         self.bn_android_game.setMaximumSize(QtCore.QSize(80, 30))
+        self.bn_android_game.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
         self.bn_android_game.setStyleSheet("QPushButton {\n"
-"    image: url(:/icons/icons/1x/gameAsset 61.png);\n"
+"    image: url(:/icons/icons/1x/adduser.png);\n"
 "    border: none;\n"
 "    background-color: rgba(0,0,0,0);\n"
 "}\n"
@@ -1072,38 +1123,6 @@ class Ui_MainWindow(object):
         self.bn_android_game.setObjectName("bn_android_game")
         self.horizontalLayout_22.addWidget(self.bn_android_game)
         self.horizontalLayout_20.addWidget(self.frame_android_game)
-        self.frame_android_clean = QtWidgets.QFrame(self.frame_android_menu)
-        self.frame_android_clean.setMinimumSize(QtCore.QSize(80, 30))
-        self.frame_android_clean.setMaximumSize(QtCore.QSize(80, 30))
-        self.frame_android_clean.setFrameShape(QtWidgets.QFrame.NoFrame)
-        self.frame_android_clean.setFrameShadow(QtWidgets.QFrame.Plain)
-        self.frame_android_clean.setObjectName("frame_android_clean")
-        self.horizontalLayout_23 = QtWidgets.QHBoxLayout(self.frame_android_clean)
-        self.horizontalLayout_23.setContentsMargins(0, 0, 0, 0)
-        self.horizontalLayout_23.setSpacing(0)
-        self.horizontalLayout_23.setObjectName("horizontalLayout_23")
-        self.bn_android_clean = QtWidgets.QPushButton(self.frame_android_clean)
-        self.bn_android_clean.setMinimumSize(QtCore.QSize(80, 30))
-        self.bn_android_clean.setMaximumSize(QtCore.QSize(80, 30))
-        self.bn_android_clean.setStyleSheet("QPushButton {\n"
-"    image: url(:/icons/icons/1x/cleanAsset 59.png);\n"
-"    border: none;\n"
-"    background-color: rgba(0,0,0,0);\n"
-"}\n"
-"QPushButton:hover {\n"
-"    background-color: rgb(91,90,90);\n"
-"}\n"
-"QPushButton:pressed {    \n"
-"    background-color: rgba(0,0,0,0);\n"
-"}")
-        self.bn_android_clean.setText("")
-        icon10 = QtGui.QIcon()
-        icon10.addPixmap(QtGui.QPixmap("../../../Users/kiongoss/.designer/FinalYearProject/src/icons/1x/cleanAsset 59.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        self.bn_android_clean.setIcon(icon10)
-        self.bn_android_clean.setFlat(True)
-        self.bn_android_clean.setObjectName("bn_android_clean")
-        self.horizontalLayout_23.addWidget(self.bn_android_clean)
-        self.horizontalLayout_20.addWidget(self.frame_android_clean)
         self.frame_android_world = QtWidgets.QFrame(self.frame_android_menu)
         self.frame_android_world.setMinimumSize(QtCore.QSize(80, 30))
         self.frame_android_world.setMaximumSize(QtCore.QSize(80, 30))
@@ -1117,8 +1136,9 @@ class Ui_MainWindow(object):
         self.bn_android_world = QtWidgets.QPushButton(self.frame_android_world)
         self.bn_android_world.setMinimumSize(QtCore.QSize(80, 30))
         self.bn_android_world.setMaximumSize(QtCore.QSize(80, 30))
+        self.bn_android_world.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
         self.bn_android_world.setStyleSheet("QPushButton {\n"
-"    image: url(:/icons/icons/1x/worldAsset 60.png);\n"
+"    image: url(:/icons/icons/1x/update.png);\n"
 "    border: none;\n"
 "    background-color: rgba(0,0,0,0);\n"
 "}\n"
@@ -1129,9 +1149,9 @@ class Ui_MainWindow(object):
 "    background-color: rgba(0,0,0,0);\n"
 "}")
         self.bn_android_world.setText("")
-        icon11 = QtGui.QIcon()
-        icon11.addPixmap(QtGui.QPixmap("../../../Users/kiongoss/.designer/FinalYearProject/src/icons/1x/worldAsset 60.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
-        self.bn_android_world.setIcon(icon11)
+        icon10 = QtGui.QIcon()
+        icon10.addPixmap(QtGui.QPixmap("../../../Users/kiongoss/.designer/FinalYearProject/src/icons/1x/worldAsset 60.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.bn_android_world.setIcon(icon10)
         self.bn_android_world.setFlat(True)
         self.bn_android_world.setObjectName("bn_android_world")
         self.horizontalLayout_24.addWidget(self.bn_android_world)
@@ -1763,13 +1783,16 @@ class Ui_MainWindow(object):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
         self.lab_appname.setText(_translate("MainWindow", "<html><head/><body><p><br/></p></body></html>"))
+        self.lab_user.setText(_translate("MainWindow", "<html><head/><body><p><span style=\" font-size:12pt; font-weight:600; color:#ffffff;\">User8455</span></p></body></html>"))
         self.bn_min.setToolTip(_translate("MainWindow", "Minimize"))
         self.bn_max.setToolTip(_translate("MainWindow", "Maximize"))
         self.bn_close.setToolTip(_translate("MainWindow", "Close"))
-        self.bn_home.setToolTip(_translate("MainWindow", "Home"))
         self.bn_bug.setToolTip(_translate("MainWindow", "Bug"))
-        self.bn_cloud.setToolTip(_translate("MainWindow", "Cloud"))
         self.bn_android.setToolTip(_translate("MainWindow", "Android"))
+        self.bn_cloud.setToolTip(_translate("MainWindow", "Cloud"))
+        self.bn_dw.setToolTip(_translate("MainWindow", "Android"))
+        self.bn_dashb.setToolTip(_translate("MainWindow", "Home"))
+        self.bn_home.setToolTip(_translate("MainWindow", "Home"))
         self.add_remove_label.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" font-size:14pt; font-weight:600;\">ADD TO WATCHLIST</span></p></body></html>"))
         self.car_deatils_label.setText(_translate("MainWindow", "<html><head/><body><p><span style=\" font-size:12pt; font-weight:600;\">CAR DETAILS</span></p></body></html>"))
         self.reg_plate_label.setText(_translate("MainWindow", "<html><head/><body><p><span style=\" font-size:12pt;\">Registration Plate :</span></p></body></html>"))
@@ -1800,10 +1823,8 @@ class Ui_MainWindow(object):
         self.label_12.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" font-size:12pt; font-weight:600;\">REMOVE VEHICLE FROM WATCHLIST</span></p></body></html>"))
         self.search_box_2.setPlaceholderText(_translate("MainWindow", "         Enter vehicle plate number to be removed from watchlist"))
         self.btn_search_3.setText(_translate("MainWindow", "Remove"))
-        self.lab_user.setText(_translate("MainWindow", "<html><head/><body><p><span style=\" font-size:12pt; font-weight:600; color:#ffffff;\">User8455</span></p></body></html>"))
         self.bn_android_contact.setToolTip(_translate("MainWindow", "Contact"))
         self.bn_android_game.setToolTip(_translate("MainWindow", "GamePad"))
-        self.bn_android_clean.setToolTip(_translate("MainWindow", "Clean"))
         self.bn_android_world.setToolTip(_translate("MainWindow", "World"))
         self.bn_android_contact_save.setText(_translate("MainWindow", "Save"))
         self.label_5.setText(_translate("MainWindow", "Staff Number :"))

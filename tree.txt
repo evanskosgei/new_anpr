@@ -52,3 +52,5 @@ BH496YR
  'body_type': 'Trike', 'color': 'CornflowerBlue', 'logbook_number': 'VC046AI',
   'engine_number': 'GA820DQ', 'chassis_number': 'DE093KR', 'created_at': '2022-04-03T10:52:56.000000Z',
    'updated_at': '2022-04-03T10:52:56.000000Z'}]
+
+   ONLY 32x32 icons

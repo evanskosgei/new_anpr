@@ -117,7 +117,9 @@ class Home(dashboard.Ui_MainWindow, QMainWindow):
 
         # Init QSystemTrayIcon
         self.tray_icon = QSystemTrayIcon(self)
-        self.tray_icon.setIcon(QIcon('logo.png'))
+        # self.tray_icon.setIcon(
+        #     self.style().standardIcon(QStyle.SP_ComputerIcon))
+        self.tray_icon.setIcon(QIcon('sicon/logo.png'))
 
         self.bn_android_contact.clicked.connect(
             lambda: self.stackedWidget_android.setCurrentWidget(
@@ -177,7 +179,7 @@ class Home(dashboard.Ui_MainWindow, QMainWindow):
         self.tray_icon.showMessage(
             "Tray Program",
             "Application was minimized to Tray",
-            QSystemTrayIcon.Information,
+            QSystemTrayIcon.error,
             2000
         )
 
@@ -204,7 +206,6 @@ class Home(dashboard.Ui_MainWindow, QMainWindow):
             else:
                 response = res.json()
                 result = response[0]
-                self.tray_icon.setIcon(QIcon('logo.png'))
                 self.tray_icon.showMessage(
                     "ANPR",
                     "Vehicle Details Found.",
