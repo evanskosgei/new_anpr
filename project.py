@@ -71,7 +71,8 @@ class Project(auth.Ui_Form, QMainWindow):
                     print(password)
                     if bcrypt.checkpw(data.encode('utf-8'), password):
                         if role == 1:
-                            self.ui = Home()
+                            w = Home()
+                            w.show()
                         else:
                             print("User")
                     else:
