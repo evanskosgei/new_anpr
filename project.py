@@ -197,6 +197,7 @@ class Home(dashboard.Ui_MainWindow, QMainWindow):
                     2000
                 )
                 self.lab_tab.setText("Vehicle not found!")
+                self.lab_tab.setStyleSheet("color: red")
                 timer = QTimer(self)
                 timer.timeout.connect(self.clear_label)
                 timer.start(10000)
@@ -204,7 +205,17 @@ class Home(dashboard.Ui_MainWindow, QMainWindow):
             else:
                 response = res.json()
                 result = response[0]
-                # print(result)
+                self.tray_icon.showMessage(
+                    "ANPR",
+                    "Vehicle Details Found.",
+                    QSystemTrayIcon.Information,
+                    2000
+                )
+                self.lab_tab.setText("Vehicle registration details found!")
+                self.lab_tab.setStyleSheet("color: green")
+                timer = QTimer(self)
+                timer.timeout.connect(self.clear_label)
+                timer.start(10000)
                 # get values from json response
                 try:
                     registration_number = result['registration_number']

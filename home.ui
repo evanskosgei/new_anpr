@@ -3518,7 +3518,7 @@ color: rgb(255, 255, 240);</string>
                      <item row="1" column="0" colspan="4">
                       <widget class="QTableWidget" name="system_users_table">
                        <property name="styleSheet">
-                        <string notr="true"/>
+                        <string notr="true">background-color: rgb(255, 255, 240);</string>
                        </property>
                       </widget>
                      </item>
@@ -4359,8 +4359,10 @@ color:black;
                  <widget class="QLabel" name="lab_tab">
                   <property name="font">
                    <font>
-                    <family>Segoe UI Light</family>
-                    <pointsize>10</pointsize>
+                    <family>Arial</family>
+                    <pointsize>12</pointsize>
+                    <weight>75</weight>
+                    <bold>true</bold>
                    </font>
                   </property>
                   <property name="styleSheet">
@@ -4368,6 +4370,9 @@ color:black;
                   </property>
                   <property name="text">
                    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                  </property>
+                  <property name="alignment">
+                   <set>Qt::AlignCenter</set>
                   </property>
                  </widget>
                 </item>
