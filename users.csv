@@ -1,6 +1,10 @@
 Username,Staff Number,Email,Phone,Role
+<<<<<<< HEAD
 Admin,AD3,studioskanga@gmail.com,0734132730,1
+=======
+>>>>>>> 04eda9849fd064c55a59a2fbe0ce851a560399bd
 John,J123,john122@gmail.com,0765132456,0
 Terry,T123,terry@gmail.com,0725145345,0
 kk,kk123,kk@gmail.com,123456789,0
 mose,M123,mose@gmail.com,0712145177,0
+Admin,AD3,studioskanga@gmail.com,0745132785,1
