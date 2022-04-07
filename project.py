@@ -232,7 +232,6 @@ class Home(dashboard.Ui_MainWindow, QMainWindow):
 
                 except:
                     print("nop")
-
                 # set to lineEdit
                 self.reg_plate_input_2.setText(registration_number)
                 self.owner_input_2.setText(owner)
