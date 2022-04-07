@@ -62,7 +62,8 @@ class Project(auth.Ui_Form, QMainWindow):
                 cursor.execute("SELECT password, role FROM users WHERE staffno = ?", (staffno,))
                 result = cursor.fetchall()
                 if result == []:
-                    print('Staff number not found')
+                    e = 'Staff number not found'
+                    warning_message_box(e)
                 else:
                     for row in result:
                         password = row[0]
