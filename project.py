@@ -10,6 +10,7 @@ from PyQt5.QtCore import *
 from PyQt5.QtCore import QSize, QTimer
 from PyQt5.QtWidgets import *
 from turtle import color
+import re
 
 # file imports
 
@@ -337,18 +338,20 @@ class Home(dashboard.Ui_MainWindow, QMainWindow):
         engineNo = self.engine_number_input.text()
         chasisNo = self.chassis_number_label_2.text()
         watchlist = 0
-        # if self.put_on_watchlist.isChecked() == True:
-        #     watchlist = 1
-        # elif self.remove_from_watchlist.isChecked() == True:
-        #     watchlist = 0
-        # else:
-        #     watchlist = "NULL"
-        # print(watchlist)
         # saving data to database
         if regPlate == "" or owner == "" or vehicleMake == "" or modelYear == "" or engineCapacity == "" or bodyType == "" or color == "" or logBookNo == "" or engineNo == "" or chasisNo == "":
             e ="please fill all the fields"
             warning_message_box(e)
-        else:    
+        elif len(regPlate) < 7:
+            e = "Registration Plate number must be 7 characters long"
+            warning_message_box(e)
+        elif regPlate.isalnum() == False:
+            e = "Registration Plate number must be alphanumeric"
+            warning_message_box(e)
+        # elif re.match('[A-Z0-9]', regPlate) == None:
+        #     e = "Registration Plate number must be 3 digits long"
+        #     warning_message_box(e)
+        else:
             try:
                 cursor = conn.cursor()
                 query = """INSERT INTO carDetails(reg_plate, owner, vehicle_make, model_year, engine_capacity, body_type, color, logbook_number, engine_number, chasis_number, watchlist) VALUES(?,?,?,?,?,?,?,?,?,?,?)"""
@@ -360,17 +363,19 @@ class Home(dashboard.Ui_MainWindow, QMainWindow):
                 success_message_box(s)
             except Error as e:
                 warning_message_box(e)
+            self.clearLogs()
                 
-            self.reg_plate_input.clear()
-            self.owner_input.clear()
-            self.vehicle_make_input.clear()
-            self.year_of_man_input.clear()
-            self.engine_capacity_input.clear()
-            self.body_type_input.clear()
-            self.color_input.clear()
-            self.logbook_number_input.clear()
-            self.engine_number_input.clear()
-            self.chassis_number_label_2.clear()
+    def clearLogs(self):
+        self.reg_plate_input.clear()
+        self.owner_input.clear()
+        self.vehicle_make_input.clear()
+        self.year_of_man_input.clear()
+        self.engine_capacity_input.clear()
+        self.body_type_input.clear()
+        self.color_input.clear()
+        self.logbook_number_input.clear()
+        self.engine_number_input.clear()
+        self.chassis_number_label_2.clear()
                     
     def clear_label(self):
             self.lab_tab.clear()
