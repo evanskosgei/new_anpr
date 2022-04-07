@@ -10,6 +10,7 @@ from PyQt5.QtCore import *
 from PyQt5.QtCore import QSize, QTimer
 from PyQt5.QtWidgets import *
 from turtle import color
+import csv
 
 # file imports
 
@@ -143,6 +144,8 @@ class Home(dashboard.Ui_MainWindow, QMainWindow):
         self.bn_android_contact_edit_2.clicked.connect(self.updateUsers)
         #delete user fro db
         self.bn_android_contact_delete_2.clicked.connect(self.deleteUser)
+        #printing data to CSV
+        self.bn_android_contact_edit_3.clicked.connect(self.printUsers)
         # Init QSystemTrayIcon
         # self.tray_icon = QSystemTrayIcon(self)
         # self.tray_icon.setIcon(
@@ -232,7 +235,6 @@ class Home(dashboard.Ui_MainWindow, QMainWindow):
 
                 except:
                     print("nop")
-
                 # set to lineEdit
                 self.reg_plate_input_2.setText(registration_number)
                 self.owner_input_2.setText(owner)
@@ -353,18 +355,20 @@ class Home(dashboard.Ui_MainWindow, QMainWindow):
         engineNo = self.engine_number_input.text()
         chasisNo = self.chassis_number_label_2.text()
         watchlist = 0
-        # if self.put_on_watchlist.isChecked() == True:
-        #     watchlist = 1
-        # elif self.remove_from_watchlist.isChecked() == True:
-        #     watchlist = 0
-        # else:
-        #     watchlist = "NULL"
-        # print(watchlist)
         # saving data to database
         if regPlate == "" or owner == "" or vehicleMake == "" or modelYear == "" or engineCapacity == "" or bodyType == "" or color == "" or logBookNo == "" or engineNo == "" or chasisNo == "":
             e ="please fill all the fields"
             warning_message_box(e)
-        else:    
+        elif len(regPlate) < 7:
+            e = "Registration Plate number must be 7 characters long"
+            warning_message_box(e)
+        elif regPlate.isalnum() == False:
+            e = "Registration Plate number must be alphanumeric"
+            warning_message_box(e)
+        # elif not "0" or "1" or "2" or "3" or "4" or "5" or "6" or "7" or "8" or "9" in regPlate:
+        #     e = "Registration Plate number must contain numbers"
+        #     warning_message_box(e)
+        else:
             try:
                 cursor = conn.cursor()
                 query = """INSERT INTO carDetails(reg_plate, owner, vehicle_make, model_year, engine_capacity, body_type, color, logbook_number, engine_number, chasis_number, watchlist) VALUES(?,?,?,?,?,?,?,?,?,?,?)"""
@@ -376,17 +380,19 @@ class Home(dashboard.Ui_MainWindow, QMainWindow):
                 success_message_box(s)
             except Error as e:
                 warning_message_box(e)
+            self.clearLogs()
                 
-            self.reg_plate_input.clear()
-            self.owner_input.clear()
-            self.vehicle_make_input.clear()
-            self.year_of_man_input.clear()
-            self.engine_capacity_input.clear()
-            self.body_type_input.clear()
-            self.color_input.clear()
-            self.logbook_number_input.clear()
-            self.engine_number_input.clear()
-            self.chassis_number_label_2.clear()
+    def clearLogs(self):
+        self.reg_plate_input.clear()
+        self.owner_input.clear()
+        self.vehicle_make_input.clear()
+        self.year_of_man_input.clear()
+        self.engine_capacity_input.clear()
+        self.body_type_input.clear()
+        self.color_input.clear()
+        self.logbook_number_input.clear()
+        self.engine_number_input.clear()
+        self.chassis_number_label_2.clear()
                     
     def clear_label(self):
             self.lab_tab.clear()
@@ -410,7 +416,10 @@ class Home(dashboard.Ui_MainWindow, QMainWindow):
             elif len(password) < 8:
                 e = "Atleast 8 characters for your password"
                 warning_message_box(e)
-            elif  "@" and ".com" not in email:
+            elif  "@" not in email:
+                e = "Invalid email"
+                warning_message_box(e)
+            elif ".com" not in email:
                 e = "Invalid email"
                 warning_message_box(e)
             elif len(phone) < 10:
@@ -446,19 +455,41 @@ class Home(dashboard.Ui_MainWindow, QMainWindow):
                     cursor = conn.cursor()
                     cursor.execute("""SELECT username, staffno, email, phone FROM users""")
                     result = cursor.fetchall()
-                    
-                    self.system_users_table.setRowCount(0)
-                    for row_number, row_data in enumerate(result):
-                        self.system_users_table.insertRow(row_number)
-                        for column_number, data in enumerate(row_data):
-                            self. system_users_table.setItem(
-                                row_number, column_number, QTableWidgetItem(str(data)))
+                    if result == []:
+                            e = "No users found in database"
+                            warning_message_box(e)
+                    else:
+                        self.system_users_table.setColumnCount(4)
+                        self.system_users_table.setHorizontalHeaderLabels(['Username', 'Staff Number', 'Email', 'Phone'])
+                        self.system_users_table.setRowCount(0)
+                        for row_number, row_data in enumerate(result):
+                            self.system_users_table.insertRow(row_number)
+                            for column_number, data in enumerate(row_data):
+                                self. system_users_table.setItem(
+                                    row_number, column_number, QTableWidgetItem(str(data)))
             except Error as e:
-                    print(e)
+                    warning_message_box(e)
                     
     # print all users
     def printUsers(self):
-        pass
+        print("Printing users")
+        try:
+            cursor = conn.cursor()
+            cursor.execute("""SELECT username, staffno, email, phone FROM users""")
+            result = cursor.fetchall()
+            if result == []:
+                    e = "No users found in database"
+                    warning_message_box(e)
+            else:
+                with open('users.csv', 'w', newline='') as csvfile:
+                    fieldnames = ['Username', 'Staff Number', 'Email', 'Phone']
+                    writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
+                    writer.writeheader()
+                    for row_data in result:
+                        writer.writerow({'Username': row_data[0], 'Staff Number': row_data[1], 'Email': row_data[2], 'Phone': row_data[3]})
+
+        except Error as e:
+            warning_message_box(e)
                     
     # manage users
     def manageUser(self):
@@ -518,7 +549,10 @@ class Home(dashboard.Ui_MainWindow, QMainWindow):
             e = "Please search for the user first before updating!"
             warning_message_box(e)
             
-        elif  "@" and ".com" not in email:
+        elif  "@" not in email:
+            e = "Invalid email"
+            warning_message_box(e)
+        elif ".com" not in email:
             e = "Invalid email"
             warning_message_box(e)
         elif len(phone) < 10:
@@ -534,6 +568,10 @@ class Home(dashboard.Ui_MainWindow, QMainWindow):
                 self.clearingInputs()
             except Error as e:
                 warning_message_box(e)
+                
+    # sending email to users
+    def sendEmail(self, receiver_email):
+        pass
                 
     #deleting user
     def deleteUser(self):
