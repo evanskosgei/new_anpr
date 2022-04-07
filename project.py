@@ -568,6 +568,10 @@ class Home(dashboard.Ui_MainWindow, QMainWindow):
             except Error as e:
                 warning_message_box(e)
                 
+    # sending email to users
+    def sendEmail(self, receiver_email):
+        pass
+                
     #deleting user
     def deleteUser(self):
         staffno = self.lineEdit_8.text()
