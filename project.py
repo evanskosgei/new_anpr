@@ -90,7 +90,7 @@ class Home(dashboard.Ui_MainWindow, QMainWindow):
         self.bn_close.clicked.connect(self.c)
         self.btn_search.clicked.connect(self.searchVehicle)
         self.bn_min.clicked.connect(self.closeEvent)
-        self.bn_max.clicked.connect(lambda: self.showMaximized())
+        self.bn_max.clicked.connect(self.mxmn)
         self.bn_bug.clicked.connect(
             lambda: self.stackedWidget.setCurrentWidget(self.search_registration))
         print(self.search_box.text())
@@ -118,8 +118,7 @@ class Home(dashboard.Ui_MainWindow, QMainWindow):
 
         # Init QSystemTrayIcon
         self.tray_icon = QSystemTrayIcon(self)
-        self.tray_icon.setIcon(
-            self.style().standardIcon(QStyle.SP_ComputerIcon))
+        self.tray_icon.setIcon(QIcon('logo.png'))
 
         self.bn_android_contact.clicked.connect(
             lambda: self.stackedWidget_android.setCurrentWidget(
@@ -144,9 +143,9 @@ class Home(dashboard.Ui_MainWindow, QMainWindow):
         #delete user fro db
         self.bn_android_contact_delete_2.clicked.connect(self.deleteUser)
         # Init QSystemTrayIcon
-        self.tray_icon = QSystemTrayIcon(self)
-        self.tray_icon.setIcon(
-            self.style().standardIcon(QStyle.SP_ComputerIcon))
+        # self.tray_icon = QSystemTrayIcon(self)
+        # self.tray_icon.setIcon(
+        #     self.style().standardIcon(QStyle.SP_ComputerIcon))
 
         '''
                     Define and add steps to work with the system tray icon
@@ -167,7 +166,11 @@ class Home(dashboard.Ui_MainWindow, QMainWindow):
         self.tray_icon.setContextMenu(tray_menu)
         self.tray_icon.show()
         
-        
+    def mxmn(self):
+        if self.isMaximized():
+            self.showNormal()
+        else:
+            self.showMaximized()
     # Override closeEvent, to intercept the window closing event
     # The window will be closed only if there is no check mark in the check box
     def closeEvent(self):
@@ -194,6 +197,7 @@ class Home(dashboard.Ui_MainWindow, QMainWindow):
                     2000
                 )
                 self.lab_tab.setText("Vehicle not found!")
+                self.lab_tab.setStyleSheet("color: red")
                 timer = QTimer(self)
                 timer.timeout.connect(self.clear_label)
                 timer.start(10000)
@@ -201,7 +205,18 @@ class Home(dashboard.Ui_MainWindow, QMainWindow):
             else:
                 response = res.json()
                 result = response[0]
-                # print(result)
+                self.tray_icon.setIcon(QIcon('logo.png'))
+                self.tray_icon.showMessage(
+                    "ANPR",
+                    "Vehicle Details Found.",
+                    QSystemTrayIcon.Information,
+                    2000
+                )
+                self.lab_tab.setText("Vehicle registration details found!")
+                self.lab_tab.setStyleSheet("color: green")
+                timer = QTimer(self)
+                timer.timeout.connect(self.clear_label)
+                timer.start(10000)
                 # get values from json response
                 try:
                     registration_number = result['registration_number']
