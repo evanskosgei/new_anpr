@@ -203,11 +203,12 @@ class Home(dashboard.Ui_MainWindow, QMainWindow):
         )
 
     def logout(self):
+        print('nmefika hapa')
+        self.showT("Logged out successfully")
         self.hide()
         self.tray_icon.hide()
         self.login = Project()
         self.login.show()
-        self.showT("Logged out successfully")
         
 
     def mxmn(self):

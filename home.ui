@@ -964,7 +964,7 @@ QPushButton:pressed {
                <cursorShape>PointingHandCursor</cursorShape>
               </property>
               <property name="toolTip">
-               <string>system history</string>
+               <string>Log out</string>
               </property>
               <property name="styleSheet">
                <string notr="true">QPushButton {
