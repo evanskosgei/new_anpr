@@ -17,6 +17,7 @@ class Ui_MainWindow(object):
         MainWindow.resize(800, 563)
         MainWindow.setMinimumSize(QtCore.QSize(800, 550))
         MainWindow.setWindowFlags(QtCore.Qt.FramelessWindowHint)
+        
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setStyleSheet("background:#0f2027;")
         self.centralwidget.setObjectName("centralwidget")
