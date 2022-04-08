@@ -17,6 +17,7 @@ class Ui_MainWindow(object):
         MainWindow.resize(800, 563)
         MainWindow.setMinimumSize(QtCore.QSize(800, 550))
         MainWindow.setWindowFlags(QtCore.Qt.FramelessWindowHint)
+        
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setStyleSheet("background:#0f2027;")
         self.centralwidget.setObjectName("centralwidget")
@@ -46,6 +47,7 @@ class Ui_MainWindow(object):
         self.toodle = QtWidgets.QPushButton(self.frame_toodle)
         self.toodle.setMinimumSize(QtCore.QSize(80, 55))
         self.toodle.setMaximumSize(QtCore.QSize(80, 55))
+        self.toodle.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
         self.toodle.setStyleSheet("QPushButton {\n"
 "    image: url(:/icons/icons/1x/logo.png);\n"
 "    border: none;\n"
@@ -117,7 +119,8 @@ class Ui_MainWindow(object):
         self.frame_person.setObjectName("frame_person")
         self.pushButton = QtWidgets.QPushButton(self.frame_person)
         self.pushButton.setGeometry(QtCore.QRect(0, 16, 55, 31))
-        self.pushButton.setStyleSheet("image: url(:/icons/icons/1x/peple.png);")
+        self.pushButton.setStyleSheet("image: url(:/icons/icons/1x/peple.png);\n"
+"border:none;")
         self.pushButton.setText("")
         self.pushButton.setObjectName("pushButton")
         self.horizontalLayout_4.addWidget(self.frame_person)
@@ -248,6 +251,7 @@ class Ui_MainWindow(object):
         self.bn_bug = QtWidgets.QPushButton(self.frame_bug)
         self.bn_bug.setMinimumSize(QtCore.QSize(80, 55))
         self.bn_bug.setMaximumSize(QtCore.QSize(160, 55))
+        self.bn_bug.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
         self.bn_bug.setStyleSheet("QPushButton {\n"
 "    image: url(:/icons/icons/1x/search.png);\n"
 "    border: none;\n"
@@ -286,6 +290,7 @@ class Ui_MainWindow(object):
         self.bn_android = QtWidgets.QPushButton(self.frame_android)
         self.bn_android.setMinimumSize(QtCore.QSize(80, 55))
         self.bn_android.setMaximumSize(QtCore.QSize(160, 55))
+        self.bn_android.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
         self.bn_android.setStyleSheet("QPushButton {\n"
 "    image: url(:/icons/icons/1x/mngusers.png);\n"
 "    \n"
@@ -320,6 +325,7 @@ class Ui_MainWindow(object):
         self.bn_cloud = QtWidgets.QPushButton(self.frame_cloud)
         self.bn_cloud.setMinimumSize(QtCore.QSize(80, 55))
         self.bn_cloud.setMaximumSize(QtCore.QSize(160, 55))
+        self.bn_cloud.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
         self.bn_cloud.setStyleSheet("QPushButton {\n"
 "    image: url(:/icons/icons/1x/logs.png);\n"
 "    border: none;\n"
@@ -353,6 +359,7 @@ class Ui_MainWindow(object):
         self.bn_dw = QtWidgets.QPushButton(self.frame_dw)
         self.bn_dw.setMinimumSize(QtCore.QSize(80, 55))
         self.bn_dw.setMaximumSize(QtCore.QSize(160, 55))
+        self.bn_dw.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
         self.bn_dw.setStyleSheet("QPushButton {\n"
 "    image: url(:/icons/icons/1x/dw.png);\n"
 "    \n"
@@ -385,6 +392,7 @@ class Ui_MainWindow(object):
         self.bn_dashb = QtWidgets.QPushButton(self.frame_dashb)
         self.bn_dashb.setMinimumSize(QtCore.QSize(80, 55))
         self.bn_dashb.setMaximumSize(QtCore.QSize(160, 55))
+        self.bn_dashb.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
         self.bn_dashb.setStyleSheet("QPushButton {\n"
 "    image: url(:/icons/icons/1x/dash.png);\n"
 "    border: none;\n"
@@ -415,6 +423,7 @@ class Ui_MainWindow(object):
         self.bn_home.setGeometry(QtCore.QRect(0, 0, 80, 55))
         self.bn_home.setMinimumSize(QtCore.QSize(80, 55))
         self.bn_home.setMaximumSize(QtCore.QSize(160, 55))
+        self.bn_home.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
         self.bn_home.setStyleSheet("QPushButton {\n"
 "    image: url(:/icons/icons/1x/addw.png);\n"
 "    border: none;\n"
@@ -590,6 +599,7 @@ class Ui_MainWindow(object):
         font.setPointSize(12)
         self.reg_plate_input.setFont(font)
         self.reg_plate_input.setStyleSheet("")
+        self.reg_plate_input.setInputMethodHints(QtCore.Qt.ImhUppercaseOnly)
         self.reg_plate_input.setClearButtonEnabled(True)
         self.reg_plate_input.setObjectName("reg_plate_input")
         self.logbook_number_input = QtWidgets.QLineEdit(self.add_remove_frame)
@@ -1508,37 +1518,6 @@ class Ui_MainWindow(object):
 "    background-color: rgb(112,112,112);\n"
 "}")
         self.bn_android_contact_delete_2.setObjectName("bn_android_contact_delete_2")
-        self.bn_android_contact_save_2 = QtWidgets.QPushButton(self.frame_7)
-        self.bn_android_contact_save_2.setEnabled(False)
-        self.bn_android_contact_save_2.setGeometry(QtCore.QRect(490, 330, 69, 25))
-        self.bn_android_contact_save_2.setMinimumSize(QtCore.QSize(69, 25))
-        self.bn_android_contact_save_2.setMaximumSize(QtCore.QSize(69, 25))
-        font = QtGui.QFont()
-        font.setFamily("Segoe UI")
-        font.setPointSize(12)
-        self.bn_android_contact_save_2.setFont(font)
-        self.bn_android_contact_save_2.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
-        self.bn_android_contact_save_2.setStyleSheet("QPushButton {\n"
-"    border: 2px solid rgb(51,51,51);\n"
-"    border-radius: 5px;    \n"
-"    color:rgb(255,255,255);\n"
-"    background-color: rgb(51,51,51);\n"
-"}\n"
-"QPushButton:hover {\n"
-"    border: 2px solid rgb(0,143,150);\n"
-"    background-color: rgb(0,143,150);\n"
-"}\n"
-"QPushButton:pressed {    \n"
-"    border: 2px solid rgb(0,143,150);\n"
-"    background-color: rgb(51,51,51);\n"
-"}\n"
-"\n"
-"QPushButton:disabled {    \n"
-"    border-radius: 5px;    \n"
-"    border: 2px solid rgb(112,112,112);\n"
-"    background-color: rgb(112,112,112);\n"
-"}")
-        self.bn_android_contact_save_2.setObjectName("bn_android_contact_save_2")
         self.label_9 = QtWidgets.QLabel(self.frame_7)
         self.label_9.setGeometry(QtCore.QRect(90, 190, 121, 25))
         font = QtGui.QFont()
@@ -1641,8 +1620,12 @@ class Ui_MainWindow(object):
         self.lineEdit_12.setClearButtonEnabled(True)
         self.lineEdit_12.setObjectName("lineEdit_12")
         self.lineEdit_13 = QtWidgets.QLineEdit(self.frame_7)
-        self.lineEdit_13.setGeometry(QtCore.QRect(90, 60, 441, 41))
+        self.lineEdit_13.setGeometry(QtCore.QRect(90, 60, 521, 41))
         self.lineEdit_13.setMinimumSize(QtCore.QSize(300, 25))
+        font = QtGui.QFont()
+        font.setFamily("Arial")
+        font.setPointSize(12)
+        self.lineEdit_13.setFont(font)
         self.lineEdit_13.setClearButtonEnabled(True)
         self.lineEdit_13.setObjectName("lineEdit_13")
         self.btn_search_2 = QtWidgets.QPushButton(self.frame_7)
@@ -1787,12 +1770,12 @@ class Ui_MainWindow(object):
         self.bn_min.setToolTip(_translate("MainWindow", "Minimize"))
         self.bn_max.setToolTip(_translate("MainWindow", "Maximize"))
         self.bn_close.setToolTip(_translate("MainWindow", "Close"))
-        self.bn_bug.setToolTip(_translate("MainWindow", "Bug"))
-        self.bn_android.setToolTip(_translate("MainWindow", "Android"))
-        self.bn_cloud.setToolTip(_translate("MainWindow", "Cloud"))
-        self.bn_dw.setToolTip(_translate("MainWindow", "Android"))
-        self.bn_dashb.setToolTip(_translate("MainWindow", "Home"))
-        self.bn_home.setToolTip(_translate("MainWindow", "Home"))
+        self.bn_bug.setToolTip(_translate("MainWindow", "Search in registered vehicles database."))
+        self.bn_android.setToolTip(_translate("MainWindow", "manage users"))
+        self.bn_cloud.setToolTip(_translate("MainWindow", "system history"))
+        self.bn_dw.setToolTip(_translate("MainWindow", "Remove vehicle from watchlist"))
+        self.bn_dashb.setToolTip(_translate("MainWindow", "Dashboard"))
+        self.bn_home.setToolTip(_translate("MainWindow", "add vehicle to watchlist"))
         self.add_remove_label.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" font-size:14pt; font-weight:600;\">ADD TO WATCHLIST</span></p></body></html>"))
         self.car_deatils_label.setText(_translate("MainWindow", "<html><head/><body><p><span style=\" font-size:12pt; font-weight:600;\">CAR DETAILS</span></p></body></html>"))
         self.reg_plate_label.setText(_translate("MainWindow", "<html><head/><body><p><span style=\" font-size:12pt;\">Registration Plate :</span></p></body></html>"))
@@ -1805,6 +1788,7 @@ class Ui_MainWindow(object):
         self.logbook_number_label.setText(_translate("MainWindow", "<html><head/><body><p><span style=\" font-size:12pt;\">Registered Logbook Number :</span></p></body></html>"))
         self.engine_number_label.setText(_translate("MainWindow", "<html><head/><body><p><span style=\" font-size:12pt;\">Registration Engine Number :</span></p></body></html>"))
         self.chassis_number_label.setText(_translate("MainWindow", "<html><head/><body><p><span style=\" font-size:12pt;\">Registration Chassis Number :</span></p></body></html>"))
+        self.btn_save_to_wishlist.setToolTip(_translate("MainWindow", "add to watchlist"))
         self.btn_save_to_wishlist.setText(_translate("MainWindow", "SAVE CHANGES"))
         self.add_remove_label_2.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" font-size:14pt; font-weight:600;\">SEARCH REGISTRATION DETAILS</span></p></body></html>"))
         self.car_deatils_label_2.setText(_translate("MainWindow", "<html><head/><body><p><span style=\" font-size:12pt; font-weight:600;\">CAR DETAILS</span></p></body></html>"))
@@ -1818,14 +1802,18 @@ class Ui_MainWindow(object):
         self.logbook_number_label_2.setText(_translate("MainWindow", "<html><head/><body><p><span style=\" font-size:12pt;\">Registered Logbook Number :</span></p></body></html>"))
         self.engine_number_label_2.setText(_translate("MainWindow", "<html><head/><body><p><span style=\" font-size:12pt;\">Registration Engine Number :</span></p></body></html>"))
         self.chassis_number_label_3.setText(_translate("MainWindow", "<html><head/><body><p><span style=\" font-size:12pt;\">Registration Chassis Number :</span></p></body></html>"))
+        self.search_box.setPlaceholderText(_translate("MainWindow", "                                       Enter car plate number to search"))
+        self.btn_search.setToolTip(_translate("MainWindow", "click to search."))
         self.btn_search.setText(_translate("MainWindow", "search"))
         self.search_feedback.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><br/></p></body></html>"))
         self.label_12.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" font-size:12pt; font-weight:600;\">REMOVE VEHICLE FROM WATCHLIST</span></p></body></html>"))
         self.search_box_2.setPlaceholderText(_translate("MainWindow", "         Enter vehicle plate number to be removed from watchlist"))
+        self.btn_search_3.setToolTip(_translate("MainWindow", "click to remove vehicle from watchlist."))
         self.btn_search_3.setText(_translate("MainWindow", "Remove"))
-        self.bn_android_contact.setToolTip(_translate("MainWindow", "Contact"))
-        self.bn_android_game.setToolTip(_translate("MainWindow", "GamePad"))
-        self.bn_android_world.setToolTip(_translate("MainWindow", "World"))
+        self.bn_android_contact.setToolTip(_translate("MainWindow", "Click to see all users"))
+        self.bn_android_game.setToolTip(_translate("MainWindow", "Click to add new user"))
+        self.bn_android_world.setToolTip(_translate("MainWindow", "Click to update users"))
+        self.bn_android_contact_save.setToolTip(_translate("MainWindow", "Save user."))
         self.bn_android_contact_save.setText(_translate("MainWindow", "Save"))
         self.label_5.setText(_translate("MainWindow", "Staff Number :"))
         self.label_7.setText(_translate("MainWindow", "Email:"))
@@ -1835,17 +1823,20 @@ class Ui_MainWindow(object):
         self.label_8.setText(_translate("MainWindow", "Phone:"))
         self.label_10.setText(_translate("MainWindow", "<html><head/><body><p><span style=\" font-size:12pt;\">Password :</span></p></body></html>"))
         self.lab_android_contact_3.setText(_translate("MainWindow", "<html><head/><body><p><span style=\" font-size:14pt; font-weight:600;\">System users </span></p></body></html>"))
+        self.bn_android_contact_edit_3.setStatusTip(_translate("MainWindow", "Print users list to CSV."))
         self.bn_android_contact_edit_3.setText(_translate("MainWindow", "Print"))
+        self.bn_android_contact_edit_2.setStatusTip(_translate("MainWindow", "Update user"))
         self.bn_android_contact_edit_2.setText(_translate("MainWindow", "Update"))
+        self.bn_android_contact_delete_2.setToolTip(_translate("MainWindow", "Delete user."))
         self.bn_android_contact_delete_2.setText(_translate("MainWindow", "Delete"))
-        self.bn_android_contact_save_2.setText(_translate("MainWindow", "Save"))
         self.label_9.setText(_translate("MainWindow", "Staff Number :"))
         self.label_11.setText(_translate("MainWindow", "Email:"))
         self.lab_android_contact_2.setText(_translate("MainWindow", "<html><head/><body><p><span style=\" font-size:14pt; font-weight:600;\">Manage users </span></p></body></html>"))
         self.label_13.setText(_translate("MainWindow", "Name: "))
         self.label_14.setText(_translate("MainWindow", "Phone:"))
         self.label_15.setText(_translate("MainWindow", "<html><head/><body><p>Role :</p></body></html>"))
-        self.lineEdit_13.setPlaceholderText(_translate("MainWindow", "         Enter staff number /email"))
+        self.lineEdit_13.setPlaceholderText(_translate("MainWindow", "                               Enter staff number /email"))
+        self.btn_search_2.setToolTip(_translate("MainWindow", "Search user."))
         self.btn_search_2.setText(_translate("MainWindow", "Search user"))
         self.radioButton_5.setText(_translate("MainWindow", "Staff number"))
         self.radioButton_6.setText(_translate("MainWindow", "Email"))

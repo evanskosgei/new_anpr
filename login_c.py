@@ -105,9 +105,18 @@ class Ui_Form(object):
         self.pushButton.setFont(font)
         self.pushButton.setObjectName("pushButton")
         self.label_5 = QtWidgets.QLabel(self.widget)
-        self.label_5.setGeometry(QtCore.QRect(91, 358, 191, 21))
+        self.label_5.setGeometry(QtCore.QRect(81, 358, 201, 21))
+        font = QtGui.QFont()
+        font.setFamily("Arial")
+        font.setPointSize(8)
+        self.label_5.setFont(font)
         self.label_5.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
-        self.label_5.setStyleSheet("color:rgba(255, 255, 255, 140);")
+        self.label_5.setStyleSheet("QLabel{color:rgba(255, 255, 255, 140);}\n"
+"QLabel:hover{\n"
+"color:rgb(0, 85, 255);\n"
+"}\n"
+"")
+        self.label_5.setAlignment(QtCore.Qt.AlignCenter)
         self.label_5.setObjectName("label_5")
         self.pushButton_2 = QtWidgets.QPushButton(self.widget)
         self.pushButton_2.setGeometry(QtCore.QRect(150, 415, 71, 21))
@@ -129,7 +138,6 @@ class Ui_Form(object):
         self.label.setGraphicsEffect(QtWidgets.QGraphicsDropShadowEffect(blurRadius=25, xOffset=0, yOffset=0, color=QtGui.QColor(234, 221, 186, 100)))
         self.label_3.setGraphicsEffect(QtWidgets.QGraphicsDropShadowEffect(blurRadius=25, xOffset=0, yOffset=0, color=QtGui.QColor(105, 118, 132, 100)))
         self.pushButton.setGraphicsEffect(QtWidgets.QGraphicsDropShadowEffect(blurRadius=25, xOffset=3, yOffset=3, color=QtGui.QColor(105, 118, 132, 100)))
-
         self.retranslateUi(Form)
         QtCore.QMetaObject.connectSlotsByName(Form)
 
@@ -137,7 +145,7 @@ class Ui_Form(object):
         _translate = QtCore.QCoreApplication.translate
         Form.setWindowTitle(_translate("Form", "Form"))
         self.label_4.setText(_translate("Form", "Log In"))
-        self.lineEdit.setPlaceholderText(_translate("Form", "  User Name"))
+        self.lineEdit.setPlaceholderText(_translate("Form", "  Staff Number"))
         self.lineEdit_2.setPlaceholderText(_translate("Form", "  Password"))
         self.pushButton.setText(_translate("Form", "L o g  I n"))
         self.label_5.setText(_translate("Form", "Forgot your User Name or Password? "))
