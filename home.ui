@@ -197,108 +197,109 @@ QPushButton:pressed {
             <property name="frameShadow">
              <enum>QFrame::Plain</enum>
             </property>
-            <layout class="QHBoxLayout" name="horizontalLayout_10">
-             <property name="spacing">
-              <number>7</number>
-             </property>
-             <property name="leftMargin">
-              <number>0</number>
-             </property>
-             <property name="topMargin">
-              <number>0</number>
-             </property>
-             <property name="rightMargin">
-              <number>0</number>
-             </property>
-             <property name="bottomMargin">
-              <number>0</number>
-             </property>
-             <item>
-              <widget class="QLabel" name="lab_appname">
-               <property name="font">
-                <font>
-                 <family>Segoe UI Light</family>
-                 <pointsize>24</pointsize>
-                </font>
-               </property>
-               <property name="styleSheet">
-                <string notr="true">color:rgb(255,255,255);</string>
-               </property>
-               <property name="text">
-                <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-               </property>
-              </widget>
-             </item>
-            </layout>
-           </widget>
-          </item>
-          <item>
-           <widget class="QFrame" name="frame_user">
-            <property name="frameShape">
-             <enum>QFrame::NoFrame</enum>
-            </property>
-            <property name="frameShadow">
-             <enum>QFrame::Plain</enum>
-            </property>
-            <layout class="QHBoxLayout" name="horizontalLayout_8">
-             <item>
-              <widget class="QLabel" name="lab_user">
-               <property name="font">
-                <font>
-                 <family>Segoe UI Light</family>
-                 <pointsize>24</pointsize>
-                </font>
-               </property>
-               <property name="styleSheet">
-                <string notr="true">color:rgb(255,255,255);</string>
-               </property>
-               <property name="text">
-                <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:12pt; font-weight:600; color:#ffffff;&quot;&gt;User8455&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-               </property>
-               <property name="alignment">
-                <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-               </property>
-              </widget>
-             </item>
-            </layout>
-           </widget>
-          </item>
-          <item>
-           <widget class="QFrame" name="frame_person">
-            <property name="minimumSize">
-             <size>
-              <width>55</width>
-              <height>55</height>
-             </size>
-            </property>
-            <property name="maximumSize">
-             <size>
-              <width>55</width>
-              <height>55</height>
-             </size>
-            </property>
-            <property name="frameShape">
-             <enum>QFrame::NoFrame</enum>
-            </property>
-            <property name="frameShadow">
-             <enum>QFrame::Plain</enum>
-            </property>
-            <widget class="QPushButton" name="pushButton">
+            <widget class="QLabel" name="lab_appname">
              <property name="geometry">
               <rect>
                <x>0</x>
-               <y>16</y>
-               <width>55</width>
-               <height>31</height>
+               <y>0</y>
+               <width>278</width>
+               <height>55</height>
               </rect>
              </property>
+             <property name="font">
+              <font>
+               <family>Segoe UI Light</family>
+               <pointsize>24</pointsize>
+              </font>
+             </property>
              <property name="styleSheet">
-              <string notr="true">image: url(:/icons/icons/1x/peple.png);
-border:none;</string>
+              <string notr="true">color:rgb(255,255,255);</string>
              </property>
              <property name="text">
-              <string/>
+              <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
              </property>
+            </widget>
+            <widget class="QFrame" name="frame_person">
+             <property name="geometry">
+              <rect>
+               <x>50</x>
+               <y>0</y>
+               <width>55</width>
+               <height>55</height>
+              </rect>
+             </property>
+             <property name="minimumSize">
+              <size>
+               <width>55</width>
+               <height>55</height>
+              </size>
+             </property>
+             <property name="maximumSize">
+              <size>
+               <width>55</width>
+               <height>55</height>
+              </size>
+             </property>
+             <property name="frameShape">
+              <enum>QFrame::NoFrame</enum>
+             </property>
+             <property name="frameShadow">
+              <enum>QFrame::Plain</enum>
+             </property>
+             <widget class="QPushButton" name="pushButton">
+              <property name="geometry">
+               <rect>
+                <x>0</x>
+                <y>10</y>
+                <width>55</width>
+                <height>31</height>
+               </rect>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">image: url(:/icons/icons/1x/peple.png);
+border:none;</string>
+              </property>
+              <property name="text">
+               <string/>
+              </property>
+             </widget>
+            </widget>
+            <widget class="QFrame" name="frame_user">
+             <property name="geometry">
+              <rect>
+               <x>90</x>
+               <y>10</y>
+               <width>90</width>
+               <height>38</height>
+              </rect>
+             </property>
+             <property name="frameShape">
+              <enum>QFrame::NoFrame</enum>
+             </property>
+             <property name="frameShadow">
+              <enum>QFrame::Plain</enum>
+             </property>
+             <layout class="QGridLayout" name="gridLayout_2">
+              <item row="0" column="0">
+               <widget class="QLabel" name="lab_user">
+                <property name="font">
+                 <font>
+                  <family>Arial</family>
+                  <pointsize>12</pointsize>
+                 </font>
+                </property>
+                <property name="styleSheet">
+                 <string notr="true">color:rgb(255,255,255);</string>
+                </property>
+                <property name="text">
+                 <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:12pt; font-weight:600; color:#ffffff;&quot;&gt;User8455&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                </property>
+                <property name="alignment">
+                 <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+                </property>
+               </widget>
+              </item>
+             </layout>
             </widget>
            </widget>
           </item>
@@ -872,6 +873,102 @@ QPushButton:pressed {
               <property name="styleSheet">
                <string notr="true">QPushButton {
 	image: url(:/icons/icons/1x/logs.png);
+	border: none;
+	background-color: rgba(0,0,0,0);
+}
+QPushButton:hover {
+	background-color:#2c5364;
+}
+QPushButton:pressed {	
+	background-color: rgba(0,0,0,0);
+}</string>
+              </property>
+              <property name="text">
+               <string/>
+              </property>
+              <property name="icon">
+               <iconset>
+                <normaloff>../../../Users/kiongoss/.designer/FinalYearProject/src/icons/1x/cloudAsset 48.png</normaloff>../../../Users/kiongoss/.designer/FinalYearProject/src/icons/1x/cloudAsset 48.png</iconset>
+              </property>
+              <property name="iconSize">
+               <size>
+                <width>22</width>
+                <height>12</height>
+               </size>
+              </property>
+              <property name="flat">
+               <bool>true</bool>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </widget>
+          <widget class="QFrame" name="frame_logout">
+           <property name="geometry">
+            <rect>
+             <x>0</x>
+             <y>120</y>
+             <width>80</width>
+             <height>55</height>
+            </rect>
+           </property>
+           <property name="minimumSize">
+            <size>
+             <width>80</width>
+             <height>55</height>
+            </size>
+           </property>
+           <property name="maximumSize">
+            <size>
+             <width>160</width>
+             <height>55</height>
+            </size>
+           </property>
+           <property name="frameShape">
+            <enum>QFrame::NoFrame</enum>
+           </property>
+           <property name="frameShadow">
+            <enum>QFrame::Plain</enum>
+           </property>
+           <layout class="QHBoxLayout" name="horizontalLayout_19">
+            <property name="spacing">
+             <number>0</number>
+            </property>
+            <property name="leftMargin">
+             <number>0</number>
+            </property>
+            <property name="topMargin">
+             <number>0</number>
+            </property>
+            <property name="rightMargin">
+             <number>0</number>
+            </property>
+            <property name="bottomMargin">
+             <number>0</number>
+            </property>
+            <item>
+             <widget class="QPushButton" name="bn_logout">
+              <property name="minimumSize">
+               <size>
+                <width>80</width>
+                <height>55</height>
+               </size>
+              </property>
+              <property name="maximumSize">
+               <size>
+                <width>160</width>
+                <height>55</height>
+               </size>
+              </property>
+              <property name="cursor">
+               <cursorShape>PointingHandCursor</cursorShape>
+              </property>
+              <property name="toolTip">
+               <string>system history</string>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">QPushButton {
+	image: url(:/icons/icons/1x/logout.png);
 	border: none;
 	background-color: rgba(0,0,0,0);
 }

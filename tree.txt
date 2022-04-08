@@ -54,3 +54,9 @@ BH496YR
    'updated_at': '2022-04-03T10:52:56.000000Z'}]
 
    ONLY 32x32 icons
+
+self.lab_tab.setText("Vehicle not found!")
+self.lab_tab.setStyleSheet("color: red")
+timer = QTimer(self)
+timer.timeout.connect(self.clear_label)
+timer.start(10000)
