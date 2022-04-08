@@ -1799,7 +1799,7 @@ class Ui_MainWindow(object):
         self.bn_bug.setToolTip(_translate("MainWindow", "Search in registered vehicles database."))
         self.bn_android.setToolTip(_translate("MainWindow", "manage users"))
         self.bn_cloud.setToolTip(_translate("MainWindow", "system history"))
-        self.bn_logout.setToolTip(_translate("MainWindow", "system history"))
+        self.bn_logout.setToolTip(_translate("MainWindow", "Log out"))
         self.bn_dw.setToolTip(_translate("MainWindow", "Remove vehicle from watchlist"))
         self.bn_dashb.setToolTip(_translate("MainWindow", "Dashboard"))
         self.bn_home.setToolTip(_translate("MainWindow", "add vehicle to watchlist"))
