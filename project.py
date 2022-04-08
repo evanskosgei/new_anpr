@@ -1,3 +1,4 @@
+from distutils.log import error
 from unittest import result
 import home_c as dashboard
 import login_c as auth
@@ -364,7 +365,7 @@ class Home(dashboard.Ui_MainWindow, QMainWindow):
         setattr(self, newtEdit, self.frame_3)
         self.gridLayout_12.addWidget(
             self.frame_3, rowNumber, columnNumber, 1, 1)
-        # print('widgets created')
+    # print('widgets created')
     # adding car details to carDetails table
     def addCarDetails(self):
         regPlate = self.reg_plate_input.text()
@@ -378,6 +379,13 @@ class Home(dashboard.Ui_MainWindow, QMainWindow):
         engineNo = self.engine_number_input.text()
         chasisNo = self.chassis_number_label_2.text()
         watchlist = 1
+        #searching for an existing car in the database
+        try:
+            cursor = conn.cursor()
+            cursor.execute("SELECT reg_plate FROM carDetails WHERE reg_plate = ?", (regPlate,))
+            indata = cursor.fetchall()
+        except Error as e:
+            warning_message_box(e)
         # saving data to database
         if regPlate == "" or owner == "" or vehicleMake == "" or modelYear == "" or engineCapacity == "" or bodyType == "" or color == "" or logBookNo == "" or engineNo == "" or chasisNo == "":
             e = "please fill all the fields"
@@ -388,9 +396,9 @@ class Home(dashboard.Ui_MainWindow, QMainWindow):
         elif regPlate.isalnum() == False:
             e = "Registration Plate number must be alphanumeric"
             warning_message_box(e)
-        # elif not "0" or "1" or "2" or "3" or "4" or "5" or "6" or "7" or "8" or "9" in regPlate:
-        #     e = "Registration Plate number must contain numbers"
-        #     warning_message_box(e)
+        elif indata != []:
+            e = "Car already exists in the database"
+            warning_message_box(e)
         else:
             try:
                 cursor = conn.cursor()
@@ -428,10 +436,19 @@ class Home(dashboard.Ui_MainWindow, QMainWindow):
         confirm_password = self.lineEdit_4.text()
         email = self.lineEdit_5.text()
         phone = self.lineEdit_6.text()
-        role = 0
-
+        role = 0 
+        #selecting users from db
+        try:
+            cursor = conn.cursor()
+            cursor.execute("SELECT staffno, email FROM users WHERE staffno = ? OR email = ?", (staffno, email))
+            indata = cursor.fetchall()
+        except error as e:
+            print(e)       
         if name == "" or staffno == "" or password == "" or confirm_password == "" or email == "" or phone == "":
             e = "please fill all the fields"
+            warning_message_box(e)
+        elif indata != []:
+            e = "Staff number or email already exists"
             warning_message_box(e)
         elif password != confirm_password:
             e = "password does not match"
@@ -758,6 +775,6 @@ def areYouSure(a):
 if __name__ == "__main__":
     app = QApplication(sys.argv)
     app.setQuitOnLastWindowClosed(False)
-    mw = Project()
+    mw = Home()
     mw.show()
     sys.exit(app.exec())
