@@ -200,20 +200,33 @@ padding-bottom:7px;</string>
    <widget class="QLabel" name="label_5">
     <property name="geometry">
      <rect>
-      <x>91</x>
+      <x>81</x>
       <y>358</y>
-      <width>191</width>
+      <width>201</width>
       <height>21</height>
      </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Arial</family>
+      <pointsize>8</pointsize>
+     </font>
     </property>
     <property name="cursor">
      <cursorShape>PointingHandCursor</cursorShape>
     </property>
     <property name="styleSheet">
-     <string notr="true">color:rgba(255, 255, 255, 140);</string>
+     <string notr="true">QLabel{color:rgba(255, 255, 255, 140);}
+QLabel:hover{
+color:rgb(0, 85, 255);
+}
+</string>
     </property>
     <property name="text">
      <string>Forgot your User Name or Password? </string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
     </property>
    </widget>
    <widget class="QPushButton" name="pushButton_2">

@@ -105,9 +105,18 @@ class Ui_Form(object):
         self.pushButton.setFont(font)
         self.pushButton.setObjectName("pushButton")
         self.label_5 = QtWidgets.QLabel(self.widget)
-        self.label_5.setGeometry(QtCore.QRect(91, 358, 191, 21))
+        self.label_5.setGeometry(QtCore.QRect(81, 358, 201, 21))
+        font = QtGui.QFont()
+        font.setFamily("Arial")
+        font.setPointSize(8)
+        self.label_5.setFont(font)
         self.label_5.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
-        self.label_5.setStyleSheet("color:rgba(255, 255, 255, 140);")
+        self.label_5.setStyleSheet("QLabel{color:rgba(255, 255, 255, 140);}\n"
+"QLabel:hover{\n"
+"color:rgb(0, 85, 255);\n"
+"}\n"
+"")
+        self.label_5.setAlignment(QtCore.Qt.AlignCenter)
         self.label_5.setObjectName("label_5")
         self.pushButton_2 = QtWidgets.QPushButton(self.widget)
         self.pushButton_2.setGeometry(QtCore.QRect(150, 415, 71, 21))
