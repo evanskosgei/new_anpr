@@ -368,7 +368,7 @@ class Home(dashboard.Ui_MainWindow, QMainWindow):
     # print('widgets created')
     # adding car details to carDetails table
     def addCarDetails(self):
-        regPlate = self.reg_plate_input.text()
+        regPlate = self.reg_plate_input.text().upper()
         owner = self.owner_input.text()
         vehicleMake = self.vehicle_make_input.text()
         modelYear = self.year_of_man_input.text()
@@ -716,7 +716,7 @@ class Home(dashboard.Ui_MainWindow, QMainWindow):
         
     #Remove from watchlist
     def removeWatchlist(self):
-        plateno = self.search_box_2.text()
+        plateno = self.search_box_2.text().upper()
         watchlist = 0
         if plateno == "":
             e = "Fill the empty space"
@@ -775,6 +775,6 @@ def areYouSure(a):
 if __name__ == "__main__":
     app = QApplication(sys.argv)
     app.setQuitOnLastWindowClosed(False)
-    mw = Home()
+    mw = Project()
     mw.show()
     sys.exit(app.exec())
