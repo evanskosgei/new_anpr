@@ -1,5 +1,6 @@
 from distutils.log import error
 from unittest import result
+from urllib.parse import uses_relative
 import home_c as dashboard
 import login_c as auth
 import bcrypt
@@ -13,8 +14,6 @@ from PyQt5.QtCore import QSize, QTimer
 from PyQt5.QtWidgets import *
 from turtle import color
 import csv
-
-# file imports
 import smtplib
 import ssl
 from email.mime.text import MIMEText
@@ -60,6 +59,8 @@ class Project(auth.Ui_Form, QMainWindow):
         if staffno == "" or data == "":
             print('Please enter your staff number and password')
         else:
+            global usr
+            usr = staffno
             try:
                 cursor = conn.cursor()
                 cursor.execute(
@@ -75,6 +76,7 @@ class Project(auth.Ui_Form, QMainWindow):
                     if bcrypt.checkpw(data.encode('utf-8'), password):
                         if role == 1:
                             w = Home()
+                            w.lab_user.setText(usr)
                             w.show()
                             self.hide()
                         else:
@@ -102,6 +104,7 @@ class Home(dashboard.Ui_MainWindow, QMainWindow):
             print(e)
 
         # connect buttons
+        self.bn_logout.clicked.connect(self.logout)
         self.bn_close.clicked.connect(self.c)
         self.btn_search.clicked.connect(self.searchVehicle)
         self.bn_min.clicked.connect(self.closeEvent)
@@ -190,14 +193,28 @@ class Home(dashboard.Ui_MainWindow, QMainWindow):
         tray_menu.addAction(quit_action)
         self.tray_icon.setContextMenu(tray_menu)
         self.tray_icon.show()
+    
+    def showT(self, textdata):
+        self.tray_icon.showMessage(
+            "ANPR",
+            textdata,
+            QSystemTrayIcon.Information,
+            2000
+        )
+
+    def logout(self):
+        self.hide()
+        self.tray_icon.hide()
+        self.login = Project()
+        self.login.show()
+        self.showT("Logged out successfully")
+        
 
     def mxmn(self):
         if self.isMaximized():
             self.showNormal()
         else:
             self.showMaximized()
-    # Override closeEvent, to intercept the window closing event
-    # The window will be closed only if there is no check mark in the check box
 
     def closeEvent(self):
         self.hide()
@@ -211,71 +228,80 @@ class Home(dashboard.Ui_MainWindow, QMainWindow):
     def searchVehicle(self):
         plate = self.search_box.text()
         # print(plate)
-        import requests
+        if (plate == ""):
+            e = "Please enter a registration plate"
+            warning_message_box(e)
+        else:
+            import requests
 
-        try:
-            res = requests.get("http://localhost:8000/api/vehicle/"+plate)
-            if (res.json() == 'error'):
+            try:
+                res = requests.get("http://localhost:8000/api/vehicle/"+plate)
+                if (res.json() == 'error'):
+                    self.tray_icon.showMessage(
+                        "ANPR",
+                        "The vehicle plate doesn't exist in registered vehicles database.",
+                        QSystemTrayIcon.Information,
+                        2000
+                    )
+                    self.lab_tab.setText("Vehicle not found!")
+                    self.lab_tab.setStyleSheet("color: red")
+                    timer = QTimer(self)
+                    timer.timeout.connect(self.clear_label)
+                    timer.start(10000)
+
+                else:
+                    response = res.json()
+                    result = response[0]
+                    self.tray_icon.showMessage(
+                        "ANPR",
+                        "Vehicle Details Found.",
+                        QSystemTrayIcon.Information,
+                        2000
+                    )
+                    self.lab_tab.setText("Vehicle registration details found!")
+                    self.lab_tab.setStyleSheet("color: green")
+                    timer = QTimer(self)
+                    timer.timeout.connect(self.clear_label)
+                    timer.start(10000)
+                    # get values from json response
+                    try:
+                        registration_number = result['registration_number']
+                        owner = result['owner']
+                        vehicle_make = result['vehicle_make']
+                        year_of_manufacture = result['year_of_manufacture']
+                        engine_capacity = result['engine_capacity']
+                        body_type = result['body_type']
+                        color = result['color']
+                        logbook_number = result['logbook_number']
+                        engine_number = result['engine_number']
+                        chassis_number = result['chassis_number']
+
+                    except:
+                        print("nop")
+                    # set to lineEdit
+                    self.reg_plate_input_2.setText(registration_number)
+                    self.owner_input_2.setText(owner)
+                    self.vehicle_make_input_2.setText(vehicle_make)
+                    self.year_of_man_input_2.setText(year_of_manufacture)
+                    self.engine_capacity_input_2.setText(engine_capacity)
+                    self.body_type_input_2 .setText(body_type)
+                    self.color_input_2.setText(color)
+                    self.logbook_number_input_2.setText(logbook_number)
+                    self.engine_number_input_2.setText(engine_number)
+                    self.chassis_number_label_4.setText(chassis_number)
+            except Exception as e:
                 self.tray_icon.showMessage(
-                    "ANPR",
-                    "The vehicle plate doesn't exist in registered vehicles database.",
+                    "Tray Program",
+                    "Network Error!",
                     QSystemTrayIcon.Information,
                     2000
                 )
-                self.lab_tab.setText("Vehicle not found!")
+                self.lab_tab.setText("Network Error!")
                 self.lab_tab.setStyleSheet("color: red")
                 timer = QTimer(self)
                 timer.timeout.connect(self.clear_label)
                 timer.start(10000)
-
-            else:
-                response = res.json()
-                result = response[0]
-                self.tray_icon.showMessage(
-                    "ANPR",
-                    "Vehicle Details Found.",
-                    QSystemTrayIcon.Information,
-                    2000
-                )
-                self.lab_tab.setText("Vehicle registration details found!")
-                self.lab_tab.setStyleSheet("color: green")
-                timer = QTimer(self)
-                timer.timeout.connect(self.clear_label)
-                timer.start(10000)
-                # get values from json response
-                try:
-                    registration_number = result['registration_number']
-                    owner = result['owner']
-                    vehicle_make = result['vehicle_make']
-                    year_of_manufacture = result['year_of_manufacture']
-                    engine_capacity = result['engine_capacity']
-                    body_type = result['body_type']
-                    color = result['color']
-                    logbook_number = result['logbook_number']
-                    engine_number = result['engine_number']
-                    chassis_number = result['chassis_number']
-
-                except:
-                    print("nop")
-                # set to lineEdit
-                self.reg_plate_input_2.setText(registration_number)
-                self.owner_input_2.setText(owner)
-                self.vehicle_make_input_2.setText(vehicle_make)
-                self.year_of_man_input_2.setText(year_of_manufacture)
-                self.engine_capacity_input_2.setText(engine_capacity)
-                self.body_type_input_2 .setText(body_type)
-                self.color_input_2.setText(color)
-                self.logbook_number_input_2.setText(logbook_number)
-                self.engine_number_input_2.setText(engine_number)
-                self.chassis_number_label_4.setText(chassis_number)
-        except Exception as e:
-            self.tray_icon.showMessage(
-                "Tray Program",
-                "Network Error!",
-                QSystemTrayIcon.Information,
-                2000
-            )
-            print(e)
+                print(e)
 
     def c(self):
         self.hide()
@@ -749,7 +775,7 @@ def warning_message_box(e):
     msg = QMessageBox()
     msg.setIcon(QMessageBox.Warning)
     msg.setText(e)
-    msg.setWindowTitle("Error!")
+    msg.setWindowTitle("Warning!")
     msg.setStandardButtons(QMessageBox.Ok)
     msg.exec_()
 
