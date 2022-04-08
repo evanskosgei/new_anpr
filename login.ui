@@ -146,7 +146,7 @@ color:rgba(255, 255, 255, 230);
 padding-bottom:7px;</string>
     </property>
     <property name="placeholderText">
-     <string>  User Name</string>
+     <string>  Staff Number</string>
     </property>
    </widget>
    <widget class="QLineEdit" name="lineEdit_2">

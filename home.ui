@@ -119,6 +119,9 @@
               <height>55</height>
              </size>
             </property>
+            <property name="cursor">
+             <cursorShape>PointingHandCursor</cursorShape>
+            </property>
             <property name="styleSheet">
              <string notr="true">QPushButton {
 	image: url(:/icons/icons/1x/logo.png);
@@ -290,7 +293,8 @@ QPushButton:pressed {
               </rect>
              </property>
              <property name="styleSheet">
-              <string notr="true">image: url(:/icons/icons/1x/peple.png);</string>
+              <string notr="true">image: url(:/icons/icons/1x/peple.png);
+border:none;</string>
              </property>
              <property name="text">
               <string/>
@@ -651,8 +655,11 @@ QPushButton:pressed {
                <height>55</height>
               </size>
              </property>
+             <property name="cursor">
+              <cursorShape>PointingHandCursor</cursorShape>
+             </property>
              <property name="toolTip">
-              <string>Bug</string>
+              <string>Search in registered vehicles database.</string>
              </property>
              <property name="styleSheet">
               <string notr="true">QPushButton {
@@ -759,8 +766,11 @@ QPushButton:pressed {
                 <height>55</height>
                </size>
               </property>
+              <property name="cursor">
+               <cursorShape>PointingHandCursor</cursorShape>
+              </property>
               <property name="toolTip">
-               <string>Android</string>
+               <string>manage users</string>
               </property>
               <property name="styleSheet">
                <string notr="true">QPushButton {
@@ -853,8 +863,11 @@ QPushButton:pressed {
                 <height>55</height>
                </size>
               </property>
+              <property name="cursor">
+               <cursorShape>PointingHandCursor</cursorShape>
+              </property>
               <property name="toolTip">
-               <string>Cloud</string>
+               <string>system history</string>
               </property>
               <property name="styleSheet">
                <string notr="true">QPushButton {
@@ -947,8 +960,11 @@ QPushButton:pressed {
                <height>55</height>
               </size>
              </property>
+             <property name="cursor">
+              <cursorShape>PointingHandCursor</cursorShape>
+             </property>
              <property name="toolTip">
-              <string>Android</string>
+              <string>Remove vehicle from watchlist</string>
              </property>
              <property name="styleSheet">
               <string notr="true">QPushButton {
@@ -1041,8 +1057,11 @@ QPushButton:pressed {
                <height>55</height>
               </size>
              </property>
+             <property name="cursor">
+              <cursorShape>PointingHandCursor</cursorShape>
+             </property>
              <property name="toolTip">
-              <string>Home</string>
+              <string>Dashboard</string>
              </property>
              <property name="styleSheet">
               <string notr="true">QPushButton {
@@ -1125,8 +1144,11 @@ QPushButton:pressed {
              <height>55</height>
             </size>
            </property>
+           <property name="cursor">
+            <cursorShape>PointingHandCursor</cursorShape>
+           </property>
            <property name="toolTip">
-            <string>Home</string>
+            <string>add vehicle to watchlist</string>
            </property>
            <property name="styleSheet">
             <string notr="true">QPushButton {
@@ -1509,6 +1531,9 @@ QRadioButton::indicator:unchecked {
                      <property name="cursor">
                       <cursorShape>PointingHandCursor</cursorShape>
                      </property>
+                     <property name="toolTip">
+                      <string>add to watchlist</string>
+                     </property>
                      <property name="styleSheet">
                       <string notr="true">QPushButton {
 	border: 2px solid rgb(51,51,51);
@@ -1568,6 +1593,9 @@ QPushButton:disabled {
                     </property>
                     <property name="styleSheet">
                      <string notr="true"/>
+                    </property>
+                    <property name="inputMethodHints">
+                     <set>Qt::ImhUppercaseOnly</set>
                     </property>
                     <property name="clearButtonEnabled">
                      <bool>true</bool>
@@ -2529,6 +2557,9 @@ QLineEdit:disabled {
  background:#0f2027;
 }</string>
                     </property>
+                    <property name="placeholderText">
+                     <string>                                       Enter car plate number to search</string>
+                    </property>
                     <property name="clearButtonEnabled">
                      <bool>true</bool>
                     </property>
@@ -2562,6 +2593,9 @@ QLineEdit:disabled {
                     </property>
                     <property name="cursor">
                      <cursorShape>PointingHandCursor</cursorShape>
+                    </property>
+                    <property name="toolTip">
+                     <string>click to search.</string>
                     </property>
                     <property name="styleSheet">
                      <string notr="true">QPushButton {
@@ -2747,6 +2781,9 @@ QLineEdit:disabled {
                     <property name="cursor">
                      <cursorShape>PointingHandCursor</cursorShape>
                     </property>
+                    <property name="toolTip">
+                     <string>click to remove vehicle from watchlist.</string>
+                    </property>
                     <property name="styleSheet">
                      <string notr="true">QPushButton {
 	border: 2px solid rgb(51,51,51);
@@ -2891,7 +2928,7 @@ QPushButton:disabled {
                           <cursorShape>PointingHandCursor</cursorShape>
                          </property>
                          <property name="toolTip">
-                          <string>Contact</string>
+                          <string>Click to see all users</string>
                          </property>
                          <property name="styleSheet">
                           <string notr="true">QPushButton {
@@ -2981,7 +3018,7 @@ QPushButton:pressed {
                           <cursorShape>PointingHandCursor</cursorShape>
                          </property>
                          <property name="toolTip">
-                          <string>GamePad</string>
+                          <string>Click to add new user</string>
                          </property>
                          <property name="styleSheet">
                           <string notr="true">QPushButton {
@@ -3071,7 +3108,7 @@ QPushButton:pressed {
                           <cursorShape>PointingHandCursor</cursorShape>
                          </property>
                          <property name="toolTip">
-                          <string>World</string>
+                          <string>Click to update users</string>
                          </property>
                          <property name="styleSheet">
                           <string notr="true">QPushButton {
@@ -3241,6 +3278,9 @@ QLabel:hover{
                         </property>
                         <property name="cursor">
                          <cursorShape>PointingHandCursor</cursorShape>
+                        </property>
+                        <property name="toolTip">
+                         <string>Save user.</string>
                         </property>
                         <property name="styleSheet">
                          <string notr="true">QPushButton {
@@ -3643,6 +3683,9 @@ color: rgb(255, 255, 240);</string>
                        <property name="cursor">
                         <cursorShape>PointingHandCursor</cursorShape>
                        </property>
+                       <property name="statusTip">
+                        <string>Print users list to CSV.</string>
+                       </property>
                        <property name="styleSheet">
                         <string notr="true">QPushButton {
 	border: 2px solid rgb(51,51,51);
@@ -3786,6 +3829,9 @@ QRadioButton::indicator:unchecked {
                         <property name="cursor">
                          <cursorShape>PointingHandCursor</cursorShape>
                         </property>
+                        <property name="statusTip">
+                         <string>Update user</string>
+                        </property>
                         <property name="styleSheet">
                          <string notr="true">QPushButton {
 	border: 2px solid rgb(51,51,51);
@@ -3842,6 +3888,9 @@ QPushButton:disabled {
                         <property name="cursor">
                          <cursorShape>PointingHandCursor</cursorShape>
                         </property>
+                        <property name="toolTip">
+                         <string>Delete user.</string>
+                        </property>
                         <property name="styleSheet">
                          <string notr="true">QPushButton {
 	border: 2px solid rgb(51,51,51);
@@ -3866,65 +3915,6 @@ QPushButton:disabled {
                         </property>
                         <property name="text">
                          <string>Delete</string>
-                        </property>
-                       </widget>
-                       <widget class="QPushButton" name="bn_android_contact_save_2">
-                        <property name="enabled">
-                         <bool>false</bool>
-                        </property>
-                        <property name="geometry">
-                         <rect>
-                          <x>490</x>
-                          <y>330</y>
-                          <width>69</width>
-                          <height>25</height>
-                         </rect>
-                        </property>
-                        <property name="minimumSize">
-                         <size>
-                          <width>69</width>
-                          <height>25</height>
-                         </size>
-                        </property>
-                        <property name="maximumSize">
-                         <size>
-                          <width>69</width>
-                          <height>25</height>
-                         </size>
-                        </property>
-                        <property name="font">
-                         <font>
-                          <family>Segoe UI</family>
-                          <pointsize>12</pointsize>
-                         </font>
-                        </property>
-                        <property name="cursor">
-                         <cursorShape>PointingHandCursor</cursorShape>
-                        </property>
-                        <property name="styleSheet">
-                         <string notr="true">QPushButton {
-	border: 2px solid rgb(51,51,51);
-	border-radius: 5px;	
-	color:rgb(255,255,255);
-	background-color: rgb(51,51,51);
-}
-QPushButton:hover {
-	border: 2px solid rgb(0,143,150);
-	background-color: rgb(0,143,150);
-}
-QPushButton:pressed {	
-	border: 2px solid rgb(0,143,150);
-	background-color: rgb(51,51,51);
-}
-
-QPushButton:disabled {	
-	border-radius: 5px;	
-	border: 2px solid rgb(112,112,112);
-	background-color: rgb(112,112,112);
-}</string>
-                        </property>
-                        <property name="text">
-                         <string>Save</string>
                         </property>
                        </widget>
                        <widget class="QLabel" name="label_9">
@@ -4205,7 +4195,7 @@ border: 1px solid #0f2027;
                          <rect>
                           <x>90</x>
                           <y>60</y>
-                          <width>441</width>
+                          <width>521</width>
                           <height>41</height>
                          </rect>
                         </property>
@@ -4215,8 +4205,14 @@ border: 1px solid #0f2027;
                           <height>25</height>
                          </size>
                         </property>
+                        <property name="font">
+                         <font>
+                          <family>Arial</family>
+                          <pointsize>12</pointsize>
+                         </font>
+                        </property>
                         <property name="placeholderText">
-                         <string>         Enter staff number /email</string>
+                         <string>                               Enter staff number /email</string>
                         </property>
                         <property name="clearButtonEnabled">
                          <bool>true</bool>
@@ -4251,6 +4247,9 @@ border: 1px solid #0f2027;
                         </property>
                         <property name="cursor">
                          <cursorShape>PointingHandCursor</cursorShape>
+                        </property>
+                        <property name="toolTip">
+                         <string>Search user.</string>
                         </property>
                         <property name="styleSheet">
                          <string notr="true">QPushButton {
