@@ -1473,6 +1473,12 @@ background-color: qlineargradient(spread:pad, x1:0.98, y1:0.471364, x2:1, y2:0.4
                           <height>21</height>
                          </rect>
                         </property>
+                        <property name="font">
+                         <font>
+                          <family>Arial</family>
+                          <pointsize>10</pointsize>
+                         </font>
+                        </property>
                         <property name="text">
                          <string>Brightness Level</string>
                         </property>
