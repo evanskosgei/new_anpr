@@ -21,8 +21,7 @@ import smtplib
 import ssl
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
-import iconify as ico
-from iconify.qt import QtGui, QtWidgets
+import random
 
 # DB connection
 conn = None
@@ -49,6 +48,7 @@ class Project(auth.Ui_Form, QMainWindow):
         # connect buttons
         self.pushButton.clicked.connect(self.auth)
         self.pushButton_2.clicked.connect(lambda: self.close())
+        self.label_5.mousePressEvent = self.reset_password
 
     def auth(self):
         staffno = self.lineEdit.text()
@@ -92,6 +92,82 @@ class Project(auth.Ui_Form, QMainWindow):
                         warning_message_box(e)
             except Error as e:
                 print(e)
+                
+    # reset password
+    def reset_password(self, event):
+        staffno = self.lineEdit.text()
+        if staffno == "":
+            e = "Please enter your staff number"
+            warning_message_box(e)
+        else:
+            try:
+                cursor = conn.cursor()
+                cursor.execute(
+                    "SELECT email, username FROM users WHERE staffno = ?", (staffno,))
+                result = cursor.fetchall()
+                if result == []:
+                    e = 'Staff number not found'
+                    warning_message_box(e)
+                else:
+                    for row in result:
+                        email = row[0]
+                        name = row[1]
+                    #generate random password
+                    global passcode
+                    code = random.randint(10000, 999999)
+                    passcode = name + str(code)
+                    #hashing passcode
+                    passcode = passcode.encode('utf-8')
+                    # generate salt
+                    salt = bcrypt.gensalt()
+                    # hash password
+                    password = bcrypt.hashpw(passcode, salt)
+                    # update password
+                    try:
+                        cursor = conn.cursor()
+                        cursor.execute(
+                            "UPDATE users SET password = ? WHERE staffno = ?", (password, staffno))
+                        conn.commit()
+                        
+                        self.sendNewPassword(email, str(passcode))
+                        s = "Your password has been reset."
+                        success_message_box(s)
+                    except Error as e:
+                        warning_message_box(e)
+            except Error as e:
+                print(e)
+                
+    # mail sending
+    def sendNewPassword(self, receiver_email, code):
+        sender_email = "tyc95182@gmail.com"
+        password = "qibtswffxbjcalpu"
+
+        message = MIMEMultipart("alternative")
+        # message = "Welcome Home"
+        message["Subject"] = "multipart test"
+        message["From"] = sender_email
+        message["To"] = receiver_email
+        
+        data = (code.replace(code[0], ''))
+        finale = (data.replace(data[0], ''))
+        # Create the plain-text and HTML version of your message
+        text = """\Your new password is: """ + finale
+
+        # Turn these into plain/html MIMEText objects
+        part1 = MIMEText(text, "plain")
+
+        # Add HTML/plain-text parts to MIMEMultipart message
+        # The email client will try to render the last part first
+        message.attach(part1)
+
+        # Create secure connection with server and send email
+        context = ssl.create_default_context()
+        with smtplib.SMTP_SSL("smtp.gmail.com", 465, context=context) as server:
+            server.login(sender_email, password)
+            server.sendmail(
+                sender_email, receiver_email, message.as_string()
+            )
+        
 
 class Home(dashboard.Ui_MainWindow, QMainWindow):
     def __init__(self):
@@ -451,7 +527,7 @@ class Home(dashboard.Ui_MainWindow, QMainWindow):
     # print('widgets created')
     # adding car details to carDetails table
     def addCarDetails(self):
-        regPlate = self.reg_plate_input.text()
+        regPlate = self.reg_plate_input.text().upper()
         owner = self.owner_input.text()
         vehicleMake = self.vehicle_make_input.text()
         modelYear = self.year_of_man_input.text()
@@ -799,7 +875,7 @@ class Home(dashboard.Ui_MainWindow, QMainWindow):
         
     #Remove from watchlist
     def removeWatchlist(self):
-        plateno = self.search_box_2.text()
+        plateno = self.search_box_2.text().upper()
         watchlist = 0
         if plateno == "":
             e = "Fill the empty space"
