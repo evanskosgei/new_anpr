@@ -296,7 +296,7 @@ class Home(dashboard.Ui_MainWindow, QMainWindow):
 
         
     def setIc(self, icn, text, lab_tab_txt, lab_tab_color, lab_tab_timing):
-        self.err_ic.setText('<img src="'+icn+'" width="200" height="200">')
+        self.err_ic.setText('<img src="'+icn+'" width="250" height="200">')
         self.err_lb.setText(text)
         self.lab_tab.setText(lab_tab_txt)
         self.lab_tab.setStyleSheet("color:" + lab_tab_color)
@@ -416,7 +416,7 @@ class Home(dashboard.Ui_MainWindow, QMainWindow):
                     2000
                 )
                 self.stackedWidget.setCurrentWidget(self.status_page)
-                self.setIc('./sicon/net_error.png', 'ERROR!', "Network Error!", 'red', 10000)
+                self.setIc('./sicon/net_error.png', 'NETWORK ERROR!', "Network Error!", 'red', 10000)
 
     def c(self):
         self.hide()
@@ -469,7 +469,6 @@ class Home(dashboard.Ui_MainWindow, QMainWindow):
 
     def camFrame(self, rNumber, cNumber):
         cFrame = "camframe" + "_" + str(rNumber)
-        print(cFrame)
         self.cam_frame = QFrame(self.scrollAreaWidgetContents)
         self.cam_frame.setGeometry(QRect(10, 10, 291, 121))
         self.cam_frame.setMinimumSize(QSize(275, 100))
@@ -482,7 +481,6 @@ class Home(dashboard.Ui_MainWindow, QMainWindow):
         # self.verticalLayout.addWidget(self.cam_frame)
         # self.gridLayout_11.addWidget(self.frame_3, 0, 0, 1, 1)
         self.gridLayout_6.addWidget(self.cam_frame, rNumber, cNumber, 1, 1)
-        print("am here")
 
     def createNewWidgets(self, rowNumber, columnNumber):
         # create new unique names for each widget
