@@ -1,6 +1,9 @@
 from distutils.log import error
 from unittest import result
 from urllib.parse import uses_relative
+from datetime import date
+import calendar
+import cffi
 import home_c as dashboard
 import login_c as auth
 import bcrypt
@@ -18,6 +21,8 @@ import smtplib
 import ssl
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
+import iconify as ico
+from iconify.qt import QtGui, QtWidgets
 
 # DB connection
 conn = None
@@ -170,6 +175,23 @@ class Home(dashboard.Ui_MainWindow, QMainWindow):
         self.bn_android_contact_edit_3.clicked.connect(self.printUsers)
         #Removing from watchlist
         self.btn_search_3.clicked.connect(self.removeWatchlist)
+        #
+        global cf
+        cf = 0
+        #1 row
+        for x in range(0, 11):
+            # 1 columns
+            for y in range(0, 1):
+                self.camFrame(x, y)
+            cf+=1
+        
+        timer = QTimer(self)
+        timer.timeout.connect(self.displayTime)
+        timer.start(1000)
+
+        curr_date = date.today()
+        self.day_label.setText(calendar.day_name[curr_date.weekday()])
+        self.date_label.setText(curr_date.strftime("%d %b %Y"))
         # Init QSystemTrayIcon
         # self.tray_icon = QSystemTrayIcon(self)
         # self.tray_icon.setIcon(
@@ -193,7 +215,19 @@ class Home(dashboard.Ui_MainWindow, QMainWindow):
         tray_menu.addAction(quit_action)
         self.tray_icon.setContextMenu(tray_menu)
         self.tray_icon.show()
-    
+        #
+        # self.setIc('./sicon/no_auth.png', 'ERROR!', "You don't have the required permission! Contact the administrator ", 'red', 10000)
+
+        
+    def setIc(self, icn, text, lab_tab_txt, lab_tab_color, lab_tab_timing):
+        self.err_ic.setText('<img src="'+icn+'" width="200" height="200">')
+        self.err_lb.setText(text)
+        self.lab_tab.setText(lab_tab_txt)
+        self.lab_tab.setStyleSheet("color:" + lab_tab_color)
+        timer = QTimer(self)
+        timer.timeout.connect(self.clear_label)
+        timer.start(lab_tab_timing)
+
     def showT(self, textdata):
         self.tray_icon.showMessage(
             "ANPR",
@@ -201,6 +235,17 @@ class Home(dashboard.Ui_MainWindow, QMainWindow):
             QSystemTrayIcon.Information,
             2000
         )
+
+    def displayTime(self):
+        currentTime = QTime.currentTime()
+        hours = currentTime.toString('hh')
+        minutes = currentTime.toString('mm')
+        seconds = currentTime.toString('ss')
+        meridiem = currentTime.toString('ap')
+        self.am_pm.setText(meridiem.upper())
+        self.labelHour.setText(hours)
+        self.labelMinute.setText(minutes)
+        self.labelSecond.setText(seconds)
 
     def logout(self):
         print('nmefika hapa')
@@ -240,15 +285,12 @@ class Home(dashboard.Ui_MainWindow, QMainWindow):
                 if (res.json() == 'error'):
                     self.tray_icon.showMessage(
                         "ANPR",
-                        "The vehicle plate doesn't exist in registered vehicles database.",
+                        "The vehicle not found!",
                         QSystemTrayIcon.Information,
                         2000
                     )
-                    self.lab_tab.setText("Vehicle not found!")
-                    self.lab_tab.setStyleSheet("color: red")
-                    timer = QTimer(self)
-                    timer.timeout.connect(self.clear_label)
-                    timer.start(10000)
+                    self.stackedWidget.setCurrentWidget(self.status_page)
+                    self.setIc('./sicon/sorry.ai', 'ERROR!', "The vehicle data requested is ot available", 'red', 10000)
 
                 else:
                     response = res.json()
@@ -297,12 +339,8 @@ class Home(dashboard.Ui_MainWindow, QMainWindow):
                     QSystemTrayIcon.Information,
                     2000
                 )
-                self.lab_tab.setText("Network Error!")
-                self.lab_tab.setStyleSheet("color: red")
-                timer = QTimer(self)
-                timer.timeout.connect(self.clear_label)
-                timer.start(10000)
-                print(e)
+                self.stackedWidget.setCurrentWidget(self.status_page)
+                self.setIc('./sicon/net_error.png', 'ERROR!', "Network Error!", 'red', 10000)
 
     def c(self):
         self.hide()
@@ -351,6 +389,24 @@ class Home(dashboard.Ui_MainWindow, QMainWindow):
                 "Could NOT sync with database",
                 QSystemTrayIcon.Information,
                 2000)
+    
+
+    def camFrame(self, rNumber, cNumber):
+        cFrame = "camframe" + "_" + str(rNumber)
+        print(cFrame)
+        self.cam_frame = QFrame(self.scrollAreaWidgetContents)
+        self.cam_frame.setGeometry(QRect(10, 10, 291, 121))
+        self.cam_frame.setMinimumSize(QSize(275, 100))
+        self.cam_frame.setMaximumSize(QSize(275, 100))
+        self.cam_frame.setFrameShape(QFrame.StyledPanel)
+        self.cam_frame.setFrameShadow(QFrame.Raised)
+        self.cam_frame.setStyleSheet("background:#0f2027;")
+        self.cam_frame.setObjectName(cFrame)
+        setattr(self, cFrame, self.cam_frame)
+        # self.verticalLayout.addWidget(self.cam_frame)
+        # self.gridLayout_11.addWidget(self.frame_3, 0, 0, 1, 1)
+        self.gridLayout_6.addWidget(self.cam_frame, rNumber, cNumber, 1, 1)
+        print("am here")
 
     def createNewWidgets(self, rowNumber, columnNumber):
         # create new unique names for each widget
@@ -802,6 +858,6 @@ def areYouSure(a):
 if __name__ == "__main__":
     app = QApplication(sys.argv)
     app.setQuitOnLastWindowClosed(False)
-    mw = Project()
+    mw = Home()
     mw.show()
     sys.exit(app.exec())
