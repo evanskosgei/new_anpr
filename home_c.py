@@ -14,9 +14,8 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(800, 563)
+        MainWindow.resize(800, 565)
         MainWindow.setMinimumSize(QtCore.QSize(800, 550))
-        MainWindow.setWindowFlags(QtCore.Qt.FramelessWindowHint)
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setStyleSheet("background:#0f2027;")
         self.centralwidget.setObjectName("centralwidget")
@@ -1858,20 +1857,83 @@ class Ui_MainWindow(object):
         self.stackedWidget.addWidget(self.page_android)
         self.page_logs = QtWidgets.QWidget()
         self.page_logs.setObjectName("page_logs")
-        self.gridLayout = QtWidgets.QGridLayout(self.page_logs)
+        self.gridLayout_12 = QtWidgets.QGridLayout(self.page_logs)
+        self.gridLayout_12.setObjectName("gridLayout_12")
+        self.frame_14 = QtWidgets.QFrame(self.page_logs)
+        self.frame_14.setMinimumSize(QtCore.QSize(702, 100))
+        self.frame_14.setMaximumSize(QtCore.QSize(702, 100))
+        self.frame_14.setStyleSheet("border-radius:5%;\n"
+"background-color: qlineargradient(spread:pad, x1:0.98, y1:0.471364, x2:1, y2:0.472, stop:1 rgba(0, 0, 0, 18));")
+        self.frame_14.setFrameShape(QtWidgets.QFrame.StyledPanel)
+        self.frame_14.setFrameShadow(QtWidgets.QFrame.Raised)
+        self.frame_14.setObjectName("frame_14")
+        self.gridLayout_12.addWidget(self.frame_14, 0, 0, 1, 1)
+        self.frame_16 = QtWidgets.QFrame(self.page_logs)
+        self.frame_16.setMinimumSize(QtCore.QSize(702, 304))
+        self.frame_16.setMaximumSize(QtCore.QSize(702, 304))
+        self.frame_16.setStyleSheet("border-radius:5%;\n"
+"background-color: qlineargradient(spread:pad, x1:0.98, y1:0.471364, x2:1, y2:0.472, stop:1 rgba(0, 0, 0, 18));")
+        self.frame_16.setFrameShape(QtWidgets.QFrame.StyledPanel)
+        self.frame_16.setFrameShadow(QtWidgets.QFrame.Raised)
+        self.frame_16.setObjectName("frame_16")
+        self.gridLayout = QtWidgets.QGridLayout(self.frame_16)
         self.gridLayout.setObjectName("gridLayout")
-        self.scrollArea_2 = QtWidgets.QScrollArea(self.page_logs)
+        self.scrollArea_2 = QtWidgets.QScrollArea(self.frame_16)
         self.scrollArea_2.setStyleSheet("background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(255, 255, 246, 255), stop:0.55 rgba(255, 255, 225, 255), stop:1 rgba(34, 72, 88, 255));\n"
 "")
         self.scrollArea_2.setWidgetResizable(True)
         self.scrollArea_2.setObjectName("scrollArea_2")
         self.scrollAreaWidgetContents_2 = QtWidgets.QWidget()
-        self.scrollAreaWidgetContents_2.setGeometry(QtCore.QRect(0, 0, 700, 462))
+        self.scrollAreaWidgetContents_2.setGeometry(QtCore.QRect(0, 0, 684, 286))
         self.scrollAreaWidgetContents_2.setObjectName("scrollAreaWidgetContents_2")
-        self.gridLayout_12 = QtWidgets.QGridLayout(self.scrollAreaWidgetContents_2)
-        self.gridLayout_12.setObjectName("gridLayout_12")
+        self.gridLayout_15 = QtWidgets.QGridLayout(self.scrollAreaWidgetContents_2)
+        self.gridLayout_15.setObjectName("gridLayout_15")
+        self.frame_log = QtWidgets.QFrame(self.scrollAreaWidgetContents_2)
+        self.frame_log.setFrameShape(QtWidgets.QFrame.StyledPanel)
+        self.frame_log.setFrameShadow(QtWidgets.QFrame.Raised)
+        self.frame_log.setObjectName("frame_log")
+        self.gridLayout_15.addWidget(self.frame_log, 0, 0, 1, 1)
         self.scrollArea_2.setWidget(self.scrollAreaWidgetContents_2)
         self.gridLayout.addWidget(self.scrollArea_2, 0, 0, 1, 1)
+        self.gridLayout_12.addWidget(self.frame_16, 1, 0, 1, 1)
+        self.frame_15 = QtWidgets.QFrame(self.page_logs)
+        self.frame_15.setMinimumSize(QtCore.QSize(702, 50))
+        self.frame_15.setMaximumSize(QtCore.QSize(702, 50))
+        font = QtGui.QFont()
+        font.setFamily("Arial")
+        font.setPointSize(10)
+        font.setBold(True)
+        font.setWeight(75)
+        self.frame_15.setFont(font)
+        self.frame_15.setStyleSheet("border-radius:5%;\n"
+"background:transparent;")
+        self.frame_15.setFrameShape(QtWidgets.QFrame.StyledPanel)
+        self.frame_15.setFrameShadow(QtWidgets.QFrame.Raised)
+        self.frame_15.setObjectName("frame_15")
+        self.pushButton_4 = QtWidgets.QPushButton(self.frame_15)
+        self.pushButton_4.setGeometry(QtCore.QRect(330, 20, 75, 23))
+        self.pushButton_4.setStyleSheet("QPushButton {\n"
+"    border: 2px solid rgb(51,51,51);\n"
+"    border-radius: 5px;    \n"
+"    color:rgb(255,255,255);\n"
+"    background-color: rgb(51,51,51);\n"
+"}\n"
+"QPushButton:hover {\n"
+"    border: 2px solid rgb(0,143,150);\n"
+"    background-color: rgb(0,143,150);\n"
+"}\n"
+"QPushButton:pressed {    \n"
+"    border: 2px solid rgb(0,143,150);\n"
+"    background-color: rgb(51,51,51);\n"
+"}\n"
+"\n"
+"QPushButton:disabled {    \n"
+"    border-radius: 5px;    \n"
+"    border: 2px solid rgb(112,112,112);\n"
+"    background-color: rgb(112,112,112);\n"
+"}")
+        self.pushButton_4.setObjectName("pushButton_4")
+        self.gridLayout_12.addWidget(self.frame_15, 2, 0, 1, 1)
         self.stackedWidget.addWidget(self.page_logs)
         self.horizontalLayout_14.addWidget(self.stackedWidget)
         self.verticalLayout_2.addWidget(self.frame)
@@ -2123,7 +2185,7 @@ class Ui_MainWindow(object):
 
         self.retranslateUi(MainWindow)
         self.stackedWidget.setCurrentIndex(0)
-        self.stackedWidget_android.setCurrentIndex(1)
+        self.stackedWidget_android.setCurrentIndex(2)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def retranslateUi(self, MainWindow):
@@ -2218,6 +2280,7 @@ class Ui_MainWindow(object):
         self.btn_search_2.setText(_translate("MainWindow", "Search user"))
         self.radioButton_5.setText(_translate("MainWindow", "Staff number"))
         self.radioButton_6.setText(_translate("MainWindow", "Email"))
+        self.pushButton_4.setText(_translate("MainWindow", "PRINT"))
         self.lab_tab.setText(_translate("MainWindow", "<html><head/><body><p><br/></p></body></html>"))
         self.frame_drag.setToolTip(_translate("MainWindow", "Drag"))
         self.lab_appname.setText(_translate("MainWindow", "<html><head/><body><p><br/></p></body></html>"))

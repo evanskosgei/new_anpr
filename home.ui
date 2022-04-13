@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>800</width>
-    <height>563</height>
+    <height>565</height>
    </rect>
   </property>
   <property name="minimumSize">
@@ -3504,7 +3504,7 @@ QPushButton:pressed {
                     <string notr="true">background:rgb(91,90,90);</string>
                    </property>
                    <property name="currentIndex">
-                    <number>1</number>
+                    <number>2</number>
                    </property>
                    <widget class="QWidget" name="new_user">
                     <property name="styleSheet">
@@ -4682,26 +4682,160 @@ color:black;
                 </layout>
                </widget>
                <widget class="QWidget" name="page_logs">
-                <layout class="QGridLayout" name="gridLayout">
+                <layout class="QGridLayout" name="gridLayout_12">
                  <item row="0" column="0">
-                  <widget class="QScrollArea" name="scrollArea_2">
+                  <widget class="QFrame" name="frame_14">
+                   <property name="minimumSize">
+                    <size>
+                     <width>702</width>
+                     <height>100</height>
+                    </size>
+                   </property>
+                   <property name="maximumSize">
+                    <size>
+                     <width>702</width>
+                     <height>100</height>
+                    </size>
+                   </property>
                    <property name="styleSheet">
-                    <string notr="true">background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(255, 255, 246, 255), stop:0.55 rgba(255, 255, 225, 255), stop:1 rgba(34, 72, 88, 255));
+                    <string notr="true">border-radius:5%;
+background-color: qlineargradient(spread:pad, x1:0.98, y1:0.471364, x2:1, y2:0.472, stop:1 rgba(0, 0, 0, 18));</string>
+                   </property>
+                   <property name="frameShape">
+                    <enum>QFrame::StyledPanel</enum>
+                   </property>
+                   <property name="frameShadow">
+                    <enum>QFrame::Raised</enum>
+                   </property>
+                  </widget>
+                 </item>
+                 <item row="1" column="0">
+                  <widget class="QFrame" name="frame_16">
+                   <property name="minimumSize">
+                    <size>
+                     <width>702</width>
+                     <height>304</height>
+                    </size>
+                   </property>
+                   <property name="maximumSize">
+                    <size>
+                     <width>702</width>
+                     <height>304</height>
+                    </size>
+                   </property>
+                   <property name="styleSheet">
+                    <string notr="true">border-radius:5%;
+background-color: qlineargradient(spread:pad, x1:0.98, y1:0.471364, x2:1, y2:0.472, stop:1 rgba(0, 0, 0, 18));</string>
+                   </property>
+                   <property name="frameShape">
+                    <enum>QFrame::StyledPanel</enum>
+                   </property>
+                   <property name="frameShadow">
+                    <enum>QFrame::Raised</enum>
+                   </property>
+                   <layout class="QGridLayout" name="gridLayout">
+                    <item row="0" column="0">
+                     <widget class="QScrollArea" name="scrollArea_2">
+                      <property name="styleSheet">
+                       <string notr="true">background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(255, 255, 246, 255), stop:0.55 rgba(255, 255, 225, 255), stop:1 rgba(34, 72, 88, 255));
 </string>
+                      </property>
+                      <property name="widgetResizable">
+                       <bool>true</bool>
+                      </property>
+                      <widget class="QWidget" name="scrollAreaWidgetContents_2">
+                       <property name="geometry">
+                        <rect>
+                         <x>0</x>
+                         <y>0</y>
+                         <width>684</width>
+                         <height>286</height>
+                        </rect>
+                       </property>
+                       <layout class="QGridLayout" name="gridLayout_15">
+                        <item row="0" column="0">
+                         <widget class="QFrame" name="frame_log">
+                          <property name="frameShape">
+                           <enum>QFrame::StyledPanel</enum>
+                          </property>
+                          <property name="frameShadow">
+                           <enum>QFrame::Raised</enum>
+                          </property>
+                         </widget>
+                        </item>
+                       </layout>
+                      </widget>
+                     </widget>
+                    </item>
+                   </layout>
+                  </widget>
+                 </item>
+                 <item row="2" column="0">
+                  <widget class="QFrame" name="frame_15">
+                   <property name="minimumSize">
+                    <size>
+                     <width>702</width>
+                     <height>50</height>
+                    </size>
                    </property>
-                   <property name="widgetResizable">
-                    <bool>true</bool>
+                   <property name="maximumSize">
+                    <size>
+                     <width>702</width>
+                     <height>50</height>
+                    </size>
                    </property>
-                   <widget class="QWidget" name="scrollAreaWidgetContents_2">
+                   <property name="font">
+                    <font>
+                     <family>Arial</family>
+                     <pointsize>10</pointsize>
+                     <weight>75</weight>
+                     <bold>true</bold>
+                    </font>
+                   </property>
+                   <property name="styleSheet">
+                    <string notr="true">border-radius:5%;
+background:transparent;</string>
+                   </property>
+                   <property name="frameShape">
+                    <enum>QFrame::StyledPanel</enum>
+                   </property>
+                   <property name="frameShadow">
+                    <enum>QFrame::Raised</enum>
+                   </property>
+                   <widget class="QPushButton" name="pushButton_4">
                     <property name="geometry">
                      <rect>
-                      <x>0</x>
-                      <y>0</y>
-                      <width>700</width>
-                      <height>462</height>
+                      <x>330</x>
+                      <y>20</y>
+                      <width>75</width>
+                      <height>23</height>
                      </rect>
                     </property>
-                    <layout class="QGridLayout" name="gridLayout_12"/>
+                    <property name="styleSheet">
+                     <string notr="true">QPushButton {
+	border: 2px solid rgb(51,51,51);
+	border-radius: 5px;	
+	color:rgb(255,255,255);
+	background-color: rgb(51,51,51);
+}
+QPushButton:hover {
+	border: 2px solid rgb(0,143,150);
+	background-color: rgb(0,143,150);
+}
+QPushButton:pressed {	
+	border: 2px solid rgb(0,143,150);
+	background-color: rgb(51,51,51);
+}
+
+QPushButton:disabled {	
+	border-radius: 5px;	
+	border: 2px solid rgb(112,112,112);
+	background-color: rgb(112,112,112);
+}</string>
+                    </property>
+                    <property name="text">
+                     <string>PRINT</string>
+                    </property>
                    </widget>
                   </widget>
                  </item>

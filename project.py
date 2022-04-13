@@ -529,7 +529,7 @@ class Home(dashboard.Ui_MainWindow, QMainWindow):
         setattr(self, newFrame, self.frame_3)
         setattr(self, newLabel, self.frame_3)
         setattr(self, newtEdit, self.frame_3)
-        self.gridLayout_12.addWidget(
+        self.gridLayout_15.addWidget(
             self.frame_3, rowNumber, columnNumber, 1, 1)
     # print('widgets created')
     # adding car details to carDetails table
@@ -941,6 +941,6 @@ def areYouSure(a):
 if __name__ == "__main__":
     app = QApplication(sys.argv)
     app.setQuitOnLastWindowClosed(False)
-    mw = Project()
+    mw = Home()
     mw.show()
     sys.exit(app.exec())
