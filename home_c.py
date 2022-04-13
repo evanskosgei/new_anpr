@@ -1866,7 +1866,7 @@ class Ui_MainWindow(object):
         self.scrollArea_2.setWidgetResizable(True)
         self.scrollArea_2.setObjectName("scrollArea_2")
         self.scrollAreaWidgetContents_2 = QtWidgets.QWidget()
-        self.scrollAreaWidgetContents_2.setGeometry(QtCore.QRect(0, 0, 63, 18))
+        self.scrollAreaWidgetContents_2.setGeometry(QtCore.QRect(0, 0, 700, 462))
         self.scrollAreaWidgetContents_2.setObjectName("scrollAreaWidgetContents_2")
         self.gridLayout_12 = QtWidgets.QGridLayout(self.scrollAreaWidgetContents_2)
         self.gridLayout_12.setObjectName("gridLayout_12")
@@ -2123,7 +2123,7 @@ class Ui_MainWindow(object):
 
         self.retranslateUi(MainWindow)
         self.stackedWidget.setCurrentIndex(0)
-        self.stackedWidget_android.setCurrentIndex(0)
+        self.stackedWidget_android.setCurrentIndex(1)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def retranslateUi(self, MainWindow):
@@ -2190,7 +2190,7 @@ class Ui_MainWindow(object):
         self.btn_search_3.setText(_translate("MainWindow", "Remove"))
         self.bn_android_contact.setToolTip(_translate("MainWindow", "Click to see all users"))
         self.bn_android_game.setToolTip(_translate("MainWindow", "Click to add new user"))
-        self.bn_android_world.setToolTip(_translate("MainWindow", "Click to update users"))
+        self.bn_android_world.setToolTip(_translate("MainWindow", "Click to update / delete users"))
         self.bn_android_contact_save.setToolTip(_translate("MainWindow", "Save user."))
         self.bn_android_contact_save.setText(_translate("MainWindow", "Save"))
         self.label_5.setText(_translate("MainWindow", "Staff Number :"))

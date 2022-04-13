@@ -78,8 +78,11 @@ class Project(auth.Ui_Form, QMainWindow):
                     for row in result:
                         password = row[0]
                         role = row[1]
+                        global rl
+                        rl = role
+                        print(role)
                     if bcrypt.checkpw(data.encode('utf-8'), password):
-                        if role == 1:
+                        if role == 1 or role == 2:
                             w = Home()
                             w.lab_user.setText(usr)
                             w.show()
@@ -193,17 +196,16 @@ class Home(dashboard.Ui_MainWindow, QMainWindow):
         self.bn_bug.clicked.connect(
             lambda: self.stackedWidget.setCurrentWidget(self.search_registration))
         print(self.search_box.text())
-        self.bn_android.clicked.connect(
-            lambda: self.stackedWidget.setCurrentWidget(self.page_android)
-        )
+        self.bn_android.clicked.connect(self.manageUsers)
         self.bn_cloud.clicked.connect(self.showLogs)
         self.bn_home.clicked.connect(
             lambda: self.stackedWidget.setCurrentWidget(self.add_remove_wishlist))
         print(self.search_box.text())
 
-        self.bn_android.clicked.connect(
+        
+        self.bn_dashb.clicked.connect(
             lambda: self.stackedWidget.setCurrentWidget(
-                self.page_android)
+                self.dashb)
         )
 
         self.bn_android_contact.clicked.connect(
@@ -294,7 +296,14 @@ class Home(dashboard.Ui_MainWindow, QMainWindow):
         #
         # self.setIc('./sicon/no_auth.png', 'ERROR!', "You don't have the required permission! Contact the administrator ", 'red', 10000)
 
-        
+    def manageUsers(self):
+        if rl == 1:
+            self.stackedWidget.setCurrentWidget(self.page_android)
+        else:
+            self.stackedWidget.setCurrentWidget(self.status_page)
+            print("in else" + str(rl))
+            self.setIc('./sicon/no_auth.png', 'ERROR!', "You don't have the required permission! Contact the administrator.", 'red', 10000)
+
     def setIc(self, icn, text, lab_tab_txt, lab_tab_color, lab_tab_timing):
         self.err_ic.setText('<img src="'+icn+'" width="250" height="200">')
         self.err_lb.setText(text)
@@ -593,7 +602,7 @@ class Home(dashboard.Ui_MainWindow, QMainWindow):
         confirm_password = self.lineEdit_4.text()
         email = self.lineEdit_5.text()
         phone = self.lineEdit_6.text()
-        role = 0 
+        role = 2 
         #selecting users from db
         try:
             cursor = conn.cursor()

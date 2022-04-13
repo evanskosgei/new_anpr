@@ -3452,7 +3452,7 @@ QPushButton:pressed {
                           <cursorShape>PointingHandCursor</cursorShape>
                          </property>
                          <property name="toolTip">
-                          <string>Click to update users</string>
+                          <string>Click to update / delete users</string>
                          </property>
                          <property name="styleSheet">
                           <string notr="true">QPushButton {
@@ -3504,7 +3504,7 @@ QPushButton:pressed {
                     <string notr="true">background:rgb(91,90,90);</string>
                    </property>
                    <property name="currentIndex">
-                    <number>0</number>
+                    <number>1</number>
                    </property>
                    <widget class="QWidget" name="new_user">
                     <property name="styleSheet">
@@ -4697,8 +4697,8 @@ color:black;
                      <rect>
                       <x>0</x>
                       <y>0</y>
-                      <width>63</width>
-                      <height>18</height>
+                      <width>700</width>
+                      <height>462</height>
                      </rect>
                     </property>
                     <layout class="QGridLayout" name="gridLayout_12"/>
