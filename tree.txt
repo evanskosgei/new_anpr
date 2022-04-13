@@ -60,3 +60,5 @@ self.lab_tab.setStyleSheet("color: red")
 timer = QTimer(self)
 timer.timeout.connect(self.clear_label)
 timer.start(10000)
+
+self.setIc('./sicon/no_auth.png', 'ERROR!', "You don't have the required permission! Contact the administrator ", 'red', 10000)
