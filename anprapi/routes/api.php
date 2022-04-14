@@ -3,7 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\VehicleController;
-
+use App\Http\Controllers\LogsController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -20,3 +20,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::get('vehicle/{key}', [VehicleController::class, 'search']);
+
+Route::post('logs', [LogsController::class, 'storeData']);

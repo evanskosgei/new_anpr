@@ -16,4 +16,14 @@ class VehicleController extends Controller
             return response()->json('error');
         }
     }
+
+    function getVehicle($key){
+        $data = Vehicle::where('registration_number', 'like', "$key")->get();
+        dd($data);
+        if (count($data) > 0) {
+            return response()->json($data);
+        } else {
+            return response()->json('error');
+        }
+    }
 }

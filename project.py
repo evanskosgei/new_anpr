@@ -294,7 +294,6 @@ class Home(dashboard.Ui_MainWindow, QMainWindow):
         #
         # self.setIc('./sicon/no_auth.png', 'ERROR!', "You don't have the required permission! Contact the administrator ", 'red', 10000)
 
-        
     def setIc(self, icn, text, lab_tab_txt, lab_tab_color, lab_tab_timing):
         self.err_ic.setText('<img src="'+icn+'" width="250" height="200">')
         self.err_lb.setText(text)
@@ -324,14 +323,12 @@ class Home(dashboard.Ui_MainWindow, QMainWindow):
         self.labelSecond.setText(seconds)
 
     def logout(self):
-        print('nmefika hapa')
         self.showT("Logged out successfully")
         self.hide()
         self.tray_icon.hide()
         self.login = Project()
         self.login.show()
         
-
     def mxmn(self):
         if self.isMaximized():
             self.showNormal()
@@ -466,7 +463,6 @@ class Home(dashboard.Ui_MainWindow, QMainWindow):
                 QSystemTrayIcon.Information,
                 2000)
     
-
     def camFrame(self, rNumber, cNumber):
         cFrame = "camframe" + "_" + str(rNumber)
         self.cam_frame = QFrame(self.scrollAreaWidgetContents)
