@@ -590,7 +590,7 @@ class Home(dashboard.Ui_MainWindow, QMainWindow):
 
     def clear_label(self):
         self.lab_tab.clear()
-
+        
     # adding user to database
     def addUser(self):
         name = self.lineEdit.text()
@@ -933,6 +933,7 @@ def areYouSure(a):
     msg.setWindowTitle("Are you sure?")
     msg.setStandardButtons(QMessageBox.Yes | QMessageBox.No)
     msg.exec_()
+
 
 
 if __name__ == "__main__":
