@@ -15,8 +15,9 @@ return new class extends Migration
     {
         Schema::create('logs', function (Blueprint $table) {
             $table->id();
-            $table->string('registration_number')->unique();
-            $table->string('available');
+            $table->string('camera_id');
+            $table->string('highway');
+            $table->string('spotted_plate');
             $table->timestamps();
         });
     }
