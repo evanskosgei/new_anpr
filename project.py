@@ -355,14 +355,12 @@ class Home(dashboard.Ui_MainWindow, QMainWindow):
         self.labelSecond.setText(seconds)
 
     def logout(self):
-        print('nmefika hapa')
         self.showT("Logged out successfully")
         self.hide()
         self.tray_icon.hide()
         self.login = Project()
         self.login.show()
         
-
     def mxmn(self):
         if self.isMaximized():
             self.showNormal()
@@ -495,7 +493,6 @@ class Home(dashboard.Ui_MainWindow, QMainWindow):
                 QSystemTrayIcon.Information,
                 2000)
     
-
     def camFrame(self, rNumber, cNumber):
         cFrame = "camframe" + "_" + str(rNumber)
         self.cam_frame = QFrame(self.scrollAreaWidgetContents)
@@ -690,7 +687,7 @@ class Home(dashboard.Ui_MainWindow, QMainWindow):
 
     def clear_label(self):
         self.lab_tab.clear()
-
+        
     # adding user to database
     def addUser(self):
         name = self.lineEdit.text()
@@ -1048,6 +1045,7 @@ def areYouSure(a):
     msg.setWindowTitle("Are you sure?")
     msg.setStandardButtons(QMessageBox.Yes | QMessageBox.No)
     msg.exec_()
+
 
 
 if __name__ == "__main__":
