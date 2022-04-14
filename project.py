@@ -1,4 +1,5 @@
 from distutils.log import error
+from tkinter import N
 from unittest import result
 from urllib.parse import uses_relative
 from datetime import date
@@ -22,6 +23,7 @@ import ssl
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 import random
+import requests
 
 # DB connection
 conn = None
@@ -295,6 +297,25 @@ class Home(dashboard.Ui_MainWindow, QMainWindow):
         self.tray_icon.show()
         #
         # self.setIc('./sicon/no_auth.png', 'ERROR!', "You don't have the required permission! Contact the administrator ", 'red', 10000)
+        #
+        try:
+            global o
+            o = requests.get("http://localhost:8000/api/logs")
+            print(o.json())
+
+        except Exception as e:
+            self.tray_icon.showMessage(
+                "Tray Program",
+                "Network Error!",
+                QSystemTrayIcon.Information,
+                2000
+            )
+            self.stackedWidget.setCurrentWidget(self.status_page)
+            self.setIc('./sicon/net_error.png', 'NETWORK ERROR!', "Network Error!", 'red', 10000)
+        timer = QTimer(self)
+        timer.timeout.connect(self.spotCar)
+        timer.start(1000)
+
 
     def manageUsers(self):
         if rl == 1:
@@ -363,8 +384,6 @@ class Home(dashboard.Ui_MainWindow, QMainWindow):
             e = "Please enter a registration plate"
             warning_message_box(e)
         else:
-            import requests
-
             try:
                 res = requests.get("http://localhost:8000/api/vehicle/"+plate)
                 if (res.json() == 'error'):
@@ -532,6 +551,34 @@ class Home(dashboard.Ui_MainWindow, QMainWindow):
         self.gridLayout_15.addWidget(
             self.frame_3, rowNumber, columnNumber, 1, 1)
     # print('widgets created')
+
+    def spotCar(self):
+        #get no of logs in db
+        plate="SAMPLE"
+        try:
+            n = requests.get("http://localhost:8000/api/logs")
+            if (n > o):
+                self.tray_icon.showMessage(
+                    "Tray Program",
+                    "Vehicle " + plate + " has been spotted!",
+                    QSystemTrayIcon.Information,
+                    2000
+                )
+                o = n
+
+        except Exception as e:
+            self.tray_icon.showMessage(
+                "Tray Program",
+                "Network Error!",
+                QSystemTrayIcon.Information,
+                2000
+            )
+            self.stackedWidget.setCurrentWidget(self.status_page)
+            self.setIc('./sicon/net_error.png', 'NETWORK ERROR!', "Network Error!", 'red', 10000)
+            timer = QTimer(self)
+            timer.timeout.connect(self.clear_label)
+            timer.start(10000)
+        
     # adding car details to carDetails table
     def addCarDetails(self):
         regPlate = self.reg_plate_input.text().upper()
@@ -941,6 +988,6 @@ def areYouSure(a):
 if __name__ == "__main__":
     app = QApplication(sys.argv)
     app.setQuitOnLastWindowClosed(False)
-    mw = Project()
+    mw = Home()
     mw.show()
     sys.exit(app.exec())

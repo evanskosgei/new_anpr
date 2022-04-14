@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\VehicleController;
+use App\Http\Controllers\LogController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,3 +21,4 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::get('vehicle/{key}', [VehicleController::class, 'search']);
+Route::get('logs', [LogController::class, 'logs']);
