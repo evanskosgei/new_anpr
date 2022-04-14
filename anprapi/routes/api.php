@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\VehicleController;
 use App\Http\Controllers\LogController;
+use App\Http\Controllers\WatchListController;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,3 +23,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::get('vehicle/{key}', [VehicleController::class, 'search']);
 Route::get('logs', [LogController::class, 'logs']);
+Route::post('add_to_watchlist', [WatchListController::class, 'add_to_watchlist']);
+Route::get('delete_from_watchlist/{key}', [WatchListController::class, 'delete_from_watchlist']);
