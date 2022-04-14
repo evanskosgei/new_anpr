@@ -80,7 +80,7 @@ class Project(auth.Ui_Form, QMainWindow):
                     for row in result:
                         password = row[0]
                         role = row[1]
-                        global rl
+                        global rl 
                         rl = role
                         print(role)
                     if bcrypt.checkpw(data.encode('utf-8'), password):
@@ -312,10 +312,9 @@ class Home(dashboard.Ui_MainWindow, QMainWindow):
             )
             self.stackedWidget.setCurrentWidget(self.status_page)
             self.setIc('./sicon/net_error.png', 'NETWORK ERROR!', "Network Error!", 'red', 10000)
-        timer = QTimer(self)
-        timer.timeout.connect(self.spotCar)
-        timer.start(1000)
-
+        # timer = QTimer(self)
+        # timer.timeout.connect(self.spotCar)
+        # timer.start(1000)
 
     def manageUsers(self):
         if rl == 1:
@@ -590,12 +589,12 @@ class Home(dashboard.Ui_MainWindow, QMainWindow):
         chasisNo = self.chassis_number_label_2.text()
         watchlist = 1
         #searching for an existing car in the database
-        try:
-            cursor = conn.cursor()
-            cursor.execute("SELECT reg_plate FROM carDetails WHERE reg_plate = ?", (regPlate,))
-            indata = cursor.fetchall()
-        except Error as e:
-            warning_message_box(e)
+        # try:
+        #     cursor = conn.cursor()
+        #     cursor.execute("SELECT reg_plate FROM carDetails WHERE reg_plate = ?", (regPlate,))
+        #     indata = cursor.fetchall()
+        # except Error as e:
+        #     warning_message_box(e)
         # saving data to database
         if regPlate == "" or owner == "" or vehicleMake == "" or modelYear == "" or engineCapacity == "" or bodyType == "" or color == "" or logBookNo == "" or engineNo == "" or chasisNo == "":
             e = "please fill all the fields"
@@ -606,21 +605,25 @@ class Home(dashboard.Ui_MainWindow, QMainWindow):
         elif regPlate.isalnum() == False:
             e = "Registration Plate number must be alphanumeric"
             warning_message_box(e)
-        elif indata != []:
-            e = "Car already exists in the database"
-            warning_message_box(e)
+        # elif indata != []:
+        #     e = "Car already exists in the database"
+        #     warning_message_box(e)
         else:
+            # try:
+            #     cursor = conn.cursor()
+            #     query = """INSERT INTO carDetails(reg_plate, owner, vehicle_make, model_year, engine_capacity, body_type, color, logbook_number, engine_number, chasis_number, watchlist) VALUES(?,?,?,?,?,?,?,?,?,?,?)"""
+            #     data = (regPlate, owner, vehicleMake, modelYear, engineCapacity,
+            #             bodyType, color, logBookNo, engineNo, chasisNo, watchlist)
+            #     cursor.execute(query, data)
+            #     conn.commit()
+            #     s = "Car details added successfully"
+            #     success_message_box(s)
+            # except Error as e:
+            #     warning_message_box(e)
             try:
-                cursor = conn.cursor()
-                query = """INSERT INTO carDetails(reg_plate, owner, vehicle_make, model_year, engine_capacity, body_type, color, logbook_number, engine_number, chasis_number, watchlist) VALUES(?,?,?,?,?,?,?,?,?,?,?)"""
-                data = (regPlate, owner, vehicleMake, modelYear, engineCapacity,
-                        bodyType, color, logBookNo, engineNo, chasisNo, watchlist)
-                cursor.execute(query, data)
-                conn.commit()
-                s = "Car details added successfully"
-                success_message_box(s)
-            except Error as e:
-                warning_message_box(e)
+                res = requests.post()
+            except:
+                print("Network Err")
             self.clearLogs()
 
     def clearLogs(self):
@@ -927,30 +930,16 @@ class Home(dashboard.Ui_MainWindow, QMainWindow):
     #Remove from watchlist
     def removeWatchlist(self):
         plateno = self.search_box_2.text().upper()
-        watchlist = 0
         if plateno == "":
             e = "Fill the empty space"
             warning_message_box(e)
         else:
             try:
-                cursor = conn.cursor()
-                cursor.execute("SELECT * FROM carDetails WHERE reg_plate = ?",(plateno,))
-                result = cursor.fetchall()
-                if result == []:
-                    e = "Such plate number doesnt exist"
-                    warning_message_box(e)
-                else:
-                    for row in result:
-                        plate = row[1]
-                    try:
-                        cursor = conn.cursor()
-                        cursor.execute("UPDATE carDetails SET watchlist = ? WHERE reg_plate = ?", (watchlist, plate))
-                        conn.commit()
-                        s ="updated successfully"
-                        success_message_box(s)
-                        self.search_box_2.clear()
-                    except Error as e:
-                        warning_message_box(e)
+               res = requests.delete("http://localhost:8000/api/del/" +plateno)
+               if res.status_code == 200:
+                   print("success")
+               else:
+                   print("failed")
             except Error as e:
                 warning_message_box(e)
 
@@ -980,8 +969,6 @@ def areYouSure(a):
     msg.setWindowTitle("Are you sure?")
     msg.setStandardButtons(QMessageBox.Yes | QMessageBox.No)
     msg.exec_()
-
-
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
