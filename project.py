@@ -120,7 +120,7 @@ class Project(auth.Ui_Form, QMainWindow):
                         name = row[1]
                     #generate random password
                     global passcode
-                    code = random.randint(10000, 999999)
+                    code = random.randint(5000, 999999)
                     passcode = name + str(code)
                     #hashing passcode
                     passcode = passcode.encode('utf-8')
@@ -297,7 +297,7 @@ class Home(dashboard.Ui_MainWindow, QMainWindow):
         self.tray_icon.setContextMenu(tray_menu)
         self.tray_icon.show()
         #
-        # self.setIc('./sicon/no_auth.png', 'ERROR!', "You don't have the required permission! Contact the administrator ", 'red', 10000)
+        # self.setIc('./sicon/no_auth.png', 'ERROR!', "You don't have the required permission! Contact the administrator ", 'red', 5000)
         #
         global old
         old = 0
@@ -313,10 +313,19 @@ class Home(dashboard.Ui_MainWindow, QMainWindow):
                 2000
             )
             self.stackedWidget.setCurrentWidget(self.status_page)
-            self.setIc('./sicon/net_error.png', 'NETWORK ERROR IN SYSTEM!', "Network Error!", 'red', 10000)
+            self.setIc('./sicon/net_error.png', 'NETWORK ERROR IN SYSTEM!', "Network Error!", 'red', 5000)
         timer = QTimer(self)
         timer.timeout.connect(self.spotCar)
-        timer.start(5000)
+        timer.start(30000)
+        #
+        # cur = conn.cursor()
+        # cur.execute("SELECT username FROM users WHERE staffno = ?", (usr,))
+        # user = cur.fetchone()
+        # user_name = user[0]
+        # self.label_16.setText("Hello 🙂" + user_name)
+        self.label_16.setText("Hello 🙂 ??")
+        self.label_17.setText("2 cameras 🎦 active")
+        #⬆️init
 
     def manageUsers(self):
         if rl == 1:
@@ -324,7 +333,7 @@ class Home(dashboard.Ui_MainWindow, QMainWindow):
         else:
             self.stackedWidget.setCurrentWidget(self.status_page)
             print("in else" + str(rl))
-            self.setIc('./sicon/no_auth.png', 'ERROR!', "You don't have the required permission! Contact the administrator.", 'red', 10000)
+            self.setIc('./sicon/no_auth.png', 'ERROR!', "You don't have the required permission! Contact the administrator.", 'red', 5000)
 
     def setIc(self, icn, text, lab_tab_txt, lab_tab_color, lab_tab_timing):
         self.err_ic.setText('<img src="'+icn+'" width="250" height="200">')
@@ -393,7 +402,7 @@ class Home(dashboard.Ui_MainWindow, QMainWindow):
                         2000
                     )
                     self.stackedWidget.setCurrentWidget(self.status_page)
-                    self.setIc('./sicon/sorry.ai', 'ERROR!', "The vehicle data requested is ot available", 'red', 10000)
+                    self.setIc('./sicon/sorry.ai', 'ERROR!', "The vehicle data requested is ot available", 'red', 5000)
 
                 else:
                     response = res.json()
@@ -408,7 +417,7 @@ class Home(dashboard.Ui_MainWindow, QMainWindow):
                     self.lab_tab.setStyleSheet("color: green")
                     timer = QTimer(self)
                     timer.timeout.connect(self.clear_label)
-                    timer.start(10000)
+                    timer.start(5000)
                     # get values from json response
                     try:
                         registration_number = result['registration_number']
@@ -443,7 +452,7 @@ class Home(dashboard.Ui_MainWindow, QMainWindow):
                     2000
                 )
                 self.stackedWidget.setCurrentWidget(self.status_page)
-                self.setIc('./sicon/net_error.png', 'NETWORK ERROR!', "Network Error!", 'red', 10000)
+                self.setIc('./sicon/net_error.png', 'NETWORK ERROR!', "Network Error!", 'red', 5000)
 
     def c(self):
         self.hide()
@@ -458,7 +467,6 @@ class Home(dashboard.Ui_MainWindow, QMainWindow):
         self.lab_tab.clear()
 
     def showLogs(self):
-        # print('Showing them logs!')
         self.stackedWidget.setCurrentWidget(self.page_logs)
 
         try:
@@ -487,6 +495,7 @@ class Home(dashboard.Ui_MainWindow, QMainWindow):
                         self.createNewWidgets(x, y)
                     ct += 1
         except Exception as e:
+            print(e)
             self.tray_icon.showMessage(
                 "DB error",
                 "Could NOT sync with database",
@@ -495,6 +504,9 @@ class Home(dashboard.Ui_MainWindow, QMainWindow):
     
     def camFrame(self, rNumber, cNumber):
         cFrame = "camframe" + "_" + str(rNumber)
+        newLabel = "lbl" + "_" + str(rNumber)
+        newLbl = "lbl" + "_" + str(rNumber)
+        newBtn = "btn" + "_" + str(rNumber)
         self.cam_frame = QFrame(self.scrollAreaWidgetContents)
         self.cam_frame.setGeometry(QRect(10, 10, 291, 121))
         self.cam_frame.setMinimumSize(QSize(275, 100))
@@ -503,9 +515,28 @@ class Home(dashboard.Ui_MainWindow, QMainWindow):
         self.cam_frame.setFrameShadow(QFrame.Raised)
         self.cam_frame.setStyleSheet("background:#0f2027;")
         self.cam_frame.setObjectName(cFrame)
+        self.cam_label = QLabel(self.cam_frame)
+        self.cam_label.setGeometry(QRect(21, 10, 121, 21))
+        self.cam_label.setStyleSheet("background-color: transparent; color: rgb(255, 255, 255); border-radius:5px; font: 75 12pt;")
+        self.cam_label.setAlignment(Qt.AlignCenter)
+        self.cam_label.setObjectName(newLabel)
+        self.cam_label.setText("🎦 CAMERA" + " " + str(rNumber))
+        self.cam_lbl = QLabel(self.cam_frame)
+        self.cam_lbl.setGeometry(QRect(11, 50, 121, 21))
+        self.cam_lbl.setStyleSheet("background-color: transparent; color: rgb(255, 255, 255); border-radius:5px; font: 75 10pt;")
+        self.cam_lbl.setAlignment(Qt.AlignCenter)
+        self.cam_lbl.setObjectName(newLbl)
+        self.cam_lbl.setText("📌 HIGHWAY " + " " + str(rNumber))
+        self.cam_btn = QPushButton(self.cam_frame)
+        self.cam_btn.setGeometry(QRect(175, 70, 65, 21))
+        self.cam_btn.setStyleSheet("background-color: #EE8A09; color: black; border-radius:5px; font: 75 8pt;")
+        self.cam_btn.setCursor(QCursor(Qt.PointingHandCursor))
+        self.cam_btn.setObjectName(newBtn)
+        self.cam_btn.setText("DETAILS ➡️")
+
         setattr(self, cFrame, self.cam_frame)
-        # self.verticalLayout.addWidget(self.cam_frame)
-        # self.gridLayout_11.addWidget(self.frame_3, 0, 0, 1, 1)
+        setattr(self, newLabel, self.cam_frame)
+        setattr(self, newBtn, self.cam_frame)
         self.gridLayout_6.addWidget(self.cam_frame, rNumber, cNumber, 1, 1)
 
     def createNewWidgets(self, rowNumber, columnNumber):
@@ -513,6 +544,7 @@ class Home(dashboard.Ui_MainWindow, QMainWindow):
         newFrame = "frame" + "_" + str(rowNumber)
         newLabel = "lbl" + "_" + str(rowNumber)
         newtEdit = "tEdit" + "_" + str(rowNumber)
+        newBn = "bt" + "_" + str(rowNumber)
         # print(newFrame, newLabel, newtEdit)
 
         self.frame_3 = QFrame(self.scrollAreaWidgetContents_2)
@@ -524,12 +556,12 @@ class Home(dashboard.Ui_MainWindow, QMainWindow):
         self.frame_3.setFrameShadow(QFrame.Raised)
         self.frame_3.setObjectName(newFrame)
         self.label_12 = QLabel(self.frame_3)
-        self.label_12.setGeometry(QRect(10, 10, 280, 21))
+        self.label_12.setGeometry(QRect(10, 10, 190, 21))
         self.label_12.setStyleSheet(
-            "background-color: rgb(0, 85, 255); color: rgb(255, 255, 255); border-radius:5px;")
-        self.label_12.setAlignment(Qt.AlignCenter)
+            "background-color: rgb(0, 85, 255); color: rgb(255, 255, 255); border-radius:5px;font: 75 10pt;")
+        self.label_12.setAlignment(Qt.AlignLeft)
         self.label_12.setObjectName(newLabel)
-        self.label_12.setText(l[ct][2])
+        self.label_12.setText("📅 " + l[ct][2])
         self.textEdit = QTextEdit(self.frame_3)
         self.textEdit.setGeometry(QRect(61, 40, 581, 61))
         font = QFont()
@@ -540,14 +572,18 @@ class Home(dashboard.Ui_MainWindow, QMainWindow):
         # self.textEdit.setReadOnly(True)
         self.textEdit.setObjectName(newtEdit)
         self.textEdit.setText(l[ct][1])
-        # self.gridLayout_11.addWidget(self.frame_3, 0, 0, 1, 1)
-
+        self.lg_btn = QPushButton(self.frame_3)
+        self.lg_btn.setGeometry(QRect(475, 70, 95, 21))
+        self.lg_btn.setStyleSheet("background-color: #EE8A09; color: black; border-radius:5px; font: 75 8pt;")
+        self.lg_btn.setCursor(QCursor(Qt.PointingHandCursor))
+        self.lg_btn.setObjectName(newBn)
+        self.lg_btn.setText("MORE DETAILS ➡️")
         # create new attribute to Ui_MainWindow
         setattr(self, newFrame, self.frame_3)
         setattr(self, newLabel, self.frame_3)
         setattr(self, newtEdit, self.frame_3)
-        self.gridLayout_15.addWidget(
-            self.frame_3, rowNumber, columnNumber, 1, 1)
+        setattr(self, newBn, self.frame_3)
+        self.gridLayout_15.addWidget(self.frame_3, rowNumber, columnNumber, 1, 1)
     # print('widgets created')
 
     def spotCar(self):
@@ -570,8 +606,7 @@ class Home(dashboard.Ui_MainWindow, QMainWindow):
             self.lab_tab.setStyleSheet("color: red")
             timer = QTimer(self)
             timer.timeout.connect(self.clear_label)
-            timer.start(10000)
-        print("old" + str(old))
+            timer.start(5000)
         if (n > old):
             self.tray_icon.showMessage(
                 "Tray Program",
@@ -653,7 +688,7 @@ class Home(dashboard.Ui_MainWindow, QMainWindow):
                     self.lab_tab.setStyleSheet("color: green")
                     timer = QTimer(self)
                     timer.timeout.connect(self.clear_label)
-                    timer.start(10000)
+                    timer.start(5000)
                     success_message_box(s)
                 else:
                     s = "Failed to add car details"
@@ -661,7 +696,7 @@ class Home(dashboard.Ui_MainWindow, QMainWindow):
                     self.lab_tab.setStyleSheet("color: red")
                     timer = QTimer(self)
                     timer.timeout.connect(self.clear_label)
-                    timer.start(10000)
+                    timer.start(5000)
                     warning_message_box(s)
             except Exception as e:
                 print("ERROR!" + str(e))
@@ -799,7 +834,7 @@ class Home(dashboard.Ui_MainWindow, QMainWindow):
                     self.lab_tab.setStyleSheet("color: green")
                     timer = QTimer(self)
                     timer.timeout.connect(self.clear_label)
-                    timer.start(10000)
+                    timer.start(5000)
 
         except Error as e:
             warning_message_box(e)
@@ -973,7 +1008,7 @@ class Home(dashboard.Ui_MainWindow, QMainWindow):
     #Remove from watchlist
     def removeWatchlist(self):
         plateno = self.search_box_2.text()
-        # watchlist = 0
+        print(plateno)
         if plateno == "":
             e = "Fill the empty space"
             warning_message_box(e)
@@ -998,22 +1033,33 @@ class Home(dashboard.Ui_MainWindow, QMainWindow):
                 #     except Error as e:
                 #         warning_message_box(e)
                 res = requests.get(env + "delete_from_watchlist/" + plateno)
-                r = res.json()
-                print(r)
-                if r == "success":
+                print(res.json())
+                if res.json() == "success":
                     self.lab_tab.setText("Vehicle plate removed from watchlist successully!")
                     self.lab_tab.setStyleSheet("color: green")
                     timer = QTimer(self)
                     timer.timeout.connect(self.clear_label)
-                    timer.start(10000)
+                    timer.start(5000)
+                    self.tray_icon.showMessage(
+                    "Tray Program",
+                    "Vehicle plate removed from watchlist successully!",
+                    QSystemTrayIcon.Information,
+                    2000
+                )
                 else:
-                    self.lab_tab.setText("Error occured!")
+                    self.lab_tab.setText("Error occured! The plate entered was not on the watchlist")
                     self.lab_tab.setStyleSheet("color: red")
                     timer = QTimer(self)
                     timer.timeout.connect(self.clear_label)
-                    timer.start(10000)
-            except Error as e:
-                warning_message_box(e)
+                    timer.start(5000)
+                    self.tray_icon.showMessage(
+                    "Tray Program",
+                    "Error occured! The plate entered was not on the watchlist",
+                    QSystemTrayIcon.Information,
+                    2000
+                )
+            except Exception as e:
+                print(e)
 
 # warning message box
 def warning_message_box(e):

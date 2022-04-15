@@ -16,6 +16,12 @@
     <height>550</height>
    </size>
   </property>
+  <property name="maximumSize">
+   <size>
+    <width>1366</width>
+    <height>768</height>
+   </size>
+  </property>
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
@@ -1441,7 +1447,10 @@ border-radius:5%;
                       </property>
                       <property name="styleSheet">
                        <string notr="true">background:#0f2027;
-border-radius:10%;</string>
+border-radius:10%;
+QLabel{
+color:white;
+}</string>
                       </property>
                       <property name="frameShape">
                        <enum>QFrame::StyledPanel</enum>
@@ -1449,6 +1458,60 @@ border-radius:10%;</string>
                       <property name="frameShadow">
                        <enum>QFrame::Raised</enum>
                       </property>
+                      <widget class="QLabel" name="label_16">
+                       <property name="geometry">
+                        <rect>
+                         <x>10</x>
+                         <y>10</y>
+                         <width>311</width>
+                         <height>31</height>
+                        </rect>
+                       </property>
+                       <property name="font">
+                        <font>
+                         <family>Arial</family>
+                         <pointsize>14</pointsize>
+                         <weight>75</weight>
+                         <bold>true</bold>
+                        </font>
+                       </property>
+                       <property name="styleSheet">
+                        <string notr="true">color: rgb(255, 255, 255);</string>
+                       </property>
+                       <property name="text">
+                        <string>TextLabel</string>
+                       </property>
+                       <property name="alignment">
+                        <set>Qt::AlignCenter</set>
+                       </property>
+                      </widget>
+                      <widget class="QLabel" name="label_17">
+                       <property name="geometry">
+                        <rect>
+                         <x>10</x>
+                         <y>40</y>
+                         <width>311</width>
+                         <height>31</height>
+                        </rect>
+                       </property>
+                       <property name="font">
+                        <font>
+                         <family>Arial</family>
+                         <pointsize>12</pointsize>
+                         <weight>50</weight>
+                         <bold>false</bold>
+                        </font>
+                       </property>
+                       <property name="styleSheet">
+                        <string notr="true">color: rgb(255, 255, 255);</string>
+                       </property>
+                       <property name="text">
+                        <string>TextLabel</string>
+                       </property>
+                       <property name="alignment">
+                        <set>Qt::AlignCenter</set>
+                       </property>
+                      </widget>
                      </widget>
                     </item>
                     <item row="1" column="0">
@@ -1510,24 +1573,7 @@ border-radius:5%;
                           <height>341</height>
                          </rect>
                         </property>
-                        <layout class="QGridLayout" name="gridLayout_6">
-                         <item row="0" column="0">
-                          <widget class="QFrame" name="cam_frame">
-                           <property name="maximumSize">
-                            <size>
-                             <width>16777215</width>
-                             <height>100</height>
-                            </size>
-                           </property>
-                           <property name="frameShape">
-                            <enum>QFrame::StyledPanel</enum>
-                           </property>
-                           <property name="frameShadow">
-                            <enum>QFrame::Raised</enum>
-                           </property>
-                          </widget>
-                         </item>
-                        </layout>
+                        <layout class="QGridLayout" name="gridLayout_6"/>
                        </widget>
                       </widget>
                      </widget>
@@ -3669,6 +3715,9 @@ QLineEdit:disabled {
  background:#0f2027;
 }</string>
                     </property>
+                    <property name="alignment">
+                     <set>Qt::AlignCenter</set>
+                    </property>
                     <property name="placeholderText">
                      <string>         Enter vehicle plate number to be removed from watchlist</string>
                     </property>
@@ -5309,18 +5358,7 @@ background-color: qlineargradient(spread:pad, x1:0.98, y1:0.471364, x2:1, y2:0.4
                          <height>286</height>
                         </rect>
                        </property>
-                       <layout class="QGridLayout" name="gridLayout_15">
-                        <item row="0" column="0">
-                         <widget class="QFrame" name="frame_log">
-                          <property name="frameShape">
-                           <enum>QFrame::StyledPanel</enum>
-                          </property>
-                          <property name="frameShadow">
-                           <enum>QFrame::Raised</enum>
-                          </property>
-                         </widget>
-                        </item>
-                       </layout>
+                       <layout class="QGridLayout" name="gridLayout_15"/>
                       </widget>
                      </widget>
                     </item>
