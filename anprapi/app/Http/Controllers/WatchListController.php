@@ -35,4 +35,21 @@ class WatchListController extends Controller
             return response()->json('error');
         }
     }
+    // function get_watchlist(){
+    //     $v = WatchList::get('registration_number');
+    //     if (count($v) > 0){
+    //         return response()->json($v);
+    //     }
+    //     else{
+    //         return response()->json('error');
+    //     }
+    // }
+    function searchCar($key){
+        $v = WatchList::where('registration_number', 'like', "$key")->get();
+        if (count($v) > 0) {
+            return response()->json($v);
+        } else {
+            return response()->json('error');
+        }
+    }
 }
