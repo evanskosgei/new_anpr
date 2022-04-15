@@ -24,6 +24,7 @@ from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 import random
 import requests
+from env import *
 
 # DB connection
 conn = None
@@ -298,10 +299,11 @@ class Home(dashboard.Ui_MainWindow, QMainWindow):
         #
         # self.setIc('./sicon/no_auth.png', 'ERROR!', "You don't have the required permission! Contact the administrator ", 'red', 10000)
         #
+        global old
+        old = 0
         try:
-            global o
-            o = requests.get("http://localhost:8000/api/logs")
-            print(o.json())
+            o = requests.get(env + "logs")
+            old = o.json()
 
         except Exception as e:
             self.tray_icon.showMessage(
@@ -311,10 +313,10 @@ class Home(dashboard.Ui_MainWindow, QMainWindow):
                 2000
             )
             self.stackedWidget.setCurrentWidget(self.status_page)
-            self.setIc('./sicon/net_error.png', 'NETWORK ERROR!', "Network Error!", 'red', 10000)
-        # timer = QTimer(self)
-        # timer.timeout.connect(self.spotCar)
-        # timer.start(1000)
+            self.setIc('./sicon/net_error.png', 'NETWORK ERROR IN SYSTEM!', "Network Error!", 'red', 10000)
+        timer = QTimer(self)
+        timer.timeout.connect(self.spotCar)
+        timer.start(5000)
 
     def manageUsers(self):
         if rl == 1:
@@ -382,7 +384,7 @@ class Home(dashboard.Ui_MainWindow, QMainWindow):
             warning_message_box(e)
         else:
             try:
-                res = requests.get("http://localhost:8000/api/vehicle/"+plate)
+                res = requests.get(env + "vehicle/"+plate)
                 if (res.json() == 'error'):
                     self.tray_icon.showMessage(
                         "ANPR",
@@ -552,17 +554,11 @@ class Home(dashboard.Ui_MainWindow, QMainWindow):
         #get no of logs in db
         plate="SAMPLE"
         try:
-            n = requests.get("http://localhost:8000/api/logs")
-            if (n > o):
-                self.tray_icon.showMessage(
-                    "Tray Program",
-                    "Vehicle " + plate + " has been spotted!",
-                    QSystemTrayIcon.Information,
-                    2000
-                )
-                o = n
-
+            res = requests.get(env + "logs")
+            n = res.json()
+            print("n " + str(res.json()))
         except Exception as e:
+            print(e)
             self.tray_icon.showMessage(
                 "Tray Program",
                 "Network Error!",
@@ -570,10 +566,20 @@ class Home(dashboard.Ui_MainWindow, QMainWindow):
                 2000
             )
             self.stackedWidget.setCurrentWidget(self.status_page)
-            self.setIc('./sicon/net_error.png', 'NETWORK ERROR!', "Network Error!", 'red', 10000)
+            self.lab_tab.setText("sytem network is down! Please check connection")
+            self.lab_tab.setStyleSheet("color: red")
             timer = QTimer(self)
             timer.timeout.connect(self.clear_label)
             timer.start(10000)
+        print("old" + str(old))
+        if (n > old):
+            self.tray_icon.showMessage(
+                "Tray Program",
+                "Vehicle " + plate + " has been spotted!",
+                QSystemTrayIcon.Information,
+                2000
+            )
+            o = n
         
     # adding car details to carDetails table
     def addCarDetails(self):
@@ -587,7 +593,7 @@ class Home(dashboard.Ui_MainWindow, QMainWindow):
         logBookNo = self.logbook_number_input.text()
         engineNo = self.engine_number_input.text()
         chasisNo = self.chassis_number_label_2.text()
-        watchlist = 1
+        
         #searching for an existing car in the database
         # try:
         #     cursor = conn.cursor()
@@ -596,9 +602,24 @@ class Home(dashboard.Ui_MainWindow, QMainWindow):
         # except Error as e:
         #     warning_message_box(e)
         # saving data to database
-        if regPlate == "" or owner == "" or vehicleMake == "" or modelYear == "" or engineCapacity == "" or bodyType == "" or color == "" or logBookNo == "" or engineNo == "" or chasisNo == "":
-            e = "please fill all the fields"
+        # print("reached here")
+        if regPlate == "" or vehicleMake == "" or color =="":
+            e = "A registration plate, vehicle make and color is mandatory!"
             warning_message_box(e)
+        if owner == "":
+            owner = "none provided"
+        if modelYear == "":
+            modelYear = "none provided"
+        if engineCapacity == "":
+            engineCapacity = "none provided"
+        if bodyType == "":
+            bodyType = "none provided"
+        if logBookNo == "":
+            logBookNo = "none provided"
+        if engineNo == "":
+            engineNo = "none provided"
+        if chasisNo == "":
+            chasisNo = "none provided"
         elif len(regPlate) < 7:
             e = "Registration Plate number must be 7 characters long"
             warning_message_box(e)
@@ -609,22 +630,44 @@ class Home(dashboard.Ui_MainWindow, QMainWindow):
         #     e = "Car already exists in the database"
         #     warning_message_box(e)
         else:
-            # try:
-            #     cursor = conn.cursor()
-            #     query = """INSERT INTO carDetails(reg_plate, owner, vehicle_make, model_year, engine_capacity, body_type, color, logbook_number, engine_number, chasis_number, watchlist) VALUES(?,?,?,?,?,?,?,?,?,?,?)"""
-            #     data = (regPlate, owner, vehicleMake, modelYear, engineCapacity,
-            #             bodyType, color, logBookNo, engineNo, chasisNo, watchlist)
-            #     cursor.execute(query, data)
-            #     conn.commit()
-            #     s = "Car details added successfully"
-            #     success_message_box(s)
-            # except Error as e:
-            #     warning_message_box(e)
+            print("add to watchlist ERROR!")
+        try:
+            # cursor = conn.cursor()
+            # query = """INSERT INTO carDetails(reg_plate, owner, vehicle_make, model_year, engine_capacity, body_type, color, logbook_number, engine_number, chasis_number, watchlist) VALUES(?,?,?,?,?,?,?,?,?,?,?)"""
+            # data = (regPlate, owner, vehicleMake, modelYear, engineCapacity,
+            #         bodyType, color, logBookNo, engineNo, chasisNo, watchlist)
+            # cursor.execute(query, data)
+            # conn.commit()
             try:
-                res = requests.post()
-            except:
-                print("Network Err")
-            self.clearLogs()
+                url = env + "add_to_watchlist"
+                print(url)
+                myobj = {'reg_plate': regPlate, 'owner': owner, 'vehicle_make': vehicleMake, 'model_year': modelYear, 
+                'engine_capacity': engineCapacity, 'body_type': bodyType, 'color': color, 'logbook_number': logBookNo,
+                'engine_number': engineNo, 'chasis_number': chasisNo}
+                # print(regPlate, owner, vehicleMake, modelYear, engineCapacity, bodyType, color, logBookNo, engineNo, chasisNo)
+                x = requests.post(url, data = myobj)
+                print(x.json())
+                if x.json() == "success":
+                    s = "Car details added successfully"
+                    self.lab_tab.setText("Vehicle plate added to watchlist successfully!")
+                    self.lab_tab.setStyleSheet("color: green")
+                    timer = QTimer(self)
+                    timer.timeout.connect(self.clear_label)
+                    timer.start(10000)
+                    success_message_box(s)
+                else:
+                    s = "Failed to add car details"
+                    self.lab_tab.setText("Failed to add car details")
+                    self.lab_tab.setStyleSheet("color: red")
+                    timer = QTimer(self)
+                    timer.timeout.connect(self.clear_label)
+                    timer.start(10000)
+                    warning_message_box(s)
+            except Exception as e:
+                print("ERROR!" + str(e))
+        except Error as e:
+            warning_message_box(e)
+        self.clearLogs()
 
     def clearLogs(self):
         self.reg_plate_input.clear()
@@ -929,17 +972,46 @@ class Home(dashboard.Ui_MainWindow, QMainWindow):
         
     #Remove from watchlist
     def removeWatchlist(self):
-        plateno = self.search_box_2.text().upper()
+        plateno = self.search_box_2.text()
+        # watchlist = 0
         if plateno == "":
             e = "Fill the empty space"
             warning_message_box(e)
         else:
             try:
-               res = requests.delete("http://localhost:8000/api/del/" +plateno)
-               if res.status_code == 200:
-                   print("success")
-               else:
-                   print("failed")
+                # cursor = conn.cursor()
+                # cursor.execute("SELECT * FROM carDetails WHERE reg_plate = ?",(plateno,))
+                # result = cursor.fetchall()
+                # if result == []:
+                #     e = "Such plate number doesnt exist"
+                #     warning_message_box(e)
+                # else:
+                #     for row in result:
+                #         plate = row[1]
+                #     try:
+                #         cursor = conn.cursor()
+                #         cursor.execute("UPDATE carDetails SET watchlist = ? WHERE reg_plate = ?", (watchlist, plate))
+                #         conn.commit()
+                #         s ="updated successfully"
+                #         success_message_box(s)
+                #         self.search_box_2.clear()
+                #     except Error as e:
+                #         warning_message_box(e)
+                res = requests.get(env + "delete_from_watchlist/" + plateno)
+                r = res.json()
+                print(r)
+                if r == "success":
+                    self.lab_tab.setText("Vehicle plate removed from watchlist successully!")
+                    self.lab_tab.setStyleSheet("color: green")
+                    timer = QTimer(self)
+                    timer.timeout.connect(self.clear_label)
+                    timer.start(10000)
+                else:
+                    self.lab_tab.setText("Error occured!")
+                    self.lab_tab.setStyleSheet("color: red")
+                    timer = QTimer(self)
+                    timer.timeout.connect(self.clear_label)
+                    timer.start(10000)
             except Error as e:
                 warning_message_box(e)
 
