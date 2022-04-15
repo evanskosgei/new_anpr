@@ -120,7 +120,7 @@ class Project(auth.Ui_Form, QMainWindow):
                         name = row[1]
                     #generate random password
                     global passcode
-                    code = random.randint(10000, 999999)
+                    code = random.randint(5000, 999999)
                     passcode = name + str(code)
                     #hashing passcode
                     passcode = passcode.encode('utf-8')
@@ -297,7 +297,7 @@ class Home(dashboard.Ui_MainWindow, QMainWindow):
         self.tray_icon.setContextMenu(tray_menu)
         self.tray_icon.show()
         #
-        # self.setIc('./sicon/no_auth.png', 'ERROR!', "You don't have the required permission! Contact the administrator ", 'red', 10000)
+        # self.setIc('./sicon/no_auth.png', 'ERROR!', "You don't have the required permission! Contact the administrator ", 'red', 5000)
         #
         global old
         old = 0
@@ -313,7 +313,7 @@ class Home(dashboard.Ui_MainWindow, QMainWindow):
                 2000
             )
             self.stackedWidget.setCurrentWidget(self.status_page)
-            self.setIc('./sicon/net_error.png', 'NETWORK ERROR IN SYSTEM!', "Network Error!", 'red', 10000)
+            self.setIc('./sicon/net_error.png', 'NETWORK ERROR IN SYSTEM!', "Network Error!", 'red', 5000)
         timer = QTimer(self)
         timer.timeout.connect(self.spotCar)
         timer.start(5000)
@@ -324,7 +324,7 @@ class Home(dashboard.Ui_MainWindow, QMainWindow):
         else:
             self.stackedWidget.setCurrentWidget(self.status_page)
             print("in else" + str(rl))
-            self.setIc('./sicon/no_auth.png', 'ERROR!', "You don't have the required permission! Contact the administrator.", 'red', 10000)
+            self.setIc('./sicon/no_auth.png', 'ERROR!', "You don't have the required permission! Contact the administrator.", 'red', 5000)
 
     def setIc(self, icn, text, lab_tab_txt, lab_tab_color, lab_tab_timing):
         self.err_ic.setText('<img src="'+icn+'" width="250" height="200">')
@@ -393,7 +393,7 @@ class Home(dashboard.Ui_MainWindow, QMainWindow):
                         2000
                     )
                     self.stackedWidget.setCurrentWidget(self.status_page)
-                    self.setIc('./sicon/sorry.ai', 'ERROR!', "The vehicle data requested is ot available", 'red', 10000)
+                    self.setIc('./sicon/sorry.ai', 'ERROR!', "The vehicle data requested is ot available", 'red', 5000)
 
                 else:
                     response = res.json()
@@ -408,7 +408,7 @@ class Home(dashboard.Ui_MainWindow, QMainWindow):
                     self.lab_tab.setStyleSheet("color: green")
                     timer = QTimer(self)
                     timer.timeout.connect(self.clear_label)
-                    timer.start(10000)
+                    timer.start(5000)
                     # get values from json response
                     try:
                         registration_number = result['registration_number']
@@ -443,7 +443,7 @@ class Home(dashboard.Ui_MainWindow, QMainWindow):
                     2000
                 )
                 self.stackedWidget.setCurrentWidget(self.status_page)
-                self.setIc('./sicon/net_error.png', 'NETWORK ERROR!', "Network Error!", 'red', 10000)
+                self.setIc('./sicon/net_error.png', 'NETWORK ERROR!', "Network Error!", 'red', 5000)
 
     def c(self):
         self.hide()
@@ -570,7 +570,7 @@ class Home(dashboard.Ui_MainWindow, QMainWindow):
             self.lab_tab.setStyleSheet("color: red")
             timer = QTimer(self)
             timer.timeout.connect(self.clear_label)
-            timer.start(10000)
+            timer.start(5000)
         print("old" + str(old))
         if (n > old):
             self.tray_icon.showMessage(
@@ -657,7 +657,7 @@ class Home(dashboard.Ui_MainWindow, QMainWindow):
                     self.lab_tab.setStyleSheet("color: green")
                     timer = QTimer(self)
                     timer.timeout.connect(self.clear_label)
-                    timer.start(10000)
+                    timer.start(5000)
                     success_message_box(s)
                 else:
                     s = "Failed to add car details"
@@ -665,7 +665,7 @@ class Home(dashboard.Ui_MainWindow, QMainWindow):
                     self.lab_tab.setStyleSheet("color: red")
                     timer = QTimer(self)
                     timer.timeout.connect(self.clear_label)
-                    timer.start(10000)
+                    timer.start(5000)
                     warning_message_box(s)
             except Exception as e:
                 print("ERROR!" + str(e))
@@ -803,7 +803,7 @@ class Home(dashboard.Ui_MainWindow, QMainWindow):
                     self.lab_tab.setStyleSheet("color: green")
                     timer = QTimer(self)
                     timer.timeout.connect(self.clear_label)
-                    timer.start(10000)
+                    timer.start(5000)
 
         except Error as e:
             warning_message_box(e)
@@ -977,7 +977,7 @@ class Home(dashboard.Ui_MainWindow, QMainWindow):
     #Remove from watchlist
     def removeWatchlist(self):
         plateno = self.search_box_2.text()
-        # watchlist = 0
+        print(plateno)
         if plateno == "":
             e = "Fill the empty space"
             warning_message_box(e)
@@ -1002,22 +1002,33 @@ class Home(dashboard.Ui_MainWindow, QMainWindow):
                 #     except Error as e:
                 #         warning_message_box(e)
                 res = requests.get(env + "delete_from_watchlist/" + plateno)
-                r = res.json()
-                print(r)
-                if r == "success":
+                print(res.json())
+                if res.json() == "success":
                     self.lab_tab.setText("Vehicle plate removed from watchlist successully!")
                     self.lab_tab.setStyleSheet("color: green")
                     timer = QTimer(self)
                     timer.timeout.connect(self.clear_label)
-                    timer.start(10000)
+                    timer.start(5000)
+                    self.tray_icon.showMessage(
+                    "Tray Program",
+                    "Vehicle plate removed from watchlist successully!",
+                    QSystemTrayIcon.Information,
+                    2000
+                )
                 else:
                     self.lab_tab.setText("Error occured!")
                     self.lab_tab.setStyleSheet("color: red")
                     timer = QTimer(self)
                     timer.timeout.connect(self.clear_label)
-                    timer.start(10000)
-            except Error as e:
-                warning_message_box(e)
+                    timer.start(5000)
+                    self.tray_icon.showMessage(
+                    "Tray Program",
+                    "Error occured!",
+                    QSystemTrayIcon.Information,
+                    2000
+                )
+            except Exception as e:
+                print(e)
 
 # warning message box
 def warning_message_box(e):

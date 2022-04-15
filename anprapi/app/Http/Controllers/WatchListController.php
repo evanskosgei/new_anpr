@@ -24,12 +24,12 @@ class WatchListController extends Controller
         return response()->json('success');
     }
 
-    function delete_from_watchlist($key){
-        $v = WatchList::where('registration_number', 'like', "$key")->get();
+    function delete_from_watchlist($id){
+        $v = WatchList::where('registration_number', $id)->get();
         // dd(count($v));
         if (count($v) > 0){
-        $v->delete();
-        return response()->json('success');
+            WatchList::where('registration_number', $id)->delete();
+            return response()->json('success');
         }
         else{
             return response()->json('error');
