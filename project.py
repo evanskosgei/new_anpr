@@ -81,7 +81,7 @@ class Project(auth.Ui_Form, QMainWindow):
                     for row in result:
                         password = row[0]
                         role = row[1]
-                        global rl
+                        global rl 
                         rl = role
                         print(role)
                     if bcrypt.checkpw(data.encode('utf-8'), password):
@@ -603,21 +603,17 @@ class Home(dashboard.Ui_MainWindow, QMainWindow):
         #     warning_message_box(e)
         # saving data to database
         # print("reached here")
-        if regPlate == "":
-            e = "A registration plate is mandatory!"
+        if regPlate == "" or vehicleMake == "" or color =="":
+            e = "A registration plate, vehicle make and color is mandatory!"
             warning_message_box(e)
         if owner == "":
             owner = "none provided"
-        if vehicleMake == "":
-            vehicleMake = "none provided"
         if modelYear == "":
             modelYear = "none provided"
         if engineCapacity == "":
             engineCapacity = "none provided"
         if bodyType == "":
             bodyType = "none provided"
-        if color == "":
-            color = "none provided"
         if logBookNo == "":
             logBookNo = "none provided"
         if engineNo == "":
@@ -1056,8 +1052,6 @@ def areYouSure(a):
     msg.setWindowTitle("Are you sure?")
     msg.setStandardButtons(QMessageBox.Yes | QMessageBox.No)
     msg.exec_()
-
-
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)

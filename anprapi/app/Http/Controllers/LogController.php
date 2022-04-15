@@ -14,5 +14,4 @@ class LogController extends Controller
         $v = Log::all();
         return response()->json(count($v));
     }
-
 }
