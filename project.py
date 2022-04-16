@@ -42,6 +42,7 @@ try:
 except Error as e:
     print(e)
 
+rl = 'null'
 
 class Project(auth.Ui_Form, QMainWindow):
     def __init__(self):
@@ -81,7 +82,7 @@ class Project(auth.Ui_Form, QMainWindow):
                     for row in result:
                         password = row[0]
                         role = row[1]
-                        global rl 
+                        global rl
                         rl = role
                         print(role)
                     if bcrypt.checkpw(data.encode('utf-8'), password):
@@ -313,7 +314,8 @@ class Home(dashboard.Ui_MainWindow, QMainWindow):
                 2000
             )
             self.stackedWidget.setCurrentWidget(self.status_page)
-            self.setIc('./sicon/net_error.png', 'CAMERA SYNC ERROR IN SYSTEM!', "camera sync Error!", 'red', 5000)
+            icn = './sicon/net_error.png'
+            self.setIc('<img src="'+icn+'" width="200" height="200">', 'CAMERA SYNC ERROR IN SYSTEM!', "camera sync Error!", 'red', 5000)
         timer = QTimer(self)
         timer.timeout.connect(self.spotCar)
         timer.start(30000)
@@ -336,10 +338,11 @@ class Home(dashboard.Ui_MainWindow, QMainWindow):
         else:
             self.stackedWidget.setCurrentWidget(self.status_page)
             print("in else" + str(rl))
-            self.setIc('./sicon/no_auth.png', 'ERROR!', "You don't have the required permission! Contact the administrator.", 'red', 5000)
+            icn = './sicon/no_auth.png'
+            self.setIc('<img src="'+icn+'" width="200" height="200">', 'ERROR!', "You don't have the required permission! Contact the administrator.", 'red', 5000)
 
-    def setIc(self, icn, text, lab_tab_txt, lab_tab_color, lab_tab_timing):
-        self.err_ic.setText('<img src="'+icn+'" width="250" height="200">')
+    def setIc(self, img, text, lab_tab_txt, lab_tab_color, lab_tab_timing):
+        self.err_ic.setText(img)
         self.err_lb.setText(text)
         self.lab_tab.setText(lab_tab_txt)
         self.lab_tab.setStyleSheet("color:" + lab_tab_color)
@@ -405,7 +408,8 @@ class Home(dashboard.Ui_MainWindow, QMainWindow):
                         2000
                     )
                     self.stackedWidget.setCurrentWidget(self.status_page)
-                    self.setIc('./sicon/sorry.ai', 'ERROR!', "The vehicle data requested is ot available", 'red', 5000)
+                    icn = './sicon/nodata.png'
+                    self.setIc('<img src="'+icn+'" width="250" height="200">', 'SORRY, The vehicle data requested is not available.', "The vehicle data requested is not available", 'red', 5000)
 
                 else:
                     response = res.json()
@@ -455,7 +459,8 @@ class Home(dashboard.Ui_MainWindow, QMainWindow):
                     2000
                 )
                 self.stackedWidget.setCurrentWidget(self.status_page)
-                self.setIc('./sicon/net_error.png', 'NETWORK ERROR!', "Network Error!", 'red', 5000)
+                icn = './sicon/no_auth.png'
+                self.setIc('<img src="'+icn+'" width="200" height="200">', 'NETWORK ERROR!', "Network Error!", 'red', 5000)
 
     def c(self):
         self.hide()
@@ -664,9 +669,7 @@ class Home(dashboard.Ui_MainWindow, QMainWindow):
         elif len(regPlate) < 7:
             e = "Registration Plate number must be 7 characters long"
             warning_message_box(e)
-        elif regPlate.isalnum() == False:
-            e = "Registration Plate number must be alphanumeric"
-            warning_message_box(e)
+        
         # elif indata != []:
         #     e = "Car already exists in the database"
         #     warning_message_box(e)
@@ -1027,24 +1030,6 @@ class Home(dashboard.Ui_MainWindow, QMainWindow):
             warning_message_box(e)
         else:
             try:
-                # cursor = conn.cursor()
-                # cursor.execute("SELECT * FROM carDetails WHERE reg_plate = ?",(plateno,))
-                # result = cursor.fetchall()
-                # if result == []:
-                #     e = "Such plate number doesnt exist"
-                #     warning_message_box(e)
-                # else:
-                #     for row in result:
-                #         plate = row[1]
-                #     try:
-                #         cursor = conn.cursor()
-                #         cursor.execute("UPDATE carDetails SET watchlist = ? WHERE reg_plate = ?", (watchlist, plate))
-                #         conn.commit()
-                #         s ="updated successfully"
-                #         success_message_box(s)
-                #         self.search_box_2.clear()
-                #     except Error as e:
-                #         warning_message_box(e)
                 res = requests.get(env + "delete_from_watchlist/" + plateno)
                 print(res.json())
                 if res.json() == "success":

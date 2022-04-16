@@ -943,7 +943,7 @@ class Ui_MainWindow(object):
         self.frame_5.setFrameShadow(QtWidgets.QFrame.Raised)
         self.frame_5.setObjectName("frame_5")
         self.btn_save_to_wishlist = QtWidgets.QPushButton(self.frame_5)
-        self.btn_save_to_wishlist.setGeometry(QtCore.QRect(120, 30, 131, 31))
+        self.btn_save_to_wishlist.setGeometry(QtCore.QRect(120, 30, 161, 31))
         self.btn_save_to_wishlist.setMinimumSize(QtCore.QSize(69, 25))
         self.btn_save_to_wishlist.setMaximumSize(QtCore.QSize(69000, 25000))
         font = QtGui.QFont()
@@ -2477,7 +2477,7 @@ class Ui_MainWindow(object):
         MainWindow.setCentralWidget(self.centralwidget)
 
         self.retranslateUi(MainWindow)
-        self.stackedWidget.setCurrentIndex(1)
+        self.stackedWidget.setCurrentIndex(3)
         self.stackedWidget_android.setCurrentIndex(2)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
@@ -2536,7 +2536,7 @@ class Ui_MainWindow(object):
         self.engine_number_label.setText(_translate("MainWindow", "<html><head/><body><p><span style=\" font-size:12pt;\">Registration Engine Number :</span></p></body></html>"))
         self.chassis_number_label.setText(_translate("MainWindow", "<html><head/><body><p><span style=\" font-size:12pt;\">Registration Chassis Number :</span></p></body></html>"))
         self.btn_save_to_wishlist.setToolTip(_translate("MainWindow", "add to watchlist"))
-        self.btn_save_to_wishlist.setText(_translate("MainWindow", "SAVE CHANGES"))
+        self.btn_save_to_wishlist.setText(_translate("MainWindow", "SAVE TO WATCHLIST"))
         self.add_remove_label_2.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" font-size:14pt; font-weight:600;\">SEARCH REGISTRATION DETAILS</span></p></body></html>"))
         self.car_deatils_label_2.setText(_translate("MainWindow", "<html><head/><body><p><span style=\" font-size:12pt; font-weight:600;\">CAR DETAILS</span></p></body></html>"))
         self.reg_plate_label_2.setText(_translate("MainWindow", "<html><head/><body><p><span style=\" font-size:12pt;\">Registration Plate :</span></p></body></html>"))
