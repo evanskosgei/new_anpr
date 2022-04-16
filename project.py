@@ -260,7 +260,7 @@ class Home(dashboard.Ui_MainWindow, QMainWindow):
         global cf
         cf = 0
         #1 row
-        for x in range(0, 11):
+        for x in range(0, 2):
             # 1 columns
             for y in range(0, 1):
                 self.camFrame(x, y)
@@ -302,9 +302,9 @@ class Home(dashboard.Ui_MainWindow, QMainWindow):
         global old
         old = 0
         try:
+            print(env + "logs")
             o = requests.get(env + "logs")
             old = o.json()
-
         except Exception as e:
             self.tray_icon.showMessage(
                 "Tray Program",
@@ -313,7 +313,7 @@ class Home(dashboard.Ui_MainWindow, QMainWindow):
                 2000
             )
             self.stackedWidget.setCurrentWidget(self.status_page)
-            self.setIc('./sicon/net_error.png', 'NETWORK ERROR IN SYSTEM!', "Network Error!", 'red', 5000)
+            self.setIc('./sicon/net_error.png', 'CAMERA SYNC ERROR IN SYSTEM!', "camera sync Error!", 'red', 5000)
         timer = QTimer(self)
         timer.timeout.connect(self.spotCar)
         timer.start(30000)
@@ -325,6 +325,9 @@ class Home(dashboard.Ui_MainWindow, QMainWindow):
         # self.label_16.setText("Hello 🙂" + user_name)
         self.label_16.setText("Hello 🙂 ??")
         self.label_17.setText("2 cameras 🎦 active")
+        #
+        tdy = date.today()
+        self.dateEdit_2.setDate(tdy)
         #⬆️init
 
     def manageUsers(self):
@@ -531,9 +534,10 @@ class Home(dashboard.Ui_MainWindow, QMainWindow):
         self.cam_btn.setGeometry(QRect(175, 70, 65, 21))
         self.cam_btn.setStyleSheet("background-color: #EE8A09; color: black; border-radius:5px; font: 75 8pt;")
         self.cam_btn.setCursor(QCursor(Qt.PointingHandCursor))
+        self.cam_btn.clicked.connect(lambda : print(newBtn + " was clicked."))
         self.cam_btn.setObjectName(newBtn)
         self.cam_btn.setText("DETAILS ➡️")
-
+        #set attributes
         setattr(self, cFrame, self.cam_frame)
         setattr(self, newLabel, self.cam_frame)
         setattr(self, newBtn, self.cam_frame)
@@ -576,6 +580,7 @@ class Home(dashboard.Ui_MainWindow, QMainWindow):
         self.lg_btn.setGeometry(QRect(475, 70, 95, 21))
         self.lg_btn.setStyleSheet("background-color: #EE8A09; color: black; border-radius:5px; font: 75 8pt;")
         self.lg_btn.setCursor(QCursor(Qt.PointingHandCursor))
+        self.lg_btn.clicked.connect(lambda : print(newBn + " was clicked."))
         self.lg_btn.setObjectName(newBn)
         self.lg_btn.setText("MORE DETAILS ➡️")
         # create new attribute to Ui_MainWindow
@@ -593,6 +598,14 @@ class Home(dashboard.Ui_MainWindow, QMainWindow):
             res = requests.get(env + "logs")
             n = res.json()
             print("n " + str(res.json()))
+            if (n > old):
+                self.tray_icon.showMessage(
+                    "Tray Program",
+                    "Vehicle " + plate + " has been spotted!",
+                    QSystemTrayIcon.Information,
+                    2000
+                )
+                o = n
         except Exception as e:
             print(e)
             self.tray_icon.showMessage(
@@ -607,14 +620,7 @@ class Home(dashboard.Ui_MainWindow, QMainWindow):
             timer = QTimer(self)
             timer.timeout.connect(self.clear_label)
             timer.start(5000)
-        if (n > old):
-            self.tray_icon.showMessage(
-                "Tray Program",
-                "Vehicle " + plate + " has been spotted!",
-                QSystemTrayIcon.Information,
-                2000
-            )
-            o = n
+        
         
     # adding car details to carDetails table
     def addCarDetails(self):
@@ -703,6 +709,13 @@ class Home(dashboard.Ui_MainWindow, QMainWindow):
         except Error as e:
             warning_message_box(e)
         self.clearLogs()
+
+    def filterLogs(self):
+        plt = self.lineEdit_10.text()
+        d1 =self.dateEdit.date()
+        d2 =self.dateEdit_2.date()
+        print(plt, d1, d2)
+
 
     def clearLogs(self):
         self.reg_plate_input.clear()

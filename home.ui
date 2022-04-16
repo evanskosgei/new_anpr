@@ -5490,6 +5490,9 @@ border:2px solid #DEBC3F;
                     <property name="buttonSymbols">
                      <enum>QAbstractSpinBox::UpDownArrows</enum>
                     </property>
+                    <property name="displayFormat">
+                     <string>d/M/yyyy</string>
+                    </property>
                     <property name="calendarPopup">
                      <bool>true</bool>
                     </property>
@@ -5516,6 +5519,9 @@ border:2px solid #DEBC3F;
                     </property>
                     <property name="showGroupSeparator" stdset="0">
                      <bool>false</bool>
+                    </property>
+                    <property name="displayFormat">
+                     <string>d/M/yyyy</string>
                     </property>
                     <property name="calendarPopup">
                      <bool>true</bool>
@@ -5591,9 +5597,9 @@ QPushButton:disabled {
                    <widget class="QLabel" name="from_label">
                     <property name="geometry">
                      <rect>
-                      <x>30</x>
+                      <x>17</x>
                       <y>40</y>
-                      <width>58</width>
+                      <width>71</width>
                       <height>21</height>
                      </rect>
                     </property>
@@ -5605,7 +5611,7 @@ QPushButton:disabled {
 }</string>
                     </property>
                     <property name="text">
-                     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:12pt;&quot;&gt;From :&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:12pt;&quot;&gt;From :📅&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                     </property>
                     <property name="alignment">
                      <set>Qt::AlignCenter</set>
@@ -5614,9 +5620,9 @@ QPushButton:disabled {
                    <widget class="QLabel" name="to_label">
                     <property name="geometry">
                      <rect>
-                      <x>200</x>
+                      <x>190</x>
                       <y>40</y>
-                      <width>41</width>
+                      <width>51</width>
                       <height>21</height>
                      </rect>
                     </property>
@@ -5629,7 +5635,7 @@ QPushButton:disabled {
 </string>
                     </property>
                     <property name="text">
-                     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:12pt;&quot;&gt;To :&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:12pt;&quot;&gt;To :📅&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                     </property>
                     <property name="alignment">
                      <set>Qt::AlignCenter</set>

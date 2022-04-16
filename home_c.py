@@ -2208,7 +2208,7 @@ class Ui_MainWindow(object):
 "}")
         self.pushButton_5.setObjectName("pushButton_5")
         self.from_label = QtWidgets.QLabel(self.frame_14)
-        self.from_label.setGeometry(QtCore.QRect(30, 40, 58, 21))
+        self.from_label.setGeometry(QtCore.QRect(17, 40, 71, 21))
         self.from_label.setStyleSheet("QLabel{\n"
 "  background: #DEBC3F;\n"
 "  color:#000;  \n"
@@ -2217,7 +2217,7 @@ class Ui_MainWindow(object):
         self.from_label.setAlignment(QtCore.Qt.AlignCenter)
         self.from_label.setObjectName("from_label")
         self.to_label = QtWidgets.QLabel(self.frame_14)
-        self.to_label.setGeometry(QtCore.QRect(200, 40, 41, 21))
+        self.to_label.setGeometry(QtCore.QRect(190, 40, 51, 21))
         self.to_label.setStyleSheet("QLabel{\n"
 "  background: #DEBC3F;\n"
 "  color:#000;  \n"
@@ -2588,10 +2588,12 @@ class Ui_MainWindow(object):
         self.radioButton_5.setText(_translate("MainWindow", "Staff number"))
         self.radioButton_6.setText(_translate("MainWindow", "Email"))
         self.pushButton_4.setText(_translate("MainWindow", "PRINT"))
+        self.dateEdit.setDisplayFormat(_translate("MainWindow", "d/M/yyyy"))
+        self.dateEdit_2.setDisplayFormat(_translate("MainWindow", "d/M/yyyy"))
         self.lineEdit_10.setPlaceholderText(_translate("MainWindow", "         Enter Plate Number"))
         self.pushButton_5.setText(_translate("MainWindow", "FILTER"))
-        self.from_label.setText(_translate("MainWindow", "<html><head/><body><p><span style=\" font-size:12pt;\">From :</span></p></body></html>"))
-        self.to_label.setText(_translate("MainWindow", "<html><head/><body><p><span style=\" font-size:12pt;\">To :</span></p></body></html>"))
+        self.from_label.setText(_translate("MainWindow", "<html><head/><body><p><span style=\" font-size:12pt;\">From :📅</span></p></body></html>"))
+        self.to_label.setText(_translate("MainWindow", "<html><head/><body><p><span style=\" font-size:12pt;\">To :📅</span></p></body></html>"))
         self.lab_tab.setText(_translate("MainWindow", "<html><head/><body><p><br/></p></body></html>"))
         self.frame_drag.setToolTip(_translate("MainWindow", "Drag"))
         self.lab_appname.setText(_translate("MainWindow", "<html><head/><body><p><br/></p></body></html>"))
