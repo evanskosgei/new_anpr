@@ -836,9 +836,9 @@ QPushButton:pressed {
 </string>
                </property>
                <property name="currentIndex">
-                <number>3</number>
+                <number>1</number>
                </property>
-               <widget class="QWidget" name="page">
+               <widget class="QWidget" name="spotted_vehicles">
                 <layout class="QGridLayout" name="gridLayout_16">
                  <item row="0" column="0">
                   <widget class="QFrame" name="add_remove_frame_3">
@@ -1411,7 +1411,7 @@ QLineEdit:disabled {
                      </font>
                     </property>
                     <property name="text">
-                     <string>Vehicle detailed are fetched frm the national registered vehicled database</string>
+                     <string>Vehicle detailed are fetched from the national registered vehicled database</string>
                     </property>
                     <property name="alignment">
                      <set>Qt::AlignCenter</set>
@@ -2188,6 +2188,9 @@ background-color:transparent;
                     <property name="alignment">
                      <set>Qt::AlignCenter</set>
                     </property>
+                    <property name="wordWrap">
+                     <bool>true</bool>
+                    </property>
                    </widget>
                    <widget class="QLabel" name="err_ic">
                     <property name="geometry">
@@ -2907,6 +2910,107 @@ QPushButton:disabled {
                      <bool>true</bool>
                     </property>
                    </widget>
+                   <widget class="QPushButton" name="view_watchlist">
+                    <property name="geometry">
+                     <rect>
+                      <x>550</x>
+                      <y>10</y>
+                      <width>141</width>
+                      <height>23</height>
+                     </rect>
+                    </property>
+                    <property name="font">
+                     <font>
+                      <family>Arial</family>
+                      <pointsize>10</pointsize>
+                     </font>
+                    </property>
+                    <property name="cursor">
+                     <cursorShape>PointingHandCursor</cursorShape>
+                    </property>
+                    <property name="styleSheet">
+                     <string notr="true">QPushButton{
+background-color: rgb(0, 115, 172);
+color: rgb(255, 255, 255);
+border-radius:5%;
+}
+QPushButton:hover{
+background-color: rgb(0, 170, 255);
+color: rgb(255, 255, 255);
+border-radius:5%;
+}</string>
+                    </property>
+                    <property name="text">
+                     <string>Click to view watchlist</string>
+                    </property>
+                   </widget>
+                  </widget>
+                 </item>
+                </layout>
+               </widget>
+               <widget class="QWidget" name="watchlist">
+                <layout class="QVBoxLayout" name="verticalLayout">
+                 <item>
+                  <widget class="QFrame" name="frame_17">
+                   <property name="maximumSize">
+                    <size>
+                     <width>16777215</width>
+                     <height>100</height>
+                    </size>
+                   </property>
+                   <property name="styleSheet">
+                    <string notr="true">background-color: qlineargradient(spread:pad, x1:0.98, y1:0.471364, x2:1, y2:0.472, stop:1 rgba(0, 0, 0, 18));
+border-radius:10%;
+</string>
+                   </property>
+                   <property name="frameShape">
+                    <enum>QFrame::StyledPanel</enum>
+                   </property>
+                   <property name="frameShadow">
+                    <enum>QFrame::Raised</enum>
+                   </property>
+                   <layout class="QGridLayout" name="gridLayout_17">
+                    <item row="0" column="0">
+                     <widget class="QLabel" name="label_18">
+                      <property name="font">
+                       <font>
+                        <family>Arial</family>
+                        <pointsize>14</pointsize>
+                        <weight>75</weight>
+                        <bold>true</bold>
+                       </font>
+                      </property>
+                      <property name="styleSheet">
+                       <string notr="true">background:transparent;</string>
+                      </property>
+                      <property name="text">
+                       <string>WATCHLIST</string>
+                      </property>
+                      <property name="alignment">
+                       <set>Qt::AlignCenter</set>
+                      </property>
+                     </widget>
+                    </item>
+                   </layout>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QFrame" name="frame_18">
+                   <property name="styleSheet">
+                    <string notr="true">background-color: qlineargradient(spread:pad, x1:0.98, y1:0.471364, x2:1, y2:0.472, stop:1 rgba(0, 0, 0, 18));
+</string>
+                   </property>
+                   <property name="frameShape">
+                    <enum>QFrame::StyledPanel</enum>
+                   </property>
+                   <property name="frameShadow">
+                    <enum>QFrame::Raised</enum>
+                   </property>
+                   <layout class="QHBoxLayout" name="horizontalLayout_9">
+                    <item>
+                     <widget class="QTableWidget" name="tableWidget"/>
+                    </item>
+                   </layout>
                   </widget>
                  </item>
                 </layout>

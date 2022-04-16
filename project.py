@@ -121,7 +121,7 @@ class Project(auth.Ui_Form, QMainWindow):
                         name = row[1]
                     #generate random password
                     global passcode
-                    code = random.randint(5000, 999999)
+                    code = random.randint(10000, 999999)
                     passcode = name + str(code)
                     #hashing passcode
                     passcode = passcode.encode('utf-8')
@@ -235,6 +235,7 @@ class Home(dashboard.Ui_MainWindow, QMainWindow):
             lambda: self.stackedWidget_android.setCurrentWidget(
                 self.users_list)
         )
+        self.view_watchlist.clicked.connect(lambda: self.stackedWidget.setCurrentWidget(self.watchlist))
         self.bn_android_game.clicked.connect(
             lambda: self.stackedWidget_android.setCurrentWidget(
                 self.new_user)
@@ -298,7 +299,7 @@ class Home(dashboard.Ui_MainWindow, QMainWindow):
         self.tray_icon.setContextMenu(tray_menu)
         self.tray_icon.show()
         #
-        # self.setIc('./sicon/no_auth.png', 'ERROR!', "You don't have the required permission! Contact the administrator ", 'red', 5000)
+        # self.setIc('./sicon/no_auth.png', 'ERROR!', "You don't have the required permission! Contact the administrator ", 'red', 10000)
         #
         global old
         old = 0
@@ -309,13 +310,13 @@ class Home(dashboard.Ui_MainWindow, QMainWindow):
         except Exception as e:
             self.tray_icon.showMessage(
                 "Tray Program",
-                "Network Error!",
+                "Network Error. Unable to reach cameras!",
                 QSystemTrayIcon.Information,
                 2000
             )
             self.stackedWidget.setCurrentWidget(self.status_page)
             icn = './sicon/net_error.png'
-            self.setIc('<img src="'+icn+'" width="200" height="200">', 'CAMERA SYNC ERROR IN SYSTEM!', "camera sync Error!", 'red', 5000)
+            self.setIc('<img src="'+icn+'" width="200" height="200">', 'NETWORK ERROR, UNABLE TO RAECH CAMERAS!', "camera sync Error!", 'red', 10000)
         timer = QTimer(self)
         timer.timeout.connect(self.spotCar)
         timer.start(30000)
@@ -339,7 +340,7 @@ class Home(dashboard.Ui_MainWindow, QMainWindow):
             self.stackedWidget.setCurrentWidget(self.status_page)
             print("in else" + str(rl))
             icn = './sicon/no_auth.png'
-            self.setIc('<img src="'+icn+'" width="200" height="200">', 'ERROR!', "You don't have the required permission! Contact the administrator.", 'red', 5000)
+            self.setIc('<img src="'+icn+'" width="200" height="200">', 'ERROR!', "You don't have the required permission! Contact the administrator.", 'red', 10000)
 
     def setIc(self, img, text, lab_tab_txt, lab_tab_color, lab_tab_timing):
         self.err_ic.setText(img)
@@ -409,7 +410,7 @@ class Home(dashboard.Ui_MainWindow, QMainWindow):
                     )
                     self.stackedWidget.setCurrentWidget(self.status_page)
                     icn = './sicon/nodata.png'
-                    self.setIc('<img src="'+icn+'" width="250" height="200">', 'SORRY, The vehicle data requested is not available.', "The vehicle data requested is not available", 'red', 5000)
+                    self.setIc('<img src="'+icn+'" width="250" height="200">', 'SORRY, The vehicle data requested is not available.', "The vehicle data requested is not available", 'red', 10000)
 
                 else:
                     response = res.json()
@@ -424,7 +425,7 @@ class Home(dashboard.Ui_MainWindow, QMainWindow):
                     self.lab_tab.setStyleSheet("color: green")
                     timer = QTimer(self)
                     timer.timeout.connect(self.clear_label)
-                    timer.start(5000)
+                    timer.start(10000)
                     # get values from json response
                     try:
                         registration_number = result['registration_number']
@@ -460,7 +461,7 @@ class Home(dashboard.Ui_MainWindow, QMainWindow):
                 )
                 self.stackedWidget.setCurrentWidget(self.status_page)
                 icn = './sicon/no_auth.png'
-                self.setIc('<img src="'+icn+'" width="200" height="200">', 'NETWORK ERROR!', "Network Error!", 'red', 5000)
+                self.setIc('<img src="'+icn+'" width="200" height="200">', 'NETWORK ERROR!', "Network Error!", 'red', 10000)
 
     def c(self):
         self.hide()
@@ -585,7 +586,7 @@ class Home(dashboard.Ui_MainWindow, QMainWindow):
         self.lg_btn.setGeometry(QRect(475, 70, 95, 21))
         self.lg_btn.setStyleSheet("background-color: #EE8A09; color: black; border-radius:5px; font: 75 8pt;")
         self.lg_btn.setCursor(QCursor(Qt.PointingHandCursor))
-        self.lg_btn.clicked.connect(lambda : print(newBn + " was clicked."))
+        self.lg_btn.clicked.connect(lambda newBn: self.spottedVehicle(newBn))
         self.lg_btn.setObjectName(newBn)
         self.lg_btn.setText("MORE DETAILS ➡️")
         # create new attribute to Ui_MainWindow
@@ -594,7 +595,75 @@ class Home(dashboard.Ui_MainWindow, QMainWindow):
         setattr(self, newtEdit, self.frame_3)
         setattr(self, newBn, self.frame_3)
         self.gridLayout_15.addWidget(self.frame_3, rowNumber, columnNumber, 1, 1)
-    # print('widgets created')
+
+    def spottedVehicle(self, newBn):
+        self.stackedWidget.setCurrentWidget(self.spotted_vehicles)
+        plate = 'DM485XD'
+        try:
+            res = requests.get(env + "vehicle/"+plate)
+            if (res.json() == 'error'):
+                self.tray_icon.showMessage(
+                    "ANPR",
+                    "The vehicle not found!",
+                    QSystemTrayIcon.Information,
+                    2000
+                )
+                self.stackedWidget.setCurrentWidget(self.status_page)
+                icn = './sicon/nodata.png'
+                self.setIc('<img src="'+icn+'" width="250" height="200">', 'SORRY, The vehicle data requested is not available.', "The vehicle data requested is not available", 'red', 10000)
+
+            else:
+                response = res.json()
+                result = response[0]
+                self.tray_icon.showMessage(
+                    "ANPR",
+                    "Vehicle Details Found.",
+                    QSystemTrayIcon.Information,
+                    2000
+                )
+                self.lab_tab.setText("Vehicle registration details found!")
+                self.lab_tab.setStyleSheet("color: green")
+                timer = QTimer(self)
+                timer.timeout.connect(self.clear_label)
+                timer.start(10000)
+                # get values from json response
+                try:
+                    registration_number = result['registration_number']
+                    owner = result['owner']
+                    vehicle_make = result['vehicle_make']
+                    year_of_manufacture = result['year_of_manufacture']
+                    engine_capacity = result['engine_capacity']
+                    body_type = result['body_type']
+                    color = result['color']
+                    logbook_number = result['logbook_number']
+                    engine_number = result['engine_number']
+                    chassis_number = result['chassis_number']
+
+                except:
+                    print("nop")
+                # set to lineEdit
+                self.reg_plate_input_3.setText(registration_number)
+                self.owner_input_3.setText(owner)
+                self.vehicle_make_input_3.setText(vehicle_make)
+                self.year_of_man_input_3.setText(year_of_manufacture)
+                self.engine_capacity_input_3.setText(engine_capacity)
+                self.body_type_input_3.setText(body_type)
+                self.color_input_3.setText(color)
+                self.logbook_number_input_3.setText(logbook_number)
+                self.engine_number_input_3.setText(engine_number)
+                self.chassis_number_label_6.setText(chassis_number)
+        except Exception as e:
+            self.tray_icon.showMessage(
+                "Tray Program",
+                "Network Error!",
+                QSystemTrayIcon.Information,
+                2000
+            )
+            self.stackedWidget.setCurrentWidget(self.status_page)
+            icn = './sicon/no_auth.png'
+            self.setIc('<img src="'+icn+'" width="200" height="200">', 'SORRY,NETWORK ERROR. UNABLE TO SEARCH FOR THE SPOTTED CAR DETAILS!', "Network Error!", 'red', 10000)
+
+
 
     def spotCar(self):
         #get no of logs in db
@@ -615,7 +684,7 @@ class Home(dashboard.Ui_MainWindow, QMainWindow):
             print(e)
             self.tray_icon.showMessage(
                 "Tray Program",
-                "Network Error!",
+                "Network Error. Unable to reach cameras!",
                 QSystemTrayIcon.Information,
                 2000
             )
@@ -624,7 +693,7 @@ class Home(dashboard.Ui_MainWindow, QMainWindow):
             self.lab_tab.setStyleSheet("color: red")
             timer = QTimer(self)
             timer.timeout.connect(self.clear_label)
-            timer.start(5000)
+            timer.start(10000)
         
         
     # adding car details to carDetails table
@@ -697,7 +766,7 @@ class Home(dashboard.Ui_MainWindow, QMainWindow):
                     self.lab_tab.setStyleSheet("color: green")
                     timer = QTimer(self)
                     timer.timeout.connect(self.clear_label)
-                    timer.start(5000)
+                    timer.start(10000)
                     success_message_box(s)
                 else:
                     s = "Failed to add car details"
@@ -705,7 +774,7 @@ class Home(dashboard.Ui_MainWindow, QMainWindow):
                     self.lab_tab.setStyleSheet("color: red")
                     timer = QTimer(self)
                     timer.timeout.connect(self.clear_label)
-                    timer.start(5000)
+                    timer.start(10000)
                     warning_message_box(s)
             except Exception as e:
                 print("ERROR!" + str(e))
@@ -850,7 +919,7 @@ class Home(dashboard.Ui_MainWindow, QMainWindow):
                     self.lab_tab.setStyleSheet("color: green")
                     timer = QTimer(self)
                     timer.timeout.connect(self.clear_label)
-                    timer.start(5000)
+                    timer.start(10000)
 
         except Error as e:
             warning_message_box(e)
@@ -1037,7 +1106,7 @@ class Home(dashboard.Ui_MainWindow, QMainWindow):
                     self.lab_tab.setStyleSheet("color: green")
                     timer = QTimer(self)
                     timer.timeout.connect(self.clear_label)
-                    timer.start(5000)
+                    timer.start(10000)
                     self.tray_icon.showMessage(
                     "Tray Program",
                     "Vehicle plate removed from watchlist successully!",
@@ -1049,7 +1118,7 @@ class Home(dashboard.Ui_MainWindow, QMainWindow):
                     self.lab_tab.setStyleSheet("color: red")
                     timer = QTimer(self)
                     timer.timeout.connect(self.clear_label)
-                    timer.start(5000)
+                    timer.start(10000)
                     self.tray_icon.showMessage(
                     "Tray Program",
                     "Error occured! The plate entered was not on the watchlist",
