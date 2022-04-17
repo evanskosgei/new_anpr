@@ -14,4 +14,13 @@ class LogController extends Controller
         $v = Log::all();
         return response()->json(count($v));
     }
+
+    function saveLog(Request $request){
+        $v = new Log();
+        $v->camera_id = $request->input('cameraid');
+        $v->highway = $request->input('highwayname');
+        $v->spotted_plate = $request->input('spottedplate');
+        $v->save();
+        return response()->json("success");
+    }
 }
