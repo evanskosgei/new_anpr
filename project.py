@@ -664,7 +664,6 @@ class Home(dashboard.Ui_MainWindow, QMainWindow):
             self.setIc('<img src="'+icn+'" width="200" height="200">', 'SORRY,NETWORK ERROR. UNABLE TO SEARCH FOR THE SPOTTED CAR DETAILS!', "Network Error!", 'red', 10000)
 
 
-
     def spotCar(self):
         #get no of logs in db
         plate="SAMPLE"
@@ -694,7 +693,6 @@ class Home(dashboard.Ui_MainWindow, QMainWindow):
             timer = QTimer(self)
             timer.timeout.connect(self.clear_label)
             timer.start(10000)
-        
         
     # adding car details to carDetails table
     def addCarDetails(self):
