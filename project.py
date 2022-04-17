@@ -1091,6 +1091,6 @@ def areYouSure(a):
 if __name__ == "__main__":
     app = QApplication(sys.argv)
     app.setQuitOnLastWindowClosed(False)
-    mw = Home()
+    mw = Project()
     mw.show()
     sys.exit(app.exec())
