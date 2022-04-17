@@ -519,7 +519,7 @@ class Home(dashboard.Ui_MainWindow, QMainWindow):
         to = self.dateEdit_2.date().toPyDate()
         plate = self.lineEdit_10.text()
         print(fro, to, plate)
-        url = env + "logsearch"
+        url = env + "logfilter"
         print(url)
         myobj = {'from': str(fro), 'to': str(to), 'plate': plate}
         x = requests.post(url, data = myobj)

@@ -24,7 +24,7 @@ class LogController extends Controller
         return response()->json("success");
     }
 
-    function logsearch(Request $request){
+    function logfilter(Request $request){
         $fro = $request->input('from');
         $to = $request->input('to');  
         $plate = $request->input('plate');
