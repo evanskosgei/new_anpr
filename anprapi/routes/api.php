@@ -23,5 +23,6 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::get('vehicle/{key}', [VehicleController::class, 'search']);
 Route::get('logs', [LogController::class, 'logs']);
+Route::post('logsearch', [LogController::class, 'logsearch']);
 Route::post('add_to_watchlist', [WatchListController::class, 'add_to_watchlist']);
 Route::get('delete_from_watchlist/{id}', [WatchListController::class, 'delete_from_watchlist']);

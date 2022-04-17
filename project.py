@@ -5,6 +5,7 @@ from urllib.parse import uses_relative
 from datetime import date
 import calendar
 import cffi
+from matplotlib.cbook import to_filehandle
 import home_c as dashboard
 import login_c as auth
 import bcrypt
@@ -244,6 +245,7 @@ class Home(dashboard.Ui_MainWindow, QMainWindow):
             lambda: self.stackedWidget_android.setCurrentWidget(
                 self.manage_users)
         )
+        self.pushButton_5.clicked.connect(self.logsearch)
         # sending button to db
         self.btn_save_to_wishlist.clicked.connect(self.addCarDetails)
         self.bn_android_contact_save.clicked.connect(self.addUser)
@@ -316,7 +318,8 @@ class Home(dashboard.Ui_MainWindow, QMainWindow):
             )
             self.stackedWidget.setCurrentWidget(self.status_page)
             icn = './sicon/net_error.png'
-            self.setIc('<img src="'+icn+'" width="200" height="200">', 'NETWORK ERROR, UNABLE TO REACH CAMERAS!', "camera sync Error!", 'red', 10000)
+            self.setIc('<img src="'+icn+'" width="200" height="200">', 'NETWORK ERROR, UNABLE TO REACH CAMERAS!', "", 'red', 10000)
+            warning_message_box("Network Failure, Unable to reach cameras!")
         timer = QTimer(self)
         timer.timeout.connect(self.spotCar)
         timer.start(30000)
@@ -511,6 +514,18 @@ class Home(dashboard.Ui_MainWindow, QMainWindow):
                 QSystemTrayIcon.Information,
                 2000)
     
+    def logsearch(self):
+        fro = self.dateEdit.date().toPyDate()
+        to = self.dateEdit_2.date().toPyDate()
+        plate = self.lineEdit_10.text()
+        print(fro, to, plate)
+        url = env + "logsearch"
+        print(url)
+        myobj = {'from': str(fro), 'to': str(to), 'plate': plate}
+        x = requests.post(url, data = myobj)
+        print(x.json())
+        # if x.json() == "success":
+    
     def camFrame(self, rNumber, cNumber):
         cFrame = "camframe" + "_" + str(rNumber)
         newLabel = "lbl" + "_" + str(rNumber)
@@ -688,9 +703,7 @@ class Home(dashboard.Ui_MainWindow, QMainWindow):
                 QSystemTrayIcon.Information,
                 2000
             )
-            self.stackedWidget.setCurrentWidget(self.status_page)
-            self.lab_tab.setText("sytem network is down! Please check connection")
-            self.lab_tab.setStyleSheet("color: red")
+            warning_message_box("Network Failure, Unable to reach cameras!")
             timer = QTimer(self)
             timer.timeout.connect(self.clear_label)
             timer.start(10000)
@@ -911,11 +924,11 @@ class Home(dashboard.Ui_MainWindow, QMainWindow):
 
                     self.tray_icon.showMessage(
                         "ANPR",
-                        "User details have been successfully printed.",
+                        "Downloaded successfully, to your documents folder",
                         QSystemTrayIcon.Information,
                         2000
                     )
-                    self.lab_tab.setText("Printed successfully!")
+                    self.lab_tab.setText("Downloaded successfully!")
                     self.lab_tab.setStyleSheet("color: green")
                     timer = QTimer(self)
                     timer.timeout.connect(self.clear_label)
@@ -1158,6 +1171,6 @@ def areYouSure(a):
 if __name__ == "__main__":
     app = QApplication(sys.argv)
     app.setQuitOnLastWindowClosed(False)
-    mw = Project()
+    mw = Home()
     mw.show()
     sys.exit(app.exec())

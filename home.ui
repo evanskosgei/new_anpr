@@ -2290,12 +2290,12 @@ QLineEdit:disabled {
                      <rect>
                       <x>20</x>
                       <y>45</y>
-                      <width>111</width>
+                      <width>141</width>
                       <height>19</height>
                      </rect>
                     </property>
                     <property name="text">
-                     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:12pt; font-weight:600;&quot;&gt;CAR DETAILS&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:12pt; font-weight:600;&quot;&gt;CAR DETAILS 🚗&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                     </property>
                    </widget>
                    <widget class="QLabel" name="reg_plate_label">
@@ -2913,9 +2913,9 @@ QPushButton:disabled {
                    <widget class="QPushButton" name="view_watchlist">
                     <property name="geometry">
                      <rect>
-                      <x>550</x>
+                      <x>530</x>
                       <y>10</y>
-                      <width>141</width>
+                      <width>161</width>
                       <height>23</height>
                      </rect>
                     </property>
@@ -2941,7 +2941,7 @@ border-radius:5%;
 }</string>
                     </property>
                     <property name="text">
-                     <string>Click to view watchlist</string>
+                     <string>➕ Click to view watchlist</string>
                     </property>
                    </widget>
                   </widget>
@@ -2984,7 +2984,7 @@ border-radius:10%;
                        <string notr="true">background:transparent;</string>
                       </property>
                       <property name="text">
-                       <string>WATCHLIST</string>
+                       <string>WATCHLIST 👁</string>
                       </property>
                       <property name="alignment">
                        <set>Qt::AlignCenter</set>
@@ -3006,9 +3006,57 @@ border-radius:10%;
                    <property name="frameShadow">
                     <enum>QFrame::Raised</enum>
                    </property>
-                   <layout class="QHBoxLayout" name="horizontalLayout_9">
+                   <layout class="QVBoxLayout" name="verticalLayout_3">
                     <item>
-                     <widget class="QTableWidget" name="tableWidget"/>
+                     <widget class="QTableWidget" name="tableWidget">
+                      <property name="maximumSize">
+                       <size>
+                        <width>16777215</width>
+                        <height>400</height>
+                       </size>
+                      </property>
+                      <property name="toolTip">
+                       <string>click to download watchlist</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item>
+                     <widget class="QPushButton" name="download_watchlist">
+                      <property name="maximumSize">
+                       <size>
+                        <width>85</width>
+                        <height>16777215</height>
+                       </size>
+                      </property>
+                      <property name="cursor">
+                       <cursorShape>PointingHandCursor</cursorShape>
+                      </property>
+                      <property name="styleSheet">
+                       <string notr="true">QPushButton {
+	border: 2px solid rgb(51,51,51);
+	border-radius: 5px;	
+	color:rgb(255,255,255);
+	background-color: rgb(51,51,51);
+}
+QPushButton:hover {
+	border: 2px solid rgb(0,143,150);
+	background-color: rgb(0,143,150);
+}
+QPushButton:pressed {	
+	border: 2px solid rgb(0,143,150);
+	background-color: rgb(51,51,51);
+}
+
+QPushButton:disabled {	
+	border-radius: 5px;	
+	border: 2px solid rgb(112,112,112);
+	background-color: rgb(112,112,112);
+}</string>
+                      </property>
+                      <property name="text">
+                       <string>DOWNLOAD ⬇️</string>
+                      </property>
+                     </widget>
                     </item>
                    </layout>
                   </widget>
@@ -3646,14 +3694,14 @@ QLineEdit:disabled {
                      <rect>
                       <x>570</x>
                       <y>50</y>
-                      <width>69</width>
-                      <height>25</height>
+                      <width>80</width>
+                      <height>30</height>
                      </rect>
                     </property>
                     <property name="minimumSize">
                      <size>
-                      <width>69</width>
-                      <height>25</height>
+                      <width>80</width>
+                      <height>30</height>
                      </size>
                     </property>
                     <property name="maximumSize">
@@ -3697,7 +3745,7 @@ QPushButton:disabled {
 }</string>
                     </property>
                     <property name="text">
-                     <string>search</string>
+                     <string>search 🔍</string>
                     </property>
                    </widget>
                    <widget class="QLabel" name="search_feedback">
@@ -3887,7 +3935,7 @@ QPushButton:disabled {
 }</string>
                     </property>
                     <property name="text">
-                     <string>Remove</string>
+                     <string>Remove </string>
                     </property>
                    </widget>
                   </widget>
@@ -4240,7 +4288,7 @@ QPushButton:pressed {
                     <string notr="true">background:rgb(91,90,90);</string>
                    </property>
                    <property name="currentIndex">
-                    <number>2</number>
+                    <number>0</number>
                    </property>
                    <widget class="QWidget" name="new_user">
                     <property name="styleSheet">
@@ -4381,7 +4429,7 @@ QPushButton:pressed {
 </string>
                         </property>
                         <property name="text">
-                         <string>Save</string>
+                         <string>Save </string>
                         </property>
                        </widget>
                        <widget class="QLabel" name="label_5">
@@ -4688,69 +4736,17 @@ QPushButton:pressed {
                      <string notr="true">background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(15, 32, 39, 255), stop:1 rgba(255, 255, 240, 255));</string>
                     </property>
                     <layout class="QGridLayout" name="gridLayout_10">
-                     <item row="0" column="0">
-                      <widget class="QLabel" name="lab_android_contact_3">
-                       <property name="minimumSize">
-                        <size>
-                         <width>0</width>
-                         <height>0</height>
-                        </size>
-                       </property>
-                       <property name="maximumSize">
-                        <size>
-                         <width>16777215</width>
-                         <height>55</height>
-                        </size>
-                       </property>
-                       <property name="font">
-                        <font>
-                         <family>Arial</family>
-                         <pointsize>12</pointsize>
-                         <weight>50</weight>
-                         <italic>false</italic>
-                         <bold>false</bold>
-                        </font>
-                       </property>
-                       <property name="styleSheet">
-                        <string notr="true">background:transparent;
-color: rgb(255, 255, 240);</string>
-                       </property>
-                       <property name="text">
-                        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:14pt; font-weight:600;&quot;&gt;System users &lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-                       </property>
-                      </widget>
-                     </item>
-                     <item row="1" column="0" colspan="4">
-                      <widget class="QTableWidget" name="system_users_table">
-                       <property name="styleSheet">
-                        <string notr="true">background-color: rgb(255, 255, 240);</string>
-                       </property>
-                      </widget>
-                     </item>
                      <item row="2" column="1">
-                      <spacer name="horizontalSpacer_6">
-                       <property name="orientation">
-                        <enum>Qt::Horizontal</enum>
-                       </property>
-                       <property name="sizeHint" stdset="0">
-                        <size>
-                         <width>239</width>
-                         <height>20</height>
-                        </size>
-                       </property>
-                      </spacer>
-                     </item>
-                     <item row="2" column="2">
                       <widget class="QPushButton" name="bn_android_contact_edit_3">
                        <property name="minimumSize">
                         <size>
-                         <width>69</width>
+                         <width>120</width>
                          <height>25</height>
                         </size>
                        </property>
                        <property name="maximumSize">
                         <size>
-                         <width>69</width>
+                         <width>100</width>
                          <height>25</height>
                         </size>
                        </property>
@@ -4789,22 +4785,48 @@ QPushButton:disabled {
 }</string>
                        </property>
                        <property name="text">
-                        <string>Print</string>
+                        <string>DOWNLOAD ⬇️</string>
                        </property>
                       </widget>
                      </item>
-                     <item row="2" column="3">
-                      <spacer name="horizontalSpacer_5">
-                       <property name="orientation">
-                        <enum>Qt::Horizontal</enum>
-                       </property>
-                       <property name="sizeHint" stdset="0">
+                     <item row="0" column="0">
+                      <widget class="QLabel" name="lab_android_contact_3">
+                       <property name="minimumSize">
                         <size>
-                         <width>238</width>
-                         <height>20</height>
+                         <width>0</width>
+                         <height>0</height>
                         </size>
                        </property>
-                      </spacer>
+                       <property name="maximumSize">
+                        <size>
+                         <width>16777215</width>
+                         <height>55</height>
+                        </size>
+                       </property>
+                       <property name="font">
+                        <font>
+                         <family>Arial</family>
+                         <pointsize>12</pointsize>
+                         <weight>50</weight>
+                         <italic>false</italic>
+                         <bold>false</bold>
+                        </font>
+                       </property>
+                       <property name="styleSheet">
+                        <string notr="true">background:transparent;
+color: rgb(255, 255, 240);</string>
+                       </property>
+                       <property name="text">
+                        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:14pt; font-weight:600;&quot;&gt;System users &lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                       </property>
+                      </widget>
+                     </item>
+                     <item row="1" column="0" colspan="3">
+                      <widget class="QTableWidget" name="system_users_table">
+                       <property name="styleSheet">
+                        <string notr="true">background-color: rgb(255, 255, 240);</string>
+                       </property>
+                      </widget>
                      </item>
                     </layout>
                    </widget>
@@ -5504,9 +5526,9 @@ background:transparent;</string>
                    <widget class="QPushButton" name="pushButton_4">
                     <property name="geometry">
                      <rect>
-                      <x>330</x>
+                      <x>304</x>
                       <y>20</y>
-                      <width>75</width>
+                      <width>101</width>
                       <height>23</height>
                      </rect>
                     </property>
@@ -5536,7 +5558,7 @@ QPushButton:disabled {
 }</string>
                     </property>
                     <property name="text">
-                     <string>PRINT</string>
+                     <string>DOWNLOAD ⬇️</string>
                     </property>
                     <property name="autoDefault">
                      <bool>false</bool>
