@@ -1072,20 +1072,24 @@ class Home(dashboard.Ui_MainWindow, QMainWindow):
             e = "Please search for the user first before deleting!"
             warning_message_box(e)
         else:
-            a = "Are you sure you want to delete this user?"
-            areYouSure(a)
-            try:
-                cursor = conn.cursor()
-                cursor.execute(
-                    """DELETE FROM users WHERE staffno = ?""", (staffno,))
-                conn.commit()
-                s = "user deleted successfully"
-                success_message_box(s)
+            a = "are you sure you want to delete?"
+            areYouSure = QMessageBox.question(self, "Delete", a, QMessageBox.Yes |QMessageBox.No)
+            if areYouSure == QMessageBox.Yes:
+                try:
+                    cursor = conn.cursor()
+                    cursor.execute(
+                        """DELETE FROM users WHERE staffno = ?""", (staffno,))
+                    conn.commit()
+                    s = "user deleted successfully"
+                    success_message_box(s)
+                    self.clearingInputs()
+                except Error as e:
+                    warning_message_box(e)
+                    
+            else:
                 self.clearingInputs()
-            except Error as e:
-                warning_message_box(e)
-    # clearing line edits
 
+    # clearing line edits
     def clearingInputs(self):
         self.lineEdit_7.clear()
         self.lineEdit_8.clear()
@@ -1158,17 +1162,18 @@ def success_message_box(s):
     msg.exec_()
 
 # critical message box
-def areYouSure(a):
-    msg = QMessageBox()
-    msg.setIcon(QMessageBox.Critical)
-    msg.setText(a)
-    msg.setWindowTitle("Are you sure?")
-    msg.setStandardButtons(QMessageBox.Yes | QMessageBox.No)
-    msg.exec_()
+def areYouSure(self,a):
+    self.msg = QMessageBox()
+    self.msg.setIcon(QMessageBox.Critical)
+    self.msg.setText(a)
+    self.msg.setWindowTitle("Are you sure?")
+    self.msg.setStandardButtons(QMessageBox.Yes | QMessageBox.No)
+    self.msg.setDefaultButton(QMessageBox.No)
+    self.msg.show()
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
     app.setQuitOnLastWindowClosed(False)
-    mw = Home()
+    mw = Project()
     mw.show()
     sys.exit(app.exec())
