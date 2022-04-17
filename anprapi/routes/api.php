@@ -20,8 +20,15 @@ use App\Http\Controllers\WatchListController;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+//vehicle controller
 Route::get('vehicle/{key}', [VehicleController::class, 'search']);
+
+//Log controller
 Route::post('savelogs', [LogController::class, 'saveLog']);
+Route::get('logs', [LogController::class, 'logs']);
+Route::post('logfilter', [LogController::class, 'logfilter']);
+
+//watchlist controller
 Route::post('add_to_watchlist', [WatchListController::class, 'add_to_watchlist']);
-Route::get('delete_from_watchlist/{key}', [WatchListController::class, 'delete_from_watchlist']);
+Route::get('delete_from_watchlist/{id}', [WatchListController::class, 'delete_from_watchlist']);
 Route::get('searchcar/{key}', [WatchListController::class, 'searchCar']);

@@ -23,4 +23,13 @@ class LogController extends Controller
         $v->save();
         return response()->json("success");
     }
+
+    function logfilter(Request $request){
+        $fro = $request->input('from');
+        $to = $request->input('to');  
+        $plate = $request->input('plate');
+
+        
+        return response()->json($fro);
+    }
 }
