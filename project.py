@@ -316,7 +316,7 @@ class Home(dashboard.Ui_MainWindow, QMainWindow):
             )
             self.stackedWidget.setCurrentWidget(self.status_page)
             icn = './sicon/net_error.png'
-            self.setIc('<img src="'+icn+'" width="200" height="200">', 'NETWORK ERROR, UNABLE TO RAECH CAMERAS!', "camera sync Error!", 'red', 10000)
+            self.setIc('<img src="'+icn+'" width="200" height="200">', 'NETWORK ERROR, UNABLE TO REACH CAMERAS!', "camera sync Error!", 'red', 10000)
         timer = QTimer(self)
         timer.timeout.connect(self.spotCar)
         timer.start(30000)
@@ -902,7 +902,7 @@ class Home(dashboard.Ui_MainWindow, QMainWindow):
             else:
                 with open('users.csv', 'w', newline='') as csvfile:
                     fieldnames = ['Username', 'Staff Number',
-                                  'Email', 'Phone', 'Role']
+                                'Email', 'Phone', 'Role']
                     writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
                     writer.writeheader()
                     for row_data in result:
