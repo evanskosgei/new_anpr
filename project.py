@@ -272,16 +272,10 @@ class Home(dashboard.Ui_MainWindow, QMainWindow):
         #download watchlist
         self.download_watchlist.clicked.connect(self.downloadWatchlist)
         #download from logs
-        self.pushButton_4.clicked.connect(self.handleSave)
-        #
-        # global cf
-        # cf = 0
-        #1 row
         for x in range(0, 2):
             # 1 columns
             for y in range(0, 1):
                 self.camFrame(x, y)
-            # cf+=1
         
         timer = QTimer(self)
         timer.timeout.connect(self.displayTime)
