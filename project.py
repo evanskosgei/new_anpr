@@ -32,6 +32,7 @@ import json
 import cv2
 from env import *
 import pandas as pd
+import pyttsx3 as df
 
 # DB connection
 conn = None
@@ -271,8 +272,6 @@ class Home(dashboard.Ui_MainWindow, QMainWindow):
         self.view_watchlist.clicked.connect(self.showWatchList)
         #download watchlist
         self.download_watchlist.clicked.connect(self.downloadWatchlist)
-        #download from logs
-        self.pushButton_4.clicked.connect(self.handleSave)
         #
         # global cf
         # cf = 0
@@ -574,11 +573,11 @@ class Home(dashboard.Ui_MainWindow, QMainWindow):
         for row in range(self.spot_table.rowCount()):
             for col in range(self.spot_table.columnCount()):
                 df.at[row, columnHeaders[col]] = self.spot_table.item(row, col).text()
-        # import os
-        path = QFileDialog.getExistingDirectory(self, "Select Directory")
-        print(path)
-        df.to_excel(path + "spotted_car_list.csv",'w', index=False)
-        # print("Excel file exported")
+                
+        path = QFileDialog.getSaveFileName(self, "select directory",'spotted_vehicle file','.xls')
+        df.ExcelWriter(path[0], index=False)
+        # df.to_excel(path[0], index=True)
+        print("Excel file exported")
 
     def logFilter(self):
         fro = self.dateEdit.date().toPyDate()
