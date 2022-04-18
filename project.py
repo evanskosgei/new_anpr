@@ -1,5 +1,6 @@
 from distutils.log import error
 from importlib.resources import path
+from sre_parse import State
 from tkinter import N
 from unittest import result
 from urllib.parse import uses_relative
@@ -7,6 +8,7 @@ from datetime import date
 import calendar
 import cffi
 from matplotlib.cbook import to_filehandle
+from numpy import unicode_
 import home_c as dashboard
 import login_c as auth
 import bcrypt
@@ -269,6 +271,8 @@ class Home(dashboard.Ui_MainWindow, QMainWindow):
         self.view_watchlist.clicked.connect(self.showWatchList)
         #download watchlist
         self.download_watchlist.clicked.connect(self.downloadWatchlist)
+        #download from logs
+        self.pushButton_4.clicked.connect(self.handleSave)
         #
         # global cf
         # cf = 0
@@ -345,8 +349,7 @@ class Home(dashboard.Ui_MainWindow, QMainWindow):
         #
         tdy = date.today()
         self.dateEdit_2.setDate(tdy)
-        #⬆️init
-        
+        #⬆️init 
     #checking number of openCameras
     def manageUsers(self):
         if rl == 1:
