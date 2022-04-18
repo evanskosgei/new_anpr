@@ -1,4 +1,5 @@
 from distutils.log import error
+from importlib.resources import path
 from tkinter import N
 from unittest import result
 from urllib.parse import uses_relative
@@ -25,6 +26,7 @@ from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 import random
 import requests
+import json
 from env import *
 
 # DB connection
@@ -260,6 +262,10 @@ class Home(dashboard.Ui_MainWindow, QMainWindow):
         self.bn_android_contact_edit_3.clicked.connect(self.printUsers)
         #Removing from watchlist
         self.btn_search_3.clicked.connect(self.removeWatchlist)
+        #displaying watchlist
+        self.view_watchlist.clicked.connect(self.showWatchList)
+        #download watchlist
+        self.download_watchlist.clicked.connect(self.downloadWatchlist)
         #
         global cf
         cf = 0
@@ -335,7 +341,6 @@ class Home(dashboard.Ui_MainWindow, QMainWindow):
         tdy = date.today()
         self.dateEdit_2.setDate(tdy)
         #⬆️init
-
     def manageUsers(self):
         if rl == 1:
             self.stackedWidget.setCurrentWidget(self.page_android)
@@ -678,7 +683,6 @@ class Home(dashboard.Ui_MainWindow, QMainWindow):
             icn = './sicon/no_auth.png'
             self.setIc('<img src="'+icn+'" width="200" height="200">', 'SORRY,NETWORK ERROR. UNABLE TO SEARCH FOR THE SPOTTED CAR DETAILS!', "Network Error!", 'red', 10000)
 
-
     def spotCar(self):
         #get no of logs in db
         plate="SAMPLE"
@@ -719,16 +723,6 @@ class Home(dashboard.Ui_MainWindow, QMainWindow):
         logBookNo = self.logbook_number_input.text()
         engineNo = self.engine_number_input.text()
         chasisNo = self.chassis_number_label_2.text()
-        
-        #searching for an existing car in the database
-        # try:
-        #     cursor = conn.cursor()
-        #     cursor.execute("SELECT reg_plate FROM carDetails WHERE reg_plate = ?", (regPlate,))
-        #     indata = cursor.fetchall()
-        # except Error as e:
-        #     warning_message_box(e)
-        # saving data to database
-        # print("reached here")
         if regPlate == "" or vehicleMake == "" or color =="":
             e = "A registration plate, vehicle make and color is mandatory!"
             warning_message_box(e)
@@ -749,19 +743,9 @@ class Home(dashboard.Ui_MainWindow, QMainWindow):
         elif len(regPlate) < 7:
             e = "Registration Plate number must be 7 characters long"
             warning_message_box(e)
-        
-        # elif indata != []:
-        #     e = "Car already exists in the database"
-        #     warning_message_box(e)
         else:
             print("add to watchlist ERROR!")
         try:
-            # cursor = conn.cursor()
-            # query = """INSERT INTO carDetails(reg_plate, owner, vehicle_make, model_year, engine_capacity, body_type, color, logbook_number, engine_number, chasis_number, watchlist) VALUES(?,?,?,?,?,?,?,?,?,?,?)"""
-            # data = (regPlate, owner, vehicleMake, modelYear, engineCapacity,
-            #         bodyType, color, logBookNo, engineNo, chasisNo, watchlist)
-            # cursor.execute(query, data)
-            # conn.commit()
             try:
                 url = env + "add_to_watchlist"
                 print(url)
@@ -792,13 +776,67 @@ class Home(dashboard.Ui_MainWindow, QMainWindow):
         except Error as e:
             warning_message_box(e)
         self.clearLogs()
+        
+    #display all vehicles in watchlist
+    def showWatchList(self):
+        try:
+            res = requests.get(env + "allwatchlist")
+            if res.json() == "error":
+                self.tray_icon.showMessage(
+                    "ANPR",
+                    "Their are no vehicles in the watchlist!",
+                    QSystemTrayIcon.Information,
+                    2000
+                )
+            else:
+                global response
+                response = res.json()
+                self.tableWidget.setColumnCount(len(response[0]))
+                self.tableWidget.setHorizontalHeaderLabels(response[0].keys())
+                self.tableWidget.setRowCount(0)
+                for row_number, row_data in enumerate(response):
+                    self.tableWidget.insertRow(row_number)
+                    for column_number, data in enumerate(row_data.values()):
+                        self. tableWidget.setItem(
+                               row_number, column_number, QTableWidgetItem(str(data)))
+                    
+
+        except Exception as e:
+            pass
+        
+    #downloading csv file for all vehicles in watchlist
+    def downloadWatchlist(self):
+        if response == "":
+            warning_message_box("There are no vehicles in the watchlist!")
+        else:
+            try:
+                path = QFileDialog.getExistingDirectory(self, "Select Directory")
+                with open(path + "/watchlist.csv", "w", newline="") as f:
+                    writer = csv.writer(f)
+                    writer.writerow(response[0].keys())
+                    for result in response:
+                        writer.writerow(result.values())
+                    self.tray_icon.showMessage(
+                    "ANPR",
+                    "Watchlist downloaded successfully!",
+                    QSystemTrayIcon.Information,
+                    2000
+                    )
+                    success_message_box("Watchlist downloaded successfully!")
+            except Exception as e:
+                self.tray_icon.showMessage(
+                    "ANPR",
+                    "Watchlist downloaded successfully!",
+                    QSystemTrayIcon.Information,
+                    2000
+                    )
+                warning_message_box("Failed to download watchlist!")
 
     def filterLogs(self):
         plt = self.lineEdit_10.text()
         d1 =self.dateEdit.date()
         d2 =self.dateEdit_2.date()
         print(plt, d1, d2)
-
 
     def clearLogs(self):
         self.reg_plate_input.clear()
@@ -911,7 +949,8 @@ class Home(dashboard.Ui_MainWindow, QMainWindow):
                 e = "No users found in database"
                 warning_message_box(e)
             else:
-                with open('users.csv', 'w', newline='') as csvfile:
+                path = QFileDialog.getExistingDirectory(self, "Select Directory")
+                with open(path +'users.csv', 'w', newline='') as csvfile:
                     fieldnames = ['Username', 'Staff Number',
                                 'Email', 'Phone', 'Role']
                     writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
@@ -934,7 +973,6 @@ class Home(dashboard.Ui_MainWindow, QMainWindow):
 
         except Error as e:
             warning_message_box(e)
-
     # manage users
     def manageUser(self):
         val = self.lineEdit_13.text()
@@ -1030,29 +1068,9 @@ class Home(dashboard.Ui_MainWindow, QMainWindow):
 
         # Create the plain-text and HTML version of your message
         text = text
-        # """\
-        # ALERT,
-        # HELP!
-        # Your details have been updated by the system administrator.:
-        # www.realpython.html"""
-        # html = """\
-        # <html>
-        # <body>
-        #     <p>ALERT,<br>
-        #     HELP!<br>
-        #     <a href="http://www.realpython.html">Your details have been updated </a>
-        #     by the system administrator.
-        #     </p>
-        # </body>
-        # </html>
-        # """
 
         # Turn these into plain/html MIMEText objects
         part1 = MIMEText(text, "plain")
-        # part2 = MIMEText(html, "html")
-
-        # Add HTML/plain-text parts to MIMEMultipart message
-        # The email client will try to render the last part first
         message.attach(part1)
         # message.attach(part2)
 
@@ -1174,6 +1192,6 @@ def areYouSure(self,a):
 if __name__ == "__main__":
     app = QApplication(sys.argv)
     app.setQuitOnLastWindowClosed(False)
-    mw = Project()
+    mw = Home()
     mw.show()
     sys.exit(app.exec())
