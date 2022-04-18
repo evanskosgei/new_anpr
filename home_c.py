@@ -17,7 +17,6 @@ class Ui_MainWindow(object):
         MainWindow.resize(800, 565)
         MainWindow.setMinimumSize(QtCore.QSize(800, 550))
         MainWindow.setMaximumSize(QtCore.QSize(1366, 768))
-        MainWindow.setWindowFlags(QtCore.Qt.FramelessWindowHint)
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setStyleSheet("background:#0f2027;")
         self.centralwidget.setObjectName("centralwidget")
@@ -2164,20 +2163,67 @@ class Ui_MainWindow(object):
         self.frame_16.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.frame_16.setFrameShadow(QtWidgets.QFrame.Raised)
         self.frame_16.setObjectName("frame_16")
-        self.gridLayout = QtWidgets.QGridLayout(self.frame_16)
-        self.gridLayout.setObjectName("gridLayout")
-        self.scrollArea_2 = QtWidgets.QScrollArea(self.frame_16)
-        self.scrollArea_2.setStyleSheet("background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(255, 255, 246, 255), stop:0.55 rgba(255, 255, 225, 255), stop:1 rgba(34, 72, 88, 255));\n"
+        self.horizontalLayout_9 = QtWidgets.QHBoxLayout(self.frame_16)
+        self.horizontalLayout_9.setObjectName("horizontalLayout_9")
+        self.spot_table = QtWidgets.QTableWidget(self.frame_16)
+        self.spot_table.setAlternatingRowColors(True)
+        self.spot_table.setObjectName("spot_table")
+        self.spot_table.setColumnCount(0)
+        self.spot_table.setRowCount(0)
+        self.spot_table.horizontalHeader().setStretchLastSection(True)
+        self.horizontalLayout_9.addWidget(self.spot_table)
+        self.frame_19 = QtWidgets.QFrame(self.frame_16)
+        self.frame_19.setMinimumSize(QtCore.QSize(120, 0))
+        self.frame_19.setStyleSheet("background:#0f2027;")
+        self.frame_19.setFrameShape(QtWidgets.QFrame.StyledPanel)
+        self.frame_19.setFrameShadow(QtWidgets.QFrame.Raised)
+        self.frame_19.setObjectName("frame_19")
+        self.verticalLayout_4 = QtWidgets.QVBoxLayout(self.frame_19)
+        self.verticalLayout_4.setObjectName("verticalLayout_4")
+        self.to_label_2 = QtWidgets.QLabel(self.frame_19)
+        self.to_label_2.setMinimumSize(QtCore.QSize(0, 50))
+        self.to_label_2.setMaximumSize(QtCore.QSize(16777215, 50))
+        self.to_label_2.setStyleSheet("QLabel{\n"
+"  background:transparent;\n"
+"  color:white;  \n"
+"  border-radius: 1%;\n"
+"}\n"
 "")
-        self.scrollArea_2.setWidgetResizable(True)
-        self.scrollArea_2.setObjectName("scrollArea_2")
-        self.scrollAreaWidgetContents_2 = QtWidgets.QWidget()
-        self.scrollAreaWidgetContents_2.setGeometry(QtCore.QRect(0, 0, 684, 286))
-        self.scrollAreaWidgetContents_2.setObjectName("scrollAreaWidgetContents_2")
-        self.gridLayout_15 = QtWidgets.QGridLayout(self.scrollAreaWidgetContents_2)
-        self.gridLayout_15.setObjectName("gridLayout_15")
-        self.scrollArea_2.setWidget(self.scrollAreaWidgetContents_2)
-        self.gridLayout.addWidget(self.scrollArea_2, 0, 0, 1, 1)
+        self.to_label_2.setAlignment(QtCore.Qt.AlignCenter)
+        self.to_label_2.setObjectName("to_label_2")
+        self.verticalLayout_4.addWidget(self.to_label_2)
+        self.pushButton_6 = QtWidgets.QPushButton(self.frame_19)
+        self.pushButton_6.setMinimumSize(QtCore.QSize(0, 30))
+        self.pushButton_6.setMaximumSize(QtCore.QSize(16777215, 30))
+        self.pushButton_6.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
+        self.pushButton_6.setStyleSheet("QPushButton {\n"
+"    border: 2px solid rgb(51,51,51);\n"
+"    border-radius: 5px;    \n"
+"    color:rgb(255,255,255);\n"
+"    background: #EE8A09;\n"
+"    background-color: rgb(197, 65, 0);\n"
+"}\n"
+"QPushButton:hover {\n"
+"    border: 2px solid rgb(0,143,150);\n"
+"    \n"
+"    background: #EE8A09;\n"
+"}\n"
+"QPushButton:pressed {    \n"
+"    border: 2px solid rgb(0,143,150);\n"
+"    background-color: rgb(51,51,51);\n"
+"}\n"
+"\n"
+"QPushButton:disabled {    \n"
+"    border-radius: 5px;    \n"
+"    border: 2px solid rgb(112,112,112);\n"
+"    background-color: rgb(112,112,112);\n"
+"}")
+        self.pushButton_6.setAutoDefault(False)
+        self.pushButton_6.setObjectName("pushButton_6")
+        self.verticalLayout_4.addWidget(self.pushButton_6)
+        spacerItem1 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
+        self.verticalLayout_4.addItem(spacerItem1)
+        self.horizontalLayout_9.addWidget(self.frame_19)
         self.gridLayout_12.addWidget(self.frame_16, 1, 0, 1, 1)
         self.frame_15 = QtWidgets.QFrame(self.page_logs)
         self.frame_15.setMinimumSize(QtCore.QSize(702, 50))
@@ -2673,6 +2719,10 @@ class Ui_MainWindow(object):
         self.btn_search_2.setText(_translate("MainWindow", "Search user"))
         self.radioButton_5.setText(_translate("MainWindow", "Staff number"))
         self.radioButton_6.setText(_translate("MainWindow", "Email"))
+        self.spot_table.setSortingEnabled(True)
+        self.to_label_2.setText(_translate("MainWindow", "<html><head/><body><p><span style=\" font-size:12pt;\">ACTION :</span></p></body></html>"))
+        self.pushButton_6.setToolTip(_translate("MainWindow", "click here to see more car details"))
+        self.pushButton_6.setText(_translate("MainWindow", "MORE DETALS 📃"))
         self.pushButton_4.setText(_translate("MainWindow", "DOWNLOAD ⬇️"))
         self.dateEdit.setDisplayFormat(_translate("MainWindow", "d/M/yyyy"))
         self.dateEdit_2.setDisplayFormat(_translate("MainWindow", "d/M/yyyy"))

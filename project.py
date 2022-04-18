@@ -245,7 +245,8 @@ class Home(dashboard.Ui_MainWindow, QMainWindow):
             lambda: self.stackedWidget_android.setCurrentWidget(
                 self.manage_users)
         )
-        self.pushButton_5.clicked.connect(self.logsearch)
+        self.pushButton_5.clicked.connect(self.logFilter)
+        self.pushButton_6.clicked.connect(self.retrieveCheckboxValues)
         # sending button to db
         self.btn_save_to_wishlist.clicked.connect(self.addCarDetails)
         self.bn_android_contact_save.clicked.connect(self.addUser)
@@ -309,7 +310,9 @@ class Home(dashboard.Ui_MainWindow, QMainWindow):
             print(env + "logs")
             o = requests.get(env + "logs")
             old = o.json()
+            print("old init " + str(old))
         except Exception as e:
+            print("error " + str(e))
             self.tray_icon.showMessage(
                 "Tray Program",
                 "Network Error. Unable to reach cameras!",
@@ -480,7 +483,6 @@ class Home(dashboard.Ui_MainWindow, QMainWindow):
 
     def showLogs(self):
         self.stackedWidget.setCurrentWidget(self.page_logs)
-
         try:
             cursor = conn.cursor()
             cursor.execute(
@@ -489,7 +491,9 @@ class Home(dashboard.Ui_MainWindow, QMainWindow):
             c = conn.cursor()
             c.execute("SELECT * FROM logs")
             global l
-            l = c.fetchall()
+            rs = requests.get(env + "allLogs").json()
+            l = rs
+            print(l)
             if (len(l) == 0):
                 warning_message_box('NO LOGS FOUND')
                 self.tray_icon.showMessage(
@@ -499,33 +503,89 @@ class Home(dashboard.Ui_MainWindow, QMainWindow):
                     2000
                 )
             else:
-                global ct
-                ct = 0
-                for x in range(0, len(l)):
-                    # 1 columns
-                    for y in range(0, 1):
-                        self.createNewWidgets(x, y)
-                    ct += 1
+                # self.spot_table.setColumnCount(3)
+                # self.spot_table.setHorizontalHeaderLabels(['Spotted_plate', 'Highway', 'Date & Time spotted'])
+                # # self.spot_table.setStyleSheet("QHeaderView::section { background-color: #1e90ff; color: white; }")
+                # # self.spot_table.setStyleSheet("QAbstractItemView {selection-background-color: #1e90ff; selection-color: white;}")
+                # # self.spot_table.setStyleSheet("QAbstractItemView {selection-background-color: #1e90ff; selection-color: white;}")
+                # self.spot_table.setStyleSheet("QAbstractItemView::indicator {width :35px: height:35px;} QTableWidget::item{width:500px : height:40px}" )
+                # self.spot_table.setRowCount(len(l))
+                # # self.spot_table.setRowCount(0)
+                # for row in range(len(l)):
+                #     for col in range(3):
+                #         if col % 3 == 0:
+                #             item = QTableWidgetItem('Item {0}-{1}'.format(row, col))
+                #             item.setFlags(Qt.ItemFlag.ItemIsUserCheckable | Qt.ItemFlag.ItemIsEnabled)
+                #             item.setCheckState(Qt.CheckState.Unchecked)
+                #             self.spot_table.setItem(row, col, item)
+                #         else:
+                #             # self.spot_table.setItem(row, col, QTableWidgetItem(l[row][col]))
+                #             self.spot_table.setItem(row, col ,QTableWidgetItem('Item {0}-{1}'.format(row, col)))
+
+                self.spot_table.setColumnCount(len(l[0]))
+                self.spot_table.setHorizontalHeaderLabels(l[0].keys())
+                self.spot_table.setRowCount(0)
+                for row_number, row_data in enumerate(l):
+                    self.spot_table.insertRow(row_number)
+                    for column_number, data in enumerate(row_data.values()):
+                        item = QTableWidgetItem(str(data))
+                        if (column_number == 0):
+                            item.setFlags(Qt.ItemFlag.ItemIsUserCheckable | Qt.ItemFlag.ItemIsEnabled)
+                            item.setCheckState(Qt.CheckState.Unchecked)
+                        self. spot_table.setItem(row_number, column_number, item)
         except Exception as e:
-            print(e)
+            print('error ' + str(e))
             self.tray_icon.showMessage(
                 "DB error",
                 "Could NOT sync with database",
                 QSystemTrayIcon.Information,
                 2000)
+    def retrieveCheckboxValues(self):
+        for row in range(self.spot_table.rowCount()):
+            if self.spot_table.item(row, 0).checkState() == Qt.CheckState.Checked:
+                print([self.spot_table.item(row, col).text() for col in range(self.spot_table.columnCount())])
+
+    def spot_table_filter(self):
+        pass
+        
     
-    def logsearch(self):
+    def logFilter(self):
+        ct = 0
         fro = self.dateEdit.date().toPyDate()
         to = self.dateEdit_2.date().toPyDate()
         plate = self.lineEdit_10.text()
         print(fro, to, plate)
-        url = env + "logfilter"
-        print(url)
-        myobj = {'from': str(fro), 'to': str(to), 'plate': plate}
-        x = requests.post(url, data = myobj)
-        print(x.json())
-        # if x.json() == "success":
-    
+        try:
+            url = env + "logfilter"
+            print(url)
+            myobj = {'from': str(fro), 'to': str(to), 'plate': plate}
+            x = requests.post(url, data = myobj)
+            l = x.json()
+            # print(l)
+            print("len " + str(len(l)))
+            for x in range(0, len(l)):
+                    # 1 columns
+                    for y in range(0, 1):
+                        print("fl" + str(l[0]['created_at']))
+                        self.deleteAll()
+                        # self.createNewWidgets(x, y)
+                    ct += 1
+            
+        except Exception as e:
+            print(e)
+            self.tray_icon.showMessage(
+                "Tray Program",
+                "Logs Filter Failure!",
+                QSystemTrayIcon.Information,
+                2000
+            )
+    def deleteAll(self):
+        while self.gridLayout_6.count():
+            item = self.gridLayout_6.takeAt(0)
+            print(item)
+            widget = item.widget()
+            widget.hide()
+
     def camFrame(self, rNumber, cNumber):
         cFrame = "camframe" + "_" + str(rNumber)
         newLabel = "lbl" + "_" + str(rNumber)
@@ -565,6 +625,7 @@ class Home(dashboard.Ui_MainWindow, QMainWindow):
         self.gridLayout_6.addWidget(self.cam_frame, rNumber, cNumber, 1, 1)
 
     def createNewWidgets(self, rowNumber, columnNumber):
+        ct = 0
         # create new unique names for each widget
         newFrame = "frame" + "_" + str(rowNumber)
         newLabel = "lbl" + "_" + str(rowNumber)
@@ -581,12 +642,12 @@ class Home(dashboard.Ui_MainWindow, QMainWindow):
         self.frame_3.setFrameShadow(QFrame.Raised)
         self.frame_3.setObjectName(newFrame)
         self.label_12 = QLabel(self.frame_3)
-        self.label_12.setGeometry(QRect(10, 10, 190, 21))
+        self.label_12.setGeometry(QRect(10, 10, 210, 21))
         self.label_12.setStyleSheet(
             "background-color: rgb(0, 85, 255); color: rgb(255, 255, 255); border-radius:5px;font: 75 10pt;")
         self.label_12.setAlignment(Qt.AlignLeft)
         self.label_12.setObjectName(newLabel)
-        self.label_12.setText("📅 " + l[ct][2])
+        self.label_12.setText("📅 " + l[ct]['created_at'])
         self.textEdit = QTextEdit(self.frame_3)
         self.textEdit.setGeometry(QRect(61, 40, 581, 61))
         font = QFont()
@@ -596,12 +657,13 @@ class Home(dashboard.Ui_MainWindow, QMainWindow):
         self.textEdit.setStyleSheet("background:transparent; color:white;")
         # self.textEdit.setReadOnly(True)
         self.textEdit.setObjectName(newtEdit)
-        self.textEdit.setText(l[ct][1])
+        self.textEdit.setText(l[ct]['spotted_plate'])
+        sp = l[ct]['spotted_plate']
         self.lg_btn = QPushButton(self.frame_3)
         self.lg_btn.setGeometry(QRect(475, 70, 95, 21))
         self.lg_btn.setStyleSheet("background-color: #EE8A09; color: black; border-radius:5px; font: 75 8pt;")
         self.lg_btn.setCursor(QCursor(Qt.PointingHandCursor))
-        self.lg_btn.clicked.connect(lambda newBn: self.spottedVehicle(newBn))
+        self.lg_btn.clicked.connect(lambda : self.spottedVehicle(sp))
         self.lg_btn.setObjectName(newBn)
         self.lg_btn.setText("MORE DETAILS ➡️")
         # create new attribute to Ui_MainWindow
@@ -611,9 +673,10 @@ class Home(dashboard.Ui_MainWindow, QMainWindow):
         setattr(self, newBn, self.frame_3)
         self.gridLayout_15.addWidget(self.frame_3, rowNumber, columnNumber, 1, 1)
 
-    def spottedVehicle(self, newBn):
+    def spottedVehicle(self, sp):
+        print('sp ' + sp)
         self.stackedWidget.setCurrentWidget(self.spotted_vehicles)
-        plate = 'DM485XD'
+        plate = sp
         try:
             res = requests.get(env + "vehicle/"+plate)
             if (res.json() == 'error'):
@@ -682,21 +745,25 @@ class Home(dashboard.Ui_MainWindow, QMainWindow):
 
     def spotCar(self):
         #get no of logs in db
+        global old
+        old = old
         plate="SAMPLE"
         try:
             res = requests.get(env + "logs")
             n = res.json()
-            print("n " + str(res.json()))
+            print("...n " + str(res.json()))
             if (n > old):
+                print("...old " + str(old))
                 self.tray_icon.showMessage(
                     "Tray Program",
                     "Vehicle " + plate + " has been spotted!",
                     QSystemTrayIcon.Information,
                     2000
                 )
-                o = n
+                old = n
+        
         except Exception as e:
-            print(e)
+            print("error... " + str(e))
             self.tray_icon.showMessage(
                 "Tray Program",
                 "Network Error. Unable to reach cameras!",
@@ -707,7 +774,7 @@ class Home(dashboard.Ui_MainWindow, QMainWindow):
             timer = QTimer(self)
             timer.timeout.connect(self.clear_label)
             timer.start(10000)
-        
+        print("old reassigned " + str(old))
         
     # adding car details to carDetails table
     def addCarDetails(self):
@@ -794,13 +861,6 @@ class Home(dashboard.Ui_MainWindow, QMainWindow):
         except Error as e:
             warning_message_box(e)
         self.clearLogs()
-
-    def filterLogs(self):
-        plt = self.lineEdit_10.text()
-        d1 =self.dateEdit.date()
-        d2 =self.dateEdit_2.date()
-        print(plt, d1, d2)
-
 
     def clearLogs(self):
         self.reg_plate_input.clear()
