@@ -26,6 +26,7 @@ Route::get('vehicle/{key}', [VehicleController::class, 'search']);
 //Log controller
 Route::post('savelogs', [LogController::class, 'saveLog']);
 Route::get('logs', [LogController::class, 'logs']);
+Route::get('allLogs', [LogController::class, 'allLogs']);
 Route::post('logfilter', [LogController::class, 'logfilter']);
 
 //watchlist controller

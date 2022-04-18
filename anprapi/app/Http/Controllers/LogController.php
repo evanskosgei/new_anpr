@@ -15,6 +15,10 @@ class LogController extends Controller
         return response()->json(count($v));
     }
 
+    function allLogs(){
+        return response()->json(Log::select('camera_id', 'spotted_plate', 'highway', 'created_at')->get());
+    }
+
     function saveLog(Request $request){
         $v = new Log();
         $v->camera_id = $request->input('cameraid');
@@ -29,7 +33,16 @@ class LogController extends Controller
         $to = $request->input('to');  
         $plate = $request->input('plate');
 
-        
-        return response()->json($fro);
+        if(empty($plate)){
+            $logs = Log::whereBetween('created_at', [$fro, $to])->get();
+            return response()->json($logs);
+        }
+        else{
+            $logs = Log::where('spotted_plate', $plate)
+                ->whereBetween('created_at', [$fro, $to])->
+                select('camera_id', 'spotted_plate', 'highway', 'created_at')
+                ->get();
+            return response()->json($logs);
+        }
     }
 }
