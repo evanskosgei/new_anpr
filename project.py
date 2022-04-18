@@ -572,10 +572,15 @@ class Home(dashboard.Ui_MainWindow, QMainWindow):
             for col in range(self.spot_table.columnCount()):
                 df.at[row, columnHeaders[col]] = self.spot_table.item(row, col).text()
         # import os
-        path = QFileDialog.getExistingDirectory(self, "Select Directory")
-        print(path)
-        df.to_excel(path + "spotted_car_list.csv",'w', index=False)
-        # print("Excel file exported")
+        filepath , _ = QFileDialog.getSaveFileName(self, "Save file","",  " (*.csv)")
+        if filepath:
+            df.to_csv(filepath, index=False)
+            self.tray_icon.showMessage(
+                "ANPR",
+                "File downloaded successfully",
+                QSystemTrayIcon.Information,
+                2000
+            )
 
     def logFilter(self):
         fro = self.dateEdit.date().toPyDate()
