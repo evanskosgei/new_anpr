@@ -39,7 +39,9 @@ class LogController extends Controller
         }
         else{
             $logs = Log::where('spotted_plate', $plate)
-                ->whereBetween('created_at', [$fro, $to])->get();
+                ->whereBetween('created_at', [$fro, $to])->
+                select('camera_id', 'spotted_plate', 'highway', 'created_at')
+                ->get();
             return response()->json($logs);
         }
     }
