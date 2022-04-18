@@ -16,7 +16,7 @@ class LogController extends Controller
     }
 
     function allLogs(){
-        return response()->json(Log::all());
+        return response()->json(Log::select('camera_id', 'spotted_plate', 'highway', 'created_at')->get());
     }
 
     function saveLog(Request $request){

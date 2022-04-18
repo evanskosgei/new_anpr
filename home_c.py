@@ -2721,7 +2721,7 @@ class Ui_MainWindow(object):
         self.radioButton_6.setText(_translate("MainWindow", "Email"))
         self.spot_table.setSortingEnabled(True)
         self.to_label_2.setText(_translate("MainWindow", "<html><head/><body><p><span style=\" font-size:12pt;\">ACTION :</span></p></body></html>"))
-        self.pushButton_6.setToolTip(_translate("MainWindow", "click here to see more car details"))
+        self.pushButton_6.setToolTip(_translate("MainWindow", "click here to see  car registration details"))
         self.pushButton_6.setText(_translate("MainWindow", "MORE DETALS 📃"))
         self.pushButton_4.setText(_translate("MainWindow", "DOWNLOAD ⬇️"))
         self.dateEdit.setDisplayFormat(_translate("MainWindow", "d/M/yyyy"))

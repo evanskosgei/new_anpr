@@ -262,14 +262,14 @@ class Home(dashboard.Ui_MainWindow, QMainWindow):
         #Removing from watchlist
         self.btn_search_3.clicked.connect(self.removeWatchlist)
         #
-        global cf
-        cf = 0
+        # global cf
+        # cf = 0
         #1 row
         for x in range(0, 2):
             # 1 columns
             for y in range(0, 1):
                 self.camFrame(x, y)
-            cf+=1
+            # cf+=1
         
         timer = QTimer(self)
         timer.timeout.connect(self.displayTime)
@@ -505,10 +505,10 @@ class Home(dashboard.Ui_MainWindow, QMainWindow):
             else:
                 # self.spot_table.setColumnCount(3)
                 # self.spot_table.setHorizontalHeaderLabels(['Spotted_plate', 'Highway', 'Date & Time spotted'])
-                # # self.spot_table.setStyleSheet("QHeaderView::section { background-color: #1e90ff; color: white; }")
+                self.spot_table.setStyleSheet("QHeaderView::section { background-color: #0f2027; color: white;}")
                 # # self.spot_table.setStyleSheet("QAbstractItemView {selection-background-color: #1e90ff; selection-color: white;}")
-                # # self.spot_table.setStyleSheet("QAbstractItemView {selection-background-color: #1e90ff; selection-color: white;}")
-                # self.spot_table.setStyleSheet("QAbstractItemView::indicator {width :35px: height:35px;} QTableWidget::item{width:500px : height:40px}" )
+                self.spot_table.setStyleSheet("QAbstractItemView {selection-background-color: #1e90ff; selection-color: white;}")
+                self.spot_table.setStyleSheet("QAbstractItemView::indicator {width :35px: height:35px;} QTableWidget::item{width:500px : height:40px}" )
                 # self.spot_table.setRowCount(len(l))
                 # # self.spot_table.setRowCount(0)
                 # for row in range(len(l)):
@@ -523,7 +523,7 @@ class Home(dashboard.Ui_MainWindow, QMainWindow):
                 #             self.spot_table.setItem(row, col ,QTableWidgetItem('Item {0}-{1}'.format(row, col)))
 
                 self.spot_table.setColumnCount(len(l[0]))
-                self.spot_table.setHorizontalHeaderLabels(l[0].keys())
+                self.spot_table.setHorizontalHeaderLabels(['Camera ID', 'Spotted_plate', 'Highway', 'Date & Time spotted'])
                 self.spot_table.setRowCount(0)
                 for row_number, row_data in enumerate(l):
                     self.spot_table.insertRow(row_number)
@@ -540,17 +540,17 @@ class Home(dashboard.Ui_MainWindow, QMainWindow):
                 "Could NOT sync with database",
                 QSystemTrayIcon.Information,
                 2000)
+
     def retrieveCheckboxValues(self):
         for row in range(self.spot_table.rowCount()):
             if self.spot_table.item(row, 0).checkState() == Qt.CheckState.Checked:
-                print([self.spot_table.item(row, col).text() for col in range(self.spot_table.columnCount())])
+                ch = [self.spot_table.item(row, col).text() for col in range(self.spot_table.columnCount())]
+                print(ch)
+                print(ch[1])
+                self.spottedVehicle(ch[1])
+            
 
-    def spot_table_filter(self):
-        pass
-        
-    
     def logFilter(self):
-        ct = 0
         fro = self.dateEdit.date().toPyDate()
         to = self.dateEdit_2.date().toPyDate()
         plate = self.lineEdit_10.text()
@@ -559,17 +559,22 @@ class Home(dashboard.Ui_MainWindow, QMainWindow):
             url = env + "logfilter"
             print(url)
             myobj = {'from': str(fro), 'to': str(to), 'plate': plate}
-            x = requests.post(url, data = myobj)
-            l = x.json()
+            x = requests.post(url, data = myobj).json()
+            # l = x.json()
             # print(l)
-            print("len " + str(len(l)))
-            for x in range(0, len(l)):
-                    # 1 columns
-                    for y in range(0, 1):
-                        print("fl" + str(l[0]['created_at']))
-                        self.deleteAll()
-                        # self.createNewWidgets(x, y)
-                    ct += 1
+            print("len " + str(len(x)))
+            self.spot_table.clear()
+            self.spot_table.setColumnCount(len(x[0]))
+            self.spot_table.setHorizontalHeaderLabels(['Camera ID', 'Spotted_plate', 'Highway', 'Date & Time spotted'])
+            self.spot_table.setRowCount(0)
+            for row_number, row_data in enumerate(x):
+                self.spot_table.insertRow(row_number)
+                for column_number, data in enumerate(row_data.values()):
+                    item = QTableWidgetItem(str(data))
+                    if (column_number == 0):
+                        item.setFlags(Qt.ItemFlag.ItemIsUserCheckable | Qt.ItemFlag.ItemIsEnabled)
+                        item.setCheckState(Qt.CheckState.Unchecked)
+                    self. spot_table.setItem(row_number, column_number, item)
             
         except Exception as e:
             print(e)
@@ -1231,6 +1236,6 @@ def areYouSure(a):
 if __name__ == "__main__":
     app = QApplication(sys.argv)
     app.setQuitOnLastWindowClosed(False)
-    mw = Home()
+    mw = Project()
     mw.show()
     sys.exit(app.exec())
