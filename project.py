@@ -272,15 +272,11 @@ class Home(dashboard.Ui_MainWindow, QMainWindow):
         self.view_watchlist.clicked.connect(self.showWatchList)
         #download watchlist
         self.download_watchlist.clicked.connect(self.downloadWatchlist)
-        #
-        # global cf
-        # cf = 0
-        #1 row
+        #download from logs
         for x in range(0, 2):
             # 1 columns
             for y in range(0, 1):
                 self.camFrame(x, y)
-            # cf+=1
         
         timer = QTimer(self)
         timer.timeout.connect(self.displayTime)
@@ -321,7 +317,6 @@ class Home(dashboard.Ui_MainWindow, QMainWindow):
             print(env + "logs")
             o = requests.get(env + "logs")
             old = o.json()
-            print("old init " + str(old))
         except Exception as e:
             print("error " + str(e))
             self.tray_icon.showMessage(
@@ -573,11 +568,15 @@ class Home(dashboard.Ui_MainWindow, QMainWindow):
         for row in range(self.spot_table.rowCount()):
             for col in range(self.spot_table.columnCount()):
                 df.at[row, columnHeaders[col]] = self.spot_table.item(row, col).text()
-                
-        path = QFileDialog.getSaveFileName(self, "select directory",'spotted_vehicle file','.xls')
-        df.ExcelWriter(path[0], index=False)
-        # df.to_excel(path[0], index=True)
-        print("Excel file exported")
+        filepath , _ = QFileDialog.getSaveFileName(self, "Save file","",  " (*.csv)")
+        if filepath:
+            df.to_csv(filepath, index=False)
+            self.tray_icon.showMessage(
+                "ANPR",
+                "File downloaded successfully",
+                QSystemTrayIcon.Information,
+                2000
+            )
 
     def logFilter(self):
         fro = self.dateEdit.date().toPyDate()
