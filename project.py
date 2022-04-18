@@ -28,6 +28,7 @@ import random
 import requests
 import json
 from env import *
+import pandas as pd
 
 # DB connection
 conn = None
@@ -247,6 +248,7 @@ class Home(dashboard.Ui_MainWindow, QMainWindow):
             lambda: self.stackedWidget_android.setCurrentWidget(
                 self.manage_users)
         )
+        self.pushButton_4.clicked.connect(self.exportToExcel)
         self.pushButton_5.clicked.connect(self.logFilter)
         self.pushButton_6.clicked.connect(self.retrieveCheckboxValues)
         # sending button to db
@@ -554,6 +556,24 @@ class Home(dashboard.Ui_MainWindow, QMainWindow):
                 print(ch[1])
                 self.spottedVehicle(ch[1])
             
+    def exportToExcel(self):
+        columnHeaders = []
+
+        #create column header list
+        for j in range(self.spot_table.model().columnCount()):
+            columnHeaders.append(self.spot_table.horizontalHeaderItem(j).text())
+
+        df = pd.DataFrame(columns=columnHeaders)
+
+        #create dataframe object recordset
+        for row in range(self.spot_table.rowCount()):
+            for col in range(self.spot_table.columnCount()):
+                df.at[row, columnHeaders[col]] = self.spot_table.item(row, col).text()
+        # import os
+        path = QFileDialog.getExistingDirectory(self, "Select Directory")
+        print(path)
+        df.to_excel(path + "spotted_car_list.csv",'w', index=False)
+        # print("Excel file exported")
 
     def logFilter(self):
         fro = self.dateEdit.date().toPyDate()
@@ -1257,6 +1277,6 @@ def areYouSure(self,a):
 if __name__ == "__main__":
     app = QApplication(sys.argv)
     app.setQuitOnLastWindowClosed(False)
-    mw = Project()
+    mw = Home()
     mw.show()
     sys.exit(app.exec())
