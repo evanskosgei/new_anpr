@@ -27,6 +27,7 @@ from email.mime.multipart import MIMEMultipart
 import random
 import requests
 import json
+import cv2
 from env import *
 import pandas as pd
 
@@ -179,7 +180,6 @@ class Project(auth.Ui_Form, QMainWindow):
                 sender_email, receiver_email, message.as_string()
             )
         
-
 class Home(dashboard.Ui_MainWindow, QMainWindow):
     def __init__(self):
         super(Home, self).__init__()
@@ -346,6 +346,8 @@ class Home(dashboard.Ui_MainWindow, QMainWindow):
         tdy = date.today()
         self.dateEdit_2.setDate(tdy)
         #⬆️init
+        
+    #checking number of openCameras
     def manageUsers(self):
         if rl == 1:
             self.stackedWidget.setCurrentWidget(self.page_android)
@@ -893,7 +895,14 @@ class Home(dashboard.Ui_MainWindow, QMainWindow):
                     
 
         except Exception as e:
-            pass
+            print(e)
+            self.tray_icon.showMessage(
+                "ANPR",
+                "Network Error!",
+                QSystemTrayIcon.Information,
+                2000
+            )
+            warning_message_box("Network Error!")
         
     #downloading csv file for all vehicles in watchlist
     def downloadWatchlist(self):
