@@ -322,7 +322,6 @@ class Home(dashboard.Ui_MainWindow, QMainWindow):
             print(env + "logs")
             o = requests.get(env + "logs")
             old = o.json()
-            print("old init " + str(old))
         except Exception as e:
             print("error " + str(e))
             self.tray_icon.showMessage(
@@ -574,7 +573,6 @@ class Home(dashboard.Ui_MainWindow, QMainWindow):
         for row in range(self.spot_table.rowCount()):
             for col in range(self.spot_table.columnCount()):
                 df.at[row, columnHeaders[col]] = self.spot_table.item(row, col).text()
-        # import os
         filepath , _ = QFileDialog.getSaveFileName(self, "Save file","",  " (*.csv)")
         if filepath:
             df.to_csv(filepath, index=False)
