@@ -1,3 +1,4 @@
+from cgitb import html
 from distutils.log import error
 from importlib.resources import path
 from sre_parse import State
@@ -159,22 +160,39 @@ class Project(auth.Ui_Form, QMainWindow):
 
         message = MIMEMultipart("alternative")
         # message = "Welcome Home"
-        message["Subject"] = "multipart test"
+        message["Subject"] = "Password Reset"
         message["From"] = sender_email
         message["To"] = receiver_email
         
         data = (code.replace(code[0], ''))
         finale = (data.replace(data[0], ''))
         # Create the plain-text and HTML version of your message
-        text = """\Your new password is: """ + finale
-
+        # text = """\Your new password is: """ + finale
+        html = """\
+            <html>
+            <head>
+            <style>
+            h1{
+                color: #008080;
+                font-size: 30px;
+            }
+            p{
+                color: black;
+            }
+            </style>
+            </head>
+            <body>
+            <p>Your new password is:</p>
+            <h1> """+finale+"""</h1>
+            </html>
+        """
         # Turn these into plain/html MIMEText objects
-        part1 = MIMEText(text, "plain")
-
+        # part1 = MIMEText(text, "plain")
+        part2 = MIMEText(html, "html")
         # Add HTML/plain-text parts to MIMEMultipart message
         # The email client will try to render the last part first
-        message.attach(part1)
-
+        # message.attach(part1)
+        message.attach(part2)
         # Create secure connection with server and send email
         context = ssl.create_default_context()
         with smtplib.SMTP_SSL("smtp.gmail.com", 465, context=context) as server:
@@ -1287,6 +1305,6 @@ def areYouSure(self,a):
 if __name__ == "__main__":
     app = QApplication(sys.argv)
     app.setQuitOnLastWindowClosed(False)
-    mw = Home()
+    mw = Project()
     mw.show()
     sys.exit(app.exec())
