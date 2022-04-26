@@ -337,7 +337,7 @@ class Home(dashboard.Ui_MainWindow, QMainWindow):
         # user = cur.fetchone()
         # user_name = user[0]
         # self.label_16.setText("Hello 🙂" + user_name)
-        self.label_16.setText("Hello 🙂 ??")
+        self.label_16.setText("Hello Admin 🙂")
         self.label_17.setText("2 cameras 🎦 active")
         #
         tdy = date.today()
@@ -1286,6 +1286,6 @@ def areYouSure(self,a):
 if __name__ == "__main__":
     app = QApplication(sys.argv)
     app.setQuitOnLastWindowClosed(False)
-    mw = Home()
+    mw = Project()
     mw.show()
     sys.exit(app.exec())
