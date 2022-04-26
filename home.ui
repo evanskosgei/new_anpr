@@ -5708,7 +5708,7 @@ background-color: qlineargradient(spread:pad, x1:0.98, y1:0.471364, x2:1, y2:0.4
                     <property name="geometry">
                      <rect>
                       <x>80</x>
-                      <y>40</y>
+                      <y>60</y>
                       <width>91</width>
                       <height>22</height>
                      </rect>
@@ -5738,7 +5738,7 @@ border:2px solid #DEBC3F;
                     <property name="geometry">
                      <rect>
                       <x>240</x>
-                      <y>40</y>
+                      <y>60</y>
                       <width>91</width>
                       <height>22</height>
                      </rect>
@@ -5768,7 +5768,7 @@ border:2px solid #DEBC3F;
                     <property name="geometry">
                      <rect>
                       <x>390</x>
-                      <y>30</y>
+                      <y>50</y>
                       <width>200</width>
                       <height>31</height>
                      </rect>
@@ -5797,7 +5797,7 @@ border:2px solid green;
                     <property name="geometry">
                      <rect>
                       <x>600</x>
-                      <y>30</y>
+                      <y>50</y>
                       <width>75</width>
                       <height>31</height>
                      </rect>
@@ -5835,7 +5835,7 @@ QPushButton:disabled {
                     <property name="geometry">
                      <rect>
                       <x>17</x>
-                      <y>40</y>
+                      <y>60</y>
                       <width>71</width>
                       <height>21</height>
                      </rect>
@@ -5858,7 +5858,7 @@ QPushButton:disabled {
                     <property name="geometry">
                      <rect>
                       <x>190</x>
-                      <y>40</y>
+                      <y>60</y>
                       <width>51</width>
                       <height>21</height>
                      </rect>
@@ -5873,6 +5873,30 @@ QPushButton:disabled {
                     </property>
                     <property name="text">
                      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:12pt;&quot;&gt;To :📅&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                    </property>
+                    <property name="alignment">
+                     <set>Qt::AlignCenter</set>
+                    </property>
+                   </widget>
+                   <widget class="QLabel" name="label_19">
+                    <property name="geometry">
+                     <rect>
+                      <x>250</x>
+                      <y>10</y>
+                      <width>201</width>
+                      <height>31</height>
+                     </rect>
+                    </property>
+                    <property name="font">
+                     <font>
+                      <family>Arial</family>
+                      <pointsize>10</pointsize>
+                      <weight>75</weight>
+                      <bold>true</bold>
+                     </font>
+                    </property>
+                    <property name="text">
+                     <string>SPOTTED VEHICLES</string>
                     </property>
                     <property name="alignment">
                      <set>Qt::AlignCenter</set>
