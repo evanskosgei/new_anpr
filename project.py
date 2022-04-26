@@ -33,13 +33,12 @@ import json
 import cv2
 from env import *
 import pandas as pd
-import pyttsx3 as df
 
 # DB connection
 conn = None
 try:
-    conn = sqlite3.connect('4thYearProject.db')
-    # print(sqlite3.version)
+    conn = sqlite3.connect('./new_anpr-1/4thYearProject.db')
+    print(sqlite3.version)
 except Error as e:
     print(e)
 
