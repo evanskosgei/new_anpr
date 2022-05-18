@@ -39,8 +39,8 @@ from seed import *
 # DB connection
 conn = None
 try:
-    conn = sqlite3.connect('./new_anpr-1/4thYearProject.db')
-    print(sqlite3.version)
+    conn = sqlite3.connect('4thYearProject.db')
+    # print(sqlite3.version)
 except Error as e:
     print(e)
 
@@ -357,7 +357,7 @@ class Home(dashboard.Ui_MainWindow, QMainWindow):
         # user = cur.fetchone()
         # user_name = user[0]
         # self.label_16.setText("Hello 🙂" + user_name)
-        self.label_16.setText("Hello Admin 🙂")
+        self.label_16.setText("Hello 🙂 ??")
         self.label_17.setText("2 cameras 🎦 active")
         #
         tdy = date.today()
