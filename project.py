@@ -33,7 +33,8 @@ import json
 import cv2
 from env import *
 import pandas as pd
-import pyttsx3 as df
+# import pyttsx3 as df
+from seed import *
 
 # DB connection
 conn = None
@@ -50,7 +51,7 @@ try:
     conn.commit()
 except Error as e:
     print(e)
-
+    
 rl = 'null'
 
 class Project(auth.Ui_Form, QMainWindow):
@@ -1308,3 +1309,5 @@ if __name__ == "__main__":
     mw = Project()
     mw.show()
     sys.exit(app.exec())
+
+# Admin560117

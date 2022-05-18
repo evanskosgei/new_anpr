@@ -7,7 +7,6 @@ use App\Models\Vehicle;
 
 class VehicleController extends Controller
 {
-    //
     function search($key){
         $v = Vehicle::where('registration_number', 'like', "$key")->get();
         if (count($v) > 0) {
@@ -16,7 +15,6 @@ class VehicleController extends Controller
             return response()->json('error');
         }
     }
-
 
     function getVehicle($key){
         $data = Vehicle::where('registration_number', 'like', "$key")->get();
