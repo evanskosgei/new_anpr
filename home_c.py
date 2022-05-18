@@ -2166,6 +2166,8 @@ class Ui_MainWindow(object):
         self.horizontalLayout_9 = QtWidgets.QHBoxLayout(self.frame_16)
         self.horizontalLayout_9.setObjectName("horizontalLayout_9")
         self.spot_table = QtWidgets.QTableWidget(self.frame_16)
+        self.spot_table.setStyleSheet("border:1px solid #0f2027;\n"
+"border-radius:5%;")
         self.spot_table.setAlternatingRowColors(True)
         self.spot_table.setObjectName("spot_table")
         self.spot_table.setColumnCount(0)
@@ -2277,7 +2279,7 @@ class Ui_MainWindow(object):
         self.frame_14.setFrameShadow(QtWidgets.QFrame.Raised)
         self.frame_14.setObjectName("frame_14")
         self.dateEdit = QtWidgets.QDateEdit(self.frame_14)
-        self.dateEdit.setGeometry(QtCore.QRect(80, 40, 91, 22))
+        self.dateEdit.setGeometry(QtCore.QRect(80, 60, 91, 22))
         self.dateEdit.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
         self.dateEdit.setStyleSheet("QDateEdit:hover{\n"
 "border:2px solid #DEBC3F;\n"
@@ -2287,7 +2289,7 @@ class Ui_MainWindow(object):
         self.dateEdit.setCalendarPopup(True)
         self.dateEdit.setObjectName("dateEdit")
         self.dateEdit_2 = QtWidgets.QDateEdit(self.frame_14)
-        self.dateEdit_2.setGeometry(QtCore.QRect(240, 40, 91, 22))
+        self.dateEdit_2.setGeometry(QtCore.QRect(240, 60, 91, 22))
         self.dateEdit_2.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
         self.dateEdit_2.setStyleSheet("QDateEdit:hover{\n"
 "border:2px solid #DEBC3F;\n"
@@ -2297,7 +2299,7 @@ class Ui_MainWindow(object):
         self.dateEdit_2.setCalendarPopup(True)
         self.dateEdit_2.setObjectName("dateEdit_2")
         self.lineEdit_10 = QtWidgets.QLineEdit(self.frame_14)
-        self.lineEdit_10.setGeometry(QtCore.QRect(390, 30, 200, 31))
+        self.lineEdit_10.setGeometry(QtCore.QRect(390, 50, 200, 31))
         font = QtGui.QFont()
         font.setPointSize(10)
         self.lineEdit_10.setFont(font)
@@ -2312,7 +2314,7 @@ class Ui_MainWindow(object):
 "}")
         self.lineEdit_10.setObjectName("lineEdit_10")
         self.pushButton_5 = QtWidgets.QPushButton(self.frame_14)
-        self.pushButton_5.setGeometry(QtCore.QRect(600, 30, 75, 31))
+        self.pushButton_5.setGeometry(QtCore.QRect(600, 50, 75, 31))
         self.pushButton_5.setCursor(QtGui.QCursor(QtCore.Qt.PointingHandCursor))
         self.pushButton_5.setStyleSheet("QPushButton {\n"
 "    border: 2px solid rgb(51,51,51);\n"
@@ -2336,7 +2338,7 @@ class Ui_MainWindow(object):
 "}")
         self.pushButton_5.setObjectName("pushButton_5")
         self.from_label = QtWidgets.QLabel(self.frame_14)
-        self.from_label.setGeometry(QtCore.QRect(17, 40, 71, 21))
+        self.from_label.setGeometry(QtCore.QRect(17, 60, 71, 21))
         self.from_label.setStyleSheet("QLabel{\n"
 "  background: #DEBC3F;\n"
 "  color:#000;  \n"
@@ -2345,7 +2347,7 @@ class Ui_MainWindow(object):
         self.from_label.setAlignment(QtCore.Qt.AlignCenter)
         self.from_label.setObjectName("from_label")
         self.to_label = QtWidgets.QLabel(self.frame_14)
-        self.to_label.setGeometry(QtCore.QRect(190, 40, 51, 21))
+        self.to_label.setGeometry(QtCore.QRect(190, 60, 51, 21))
         self.to_label.setStyleSheet("QLabel{\n"
 "  background: #DEBC3F;\n"
 "  color:#000;  \n"
@@ -2354,6 +2356,16 @@ class Ui_MainWindow(object):
 "")
         self.to_label.setAlignment(QtCore.Qt.AlignCenter)
         self.to_label.setObjectName("to_label")
+        self.label_19 = QtWidgets.QLabel(self.frame_14)
+        self.label_19.setGeometry(QtCore.QRect(250, 10, 201, 31))
+        font = QtGui.QFont()
+        font.setFamily("Arial")
+        font.setPointSize(10)
+        font.setBold(True)
+        font.setWeight(75)
+        self.label_19.setFont(font)
+        self.label_19.setAlignment(QtCore.Qt.AlignCenter)
+        self.label_19.setObjectName("label_19")
         self.gridLayout_12.addWidget(self.frame_14, 0, 0, 1, 1)
         self.stackedWidget.addWidget(self.page_logs)
         self.horizontalLayout_14.addWidget(self.stackedWidget)
@@ -2730,6 +2742,7 @@ class Ui_MainWindow(object):
         self.pushButton_5.setText(_translate("MainWindow", "FILTER"))
         self.from_label.setText(_translate("MainWindow", "<html><head/><body><p><span style=\" font-size:12pt;\">From :📅</span></p></body></html>"))
         self.to_label.setText(_translate("MainWindow", "<html><head/><body><p><span style=\" font-size:12pt;\">To :📅</span></p></body></html>"))
+        self.label_19.setText(_translate("MainWindow", "SPOTTED VEHICLES"))
         self.lab_tab.setText(_translate("MainWindow", "<html><head/><body><p><br/></p></body></html>"))
         self.frame_drag.setToolTip(_translate("MainWindow", "Drag"))
         self.lab_appname.setText(_translate("MainWindow", "<html><head/><body><p><br/></p></body></html>"))
